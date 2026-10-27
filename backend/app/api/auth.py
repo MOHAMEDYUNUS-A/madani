@@ -29,6 +29,47 @@ def get_or_create_role(db: Session, name: str, desc: str = "") -> Role:
         db.refresh(role)
     return role
 
+@router.get("/bootstrap")
+def bootstrap_admin_endpoint(db: Session = Depends(get_db)):
+    """
+    Initial Cloud Deployment Bootstrap Endpoint
+    Seeds SUPER_ADMIN role, subscription plans, and superadmin user.
+    """
+    from app.models.vendor import SubscriptionPlan
+    all_roles = ["SUPER_ADMIN", "VENDOR", "ORGANIZATION_ADMIN", "STAFF_ADMIN", "DATA_ENTRY_STAFF", "STAFF", "DESIGNER", "PRODUCTION_OPERATOR"]
+    for role_name in all_roles:
+        r = db.query(Role).filter(Role.name == role_name).first()
+        if not r:
+            db.add(Role(name=role_name, description=f"{role_name} system role"))
+    db.commit()
+
+    for slug, name in [("trial", "Free Trial"), ("starter", "Starter"), ("pro", "Pro"), ("enterprise", "Enterprise")]:
+        if not db.query(SubscriptionPlan).filter(SubscriptionPlan.slug == slug).first():
+            db.add(SubscriptionPlan(slug=slug, name=name, price_monthly=499.0))
+    db.commit()
+
+    super_role = db.query(Role).filter(Role.name == "SUPER_ADMIN").first()
+    sa = db.query(User).filter(User.username == "superadmin").first()
+    if not sa:
+        sa = User(
+            full_name="Platform Super Admin",
+            email="superadmin@madani.com",
+            username="superadmin",
+            password_hash=get_password_hash("superpass123"),
+            is_active=True
+        )
+        if super_role:
+            sa.roles.append(super_role)
+        db.add(sa)
+        db.commit()
+        return {"status": "created", "username": "superadmin", "password": "superpass123"}
+    else:
+        sa.password_hash = get_password_hash("superpass123")
+        if super_role and super_role not in sa.roles:
+            sa.roles.append(super_role)
+        db.commit()
+        return {"status": "updated", "username": "superadmin", "password": "superpass123"}
+
 @router.post("/register", response_model=OrganizationOut, status_code=status.HTTP_201_CREATED)
 def register_organization(payload: OrganizationCreate, db: Session = Depends(get_db)):
     # Check if admin user exists (email/username check)
