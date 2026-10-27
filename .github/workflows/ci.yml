@@ -78,10 +78,13 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: npm run lint || true
+        run: npm run lint
 
       - name: Verify TypeScript Compilation
         run: npx tsc --noEmit
+
+      - name: Execute Vitest Frontend Unit Tests
+        run: npm test
 
       - name: Next.js Production Build
         run: npm run build
