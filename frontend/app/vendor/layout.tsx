@@ -15,7 +15,8 @@ import {
   LogOut, 
   ChevronRight,
   Menu,
-  X
+  X,
+  Palette
 } from "lucide-react";
 import { AppMenuBar } from "@/components/layout/AppMenuBar";
 
@@ -55,6 +56,7 @@ export default function VendorLayout({ children }: { children: React.ReactNode }
     { name: "Dashboard Overview", path: "/vendor", icon: Building2 },
     { name: "Client Organizations", path: "/vendor/organizations", icon: Building2 },
     { name: "AI Design Studio", path: "/vendor/ai-studio", icon: Sparkles },
+    { name: "Manual Canvas Designer", path: "/vendor/design-studio", icon: Palette },
     { name: "Batch Verification", path: "/vendor/batch-validation", icon: CheckCircle2 },
     { name: "Print Production", path: "/vendor/production", icon: Printer },
     { name: "Subscription & Billing", path: "/vendor/billing", icon: CreditCard },

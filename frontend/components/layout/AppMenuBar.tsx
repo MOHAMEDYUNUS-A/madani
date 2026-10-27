@@ -20,7 +20,9 @@ import {
   Layers,
   Users,
   ShieldCheck,
-  FolderOpen
+  FolderOpen,
+  PenTool,
+  Palette
 } from "lucide-react";
 
 interface AppMenuBarProps {
@@ -226,6 +228,14 @@ export function AppMenuBar({ portalTitle, roleBadge, user, onLogout }: AppMenuBa
             </button>
             {activeDropdown === "tools" && (
               <div className="absolute left-0 top-full mt-1 w-60 bg-white border border-slate-200 rounded-xl shadow-xl py-1.5 z-50 text-xs">
+                <Link
+                  href="/vendor/design-studio"
+                  onClick={() => setActiveDropdown(null)}
+                  className="flex items-center gap-2 px-3.5 py-2 hover:bg-emerald-50 hover:text-[#15803D] text-slate-700 font-medium"
+                >
+                  <PenTool className="w-3.5 h-3.5 text-[#15803D]" />
+                  <span>Manual Canvas Designer</span>
+                </Link>
                 <Link
                   href="/organization/orders"
                   onClick={() => setActiveDropdown(null)}

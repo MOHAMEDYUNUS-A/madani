@@ -2,6 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { api } from "@/lib/api";
 import { 
   Sparkles, 
@@ -16,7 +17,8 @@ import {
   ShieldCheck, 
   CheckCircle2, 
   ArrowRight,
-  Shield
+  Shield,
+  PenTool
 } from "lucide-react";
 
 function AIStudioContent() {
@@ -177,25 +179,36 @@ function AIStudioContent() {
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-            Agentic AI Studio
+          <span className="text-xs font-bold uppercase tracking-wider text-[#15803D]">
+            AI & Manual Design Studio
           </span>
-          <h1 className="text-2xl font-extrabold text-white tracking-tight mt-0.5">
-            Multi-Variation Design Generator & Chat Refiner
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight mt-0.5">
+            Multi-Variation Design Generator & Studio
           </h1>
-          <p className="text-slate-500 text-xs mt-1">
-            Generate 3+ structured card compositions from natural language, refine elements with conversational AI, and submit for client approval.
+          <p className="text-slate-600 text-xs mt-1">
+            Generate card variations with AI or launch the full manual drag-and-drop canvas designer to customize every element.
           </p>
         </div>
-        {variations.length > 0 && (
-          <button
-            onClick={handleSubmitProposal}
-            disabled={submitting}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-extrabold text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2 disabled:opacity-50"
+        
+        <div className="flex items-center gap-2.5">
+          <Link
+            href={`/vendor/design-studio${selectedOrgId ? `?org_id=${selectedOrgId}` : ""}`}
+            className="px-4 py-2.5 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-[#14532D] font-bold text-xs flex items-center gap-2 shadow-2xs transition-all"
           >
-            <span>🚀</span> {submitting ? "Submitting..." : "Submit Proposal to Client"}
-          </button>
-        )}
+            <PenTool className="w-4 h-4 text-[#15803D]" />
+            <span>Manual Canvas Designer</span>
+          </Link>
+
+          {variations.length > 0 && (
+            <button
+              onClick={handleSubmitProposal}
+              disabled={submitting}
+              className="px-5 py-2.5 rounded-xl bg-[#15803D] hover:bg-[#14532D] text-white font-extrabold text-xs shadow-md shadow-emerald-700/20 transition-all flex items-center gap-2 disabled:opacity-50"
+            >
+              <span>🚀</span> {submitting ? "Submitting..." : "Submit Proposal to Client"}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Main Studio Grid */}
@@ -203,16 +216,16 @@ function AIStudioContent() {
         {/* Left Column: Brief Input & Organization Selector (4 cols) */}
         <div className="lg:col-span-4 space-y-5">
           <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-4">
-            <h2 className="text-sm font-bold text-white flex items-center gap-2">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <span>🎯</span> 1. Design Constraints
             </h2>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1">Target Client Organization</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Target Client Organization</label>
               <select
                 value={selectedOrgId}
                 onChange={(e) => setSelectedOrgId(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-emerald-500"
               >
                 {organizations.map(org => (
                   <option key={org.id} value={org.id}>
@@ -223,15 +236,15 @@ function AIStudioContent() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1">Orientation</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Orientation</label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setOrientation("Landscape")}
                   className={`py-2 rounded-lg text-xs font-semibold border transition-all ${
                     orientation === "Landscape"
-                      ? "bg-amber-500/10 border-amber-500 text-amber-400"
-                      : "bg-slate-50 border-slate-200 text-slate-500"
+                      ? "bg-emerald-50 border-emerald-500 text-[#15803D] font-bold"
+                      : "bg-slate-50 border-slate-200 text-slate-600"
                   }`}
                 >
                   Landscape (CR80)
@@ -241,8 +254,8 @@ function AIStudioContent() {
                   onClick={() => setOrientation("Portrait")}
                   className={`py-2 rounded-lg text-xs font-semibold border transition-all ${
                     orientation === "Portrait"
-                      ? "bg-amber-500/10 border-amber-500 text-amber-400"
-                      : "bg-slate-50 border-slate-200 text-slate-500"
+                      ? "bg-emerald-50 border-emerald-500 text-[#15803D] font-bold"
+                      : "bg-slate-50 border-slate-200 text-slate-600"
                   }`}
                 >
                   Portrait (CR80)
@@ -251,20 +264,20 @@ function AIStudioContent() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1">Natural Language Design Brief</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Natural Language Design Brief</label>
               <textarea
                 rows={4}
                 value={brief}
                 onChange={(e) => setBrief(e.target.value)}
                 placeholder="Describe colors, headers, required fields, and layout theme..."
-                className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <button
               onClick={handleGenerateVariations}
               disabled={generating}
-              className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs shadow-md shadow-amber-500/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-2.5 rounded-xl bg-[#15803D] hover:bg-[#14532D] text-white font-extrabold text-xs shadow-md shadow-emerald-700/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <span>✨</span> {generating ? "Synthesizing Variations..." : "Generate 3 Variations"}
             </button>
@@ -272,7 +285,7 @@ function AIStudioContent() {
 
           {/* AI Chat-to-Canvas Agent Panel */}
           <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 flex flex-col h-80">
-            <h3 className="text-xs font-bold text-white flex items-center gap-2">
+            <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
               <span>💬</span> AI Canvas Editing Agent
             </h3>
             
@@ -333,17 +346,17 @@ function AIStudioContent() {
                     onClick={() => setSelectedVariationIndex(idx)}
                     className={`p-3.5 rounded-xl border text-left transition-all relative overflow-hidden ${
                       selectedVariationIndex === idx
-                        ? "bg-slate-50 border-amber-500 shadow-md shadow-amber-500/10"
+                        ? "bg-emerald-50/50 border-emerald-500 shadow-md shadow-emerald-500/10"
                         : "bg-white border-slate-200 hover:border-slate-300"
                     }`}
                   >
                     <div className="flex justify-between items-start mb-1">
-                      <span className="text-xs font-bold text-white truncate pr-2">{v.variation_name}</span>
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      <span className="text-xs font-bold text-slate-900 truncate pr-2">{v.variation_name}</span>
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-[#14532D] border border-emerald-300">
                         {v.quality_score || 98}%
                       </span>
                     </div>
-                    <span className="text-[11px] text-slate-500 block capitalize">{v.style_family.replace("_", " ")}</span>
+                    <span className="text-[11px] text-slate-600 block capitalize">{v.style_family.replace("_", " ")}</span>
                     <span className="text-[10px] text-slate-500 block mt-1">{v.front?.elements?.length || 0} elements • Front/Back</span>
                   </button>
                 ))}
@@ -353,14 +366,14 @@ function AIStudioContent() {
 
           {/* Interactive Canvas Canvas Card */}
           <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-4">
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold text-white">Active Face:</span>
+                <span className="text-xs font-bold text-slate-900">Active Face:</span>
                 <div className="inline-flex rounded-lg bg-slate-50 p-1 border border-slate-200">
                   <button
                     onClick={() => setActiveSide("front")}
                     className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
-                      activeSide === "front" ? "bg-amber-500 text-black shadow-sm" : "text-slate-500"
+                      activeSide === "front" ? "bg-[#15803D] text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     Front Side
@@ -368,7 +381,7 @@ function AIStudioContent() {
                   <button
                     onClick={() => setActiveSide("back")}
                     className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
-                      activeSide === "back" ? "bg-amber-500 text-black shadow-sm" : "text-slate-500"
+                      activeSide === "back" ? "bg-[#15803D] text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     Back Side
@@ -376,12 +389,16 @@ function AIStudioContent() {
                 </div>
               </div>
 
-              {activeVariation && (
-                <div className="flex items-center gap-2 text-xs text-slate-500">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span>Pre-flight Vector Certified ({canvasWidthPx} × {canvasHeightPx} pt)</span>
-                </div>
-              )}
+              <div className="flex items-center gap-3">
+                {activeVariation && (
+                  <Link
+                    href={`/vendor/design-studio${selectedOrgId ? `?org_id=${selectedOrgId}` : ""}`}
+                    className="text-xs font-bold text-[#15803D] hover:text-[#14532D] flex items-center gap-1 hover:underline"
+                  >
+                    <PenTool className="w-3.5 h-3.5" /> Open in Manual Canvas Designer →
+                  </Link>
+                )}
+              </div>
             </div>
 
             {/* Canvas Stage */}

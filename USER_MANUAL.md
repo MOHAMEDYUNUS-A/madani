@@ -101,13 +101,25 @@ The Madani ID Platform features a single, centralized authentication portal elim
    - Designate Institution Administrator Email.
 4. An automated activation invitation is dispatched to the school.
 
-### 4.2 Visual Card Designer & AI Studio
-1. Open **AI Studio** (`/vendor/ai-studio`) or **Card Designer** (`/organization/designer`).
-2. Select Orientation: **Portrait (CR80: 54x86mm)** or **Landscape (CR80: 86x54mm)**.
-3. Add Dynamic Placeholders:
-   - `{{full_name}}`, `{{member_id}}`, `{{class_name}}`, `{{emergency_contact}}`, `{{qr_code}}`, `{{photo}}`.
-4. Configure Front and Back sides with high-resolution background assets, custom typography, and school color palettes.
-5. Click **Publish for School Review**.
+### 4.2 Visual Card Designer & Manual Canvas Studio
+1. Open **Manual Canvas Designer** (`/vendor/design-studio`) or **AI Studio** (`/vendor/ai-studio`).
+2. **Organization Selector**: Choose which client institution you are designing for (e.g. *f5coders*).
+3. **Canvas Tools & Drag-and-Drop Elements**:
+   - **Text Block**: Headings, custom labels, emergency phone numbers.
+   - **Student Photo Frame**: Custom border colors, widths, and corner radius.
+   - **QR Code & Barcode**: Real-time vector-rendered dynamic verification tokens.
+   - **Banner Shapes & Lines**: School color headers, dividers, and background accents.
+   - **Dynamic Placeholders**: Click-to-insert `{{name}}`, `{{member_id}}`, `{{class}}`, `{{blood_group}}`, `{{dob}}`, `{{phone}}`, `{{address}}`.
+4. **Interactive Controls**:
+   - Front & Back canvas toggle tabs.
+   - Landscape (CR80: 86x54mm) and Portrait (CR80: 54x86mm) orientation.
+   - Real-time **Preview Data** mode with live student photo and data simulation.
+   - Undo/Redo history stack and 10px snap-to-grid alignment.
+5. Click **Save Template** to version the design and publish to the school.
+
+![Vendor Manual Canvas Designer Studio](screenshots/11_vendor_manual_canvas_designer.png)
+
+![AI Studio with Manual Canvas Designer Action Button](screenshots/12_vendor_ai_studio_canvas_button.png)
 
 ### 4.3 Production Batch Management & Print Queue
 1. Navigate to **Production** (`/admin/production` or `/vendor/production`).
