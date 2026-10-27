@@ -38,11 +38,11 @@ export default function PublicVerifyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] text-[#172033] flex flex-col items-center justify-center px-6 selection:bg-indigo-100 selection:text-indigo-900 relative overflow-hidden">
+    <div className="min-h-screen bg-[#F7F9FC] text-[#172033] flex flex-col items-center justify-center px-6 selection:bg-emerald-100 selection:text-emerald-900 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(#E2E8F0_1px,transparent_1px)] [background-size:24px_24px] opacity-60 pointer-events-none" />
 
       <Link href="/" className="flex items-center gap-3 mb-8 hover:opacity-90 transition-all relative z-10">
-        <div className="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center font-extrabold text-white shadow-md shadow-indigo-500/20 text-base">
+        <div className="w-10 h-10 rounded-xl bg-[#15803D] flex items-center justify-center font-extrabold text-white shadow-md shadow-emerald-500/20 text-base">
           M
         </div>
         <div>
@@ -92,7 +92,7 @@ export default function PublicVerifyPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs h-10 rounded-xl shadow-md shadow-indigo-500/20"
+            className="w-full bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs h-10 rounded-xl shadow-md shadow-emerald-500/20"
           >
             {loading ? "Verifying Token..." : "Verify Code Integrity"}
           </Button>

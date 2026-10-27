@@ -164,7 +164,7 @@ export default function StaffManagementPage() {
         </div>
         <button
           onClick={handleOpenCreate}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-sm shadow-indigo-600/20 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-semibold rounded-xl shadow-sm shadow-emerald-600/20 transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Add Staff Member
@@ -195,7 +195,7 @@ export default function StaffManagementPage() {
               placeholder="Search staff by name, email, or class..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
             />
           </div>
           <span className="text-xs text-slate-400 font-mono">
@@ -205,7 +205,7 @@ export default function StaffManagementPage() {
 
         {loading ? (
           <div className="p-12 text-center text-slate-400 text-xs">
-            <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+            <div className="w-6 h-6 border-2 border-[#15803D] border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
             Loading staff accounts...
           </div>
         ) : filteredStaff.length === 0 ? (
@@ -241,8 +241,8 @@ export default function StaffManagementPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       {s.assigned_class ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700 font-semibold text-[11px]">
-                          <GraduationCap className="w-3.5 h-3.5 text-indigo-600" />
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-100 text-[#15803D] font-semibold text-[11px]">
+                          <GraduationCap className="w-3.5 h-3.5 text-[#15803D]" />
                           {s.assigned_class}
                         </span>
                       ) : (
@@ -321,7 +321,7 @@ export default function StaffManagementPage() {
                   placeholder="e.g. Priya Sharma"
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                 />
               </div>
 
@@ -337,7 +337,7 @@ export default function StaffManagementPage() {
                     placeholder="e.g. priya_10a"
                     value={formData.username}
                     onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 disabled:opacity-50"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 disabled:opacity-50"
                   />
                 </div>
 
@@ -351,7 +351,7 @@ export default function StaffManagementPage() {
                     placeholder="priya@school.org"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                   />
                 </div>
               </div>
@@ -366,7 +366,7 @@ export default function StaffManagementPage() {
                   placeholder={editingStaff ? "••••••••" : "Minimum 6 characters"}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                 />
               </div>
 
@@ -377,7 +377,7 @@ export default function StaffManagementPage() {
                 <select
                   value={formData.assigned_class}
                   onChange={(e) => setFormData({ ...formData, assigned_class: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                 >
                   <option value="">No restriction (All Classes - Admin)</option>
                   {classes.map((c) => (
@@ -398,7 +398,7 @@ export default function StaffManagementPage() {
                 <select
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                 >
                   <option value="STAFF">Class Staff (Data Entry)</option>
                   <option value="DATA_ENTRY_STAFF">Data Entry Operator</option>
@@ -417,7 +417,7 @@ export default function StaffManagementPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-600/20 disabled:opacity-50 cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm shadow-emerald-600/20 disabled:opacity-50 cursor-pointer"
                 >
                   {saving ? "Saving..." : editingStaff ? "Save Changes" : "Create Account"}
                 </button>

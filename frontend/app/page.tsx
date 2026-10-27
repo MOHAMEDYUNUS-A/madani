@@ -24,7 +24,7 @@ export default function Home() {
   const [activeCardSide, setActiveCardSide] = useState<"front" | "back">("front");
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] text-[#172033] font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-[#F7F9FC] text-[#172033] font-sans selection:bg-emerald-100 selection:text-emerald-900">
       {/* Navigation Header */}
       <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-white/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -106,7 +106,7 @@ export default function Home() {
           <div className="w-full max-w-3xl p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-xl shadow-slate-200/50">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 border-b border-[#E2E8F0]">
               <div className="text-left">
-                <span className="text-[10px] font-bold text-[#4F46E5] uppercase tracking-wider block">
+                <span className="text-[10px] font-bold text-[#15803D] uppercase tracking-wider block">
                   PHYSICAL CR80 PVC PREVIEW
                 </span>
                 <span className="text-xs text-[#172033] font-semibold">Standard 3.375&quot; × 2.125&quot; • 300 DPI Imposition Ready</span>
@@ -138,7 +138,7 @@ export default function Home() {
             {/* Simulated Badge Card */}
             <div className="py-8 flex justify-center items-center">
               {activeCardSide === "front" ? (
-                <div className="w-[340px] h-[215px] rounded-2xl bg-gradient-to-tr from-indigo-900 via-indigo-950 to-slate-900 border border-indigo-400/30 p-5 shadow-2xl relative overflow-hidden flex flex-col justify-between text-left animate-fade-in text-white">
+                <div className="w-[340px] h-[215px] rounded-2xl bg-gradient-to-tr from-[#14532D] via-emerald-950 to-slate-900 border border-[#4ADE80]/30 p-5 shadow-2xl relative overflow-hidden flex flex-col justify-between text-left animate-fade-in text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-[9px] font-black tracking-widest uppercase text-amber-300">
@@ -152,12 +152,12 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center gap-4 my-auto">
-                    <div className="w-16 h-20 rounded-xl bg-slate-800/80 border-2 border-indigo-300/40 flex items-center justify-center text-[10px] text-slate-400 font-bold overflow-hidden">
-                      <User className="w-8 h-8 text-indigo-300" />
+                    <div className="w-16 h-20 rounded-xl bg-slate-800/80 border-2 border-emerald-300/40 flex items-center justify-center text-[10px] text-slate-400 font-bold overflow-hidden">
+                      <User className="w-8 h-8 text-[#4ADE80]" />
                     </div>
                     <div className="space-y-0.5">
                       <div className="text-xs font-black text-white">AARAV SHARMA</div>
-                      <div className="text-[10px] text-indigo-200 font-mono font-bold">ID: MAD-2026-0891</div>
+                      <div className="text-[10px] text-emerald-200 font-mono font-bold">ID: MAD-2026-0891</div>
                       <div className="text-[9px] text-slate-300">DEPT: ARTIFICIAL INTELLIGENCE</div>
                       <div className="text-[9px] text-emerald-400 font-bold">BLOOD GRP: O+ VE</div>
                     </div>
@@ -201,7 +201,7 @@ export default function Home() {
       {/* Production Workflow Section */}
       <section id="workflow" className="py-20 max-w-7xl mx-auto px-6 border-b border-[#E2E8F0]">
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-[11px] font-bold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[#15803D] text-[11px] font-bold mb-2">
             END-TO-END WORKFLOW
           </div>
           <h2 className="text-2xl md:text-3xl font-extrabold text-[#172033]">
@@ -215,7 +215,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
           <Card className="bg-white border-[#E2E8F0] shadow-sm hover:shadow-md transition-all">
             <CardHeader className="p-5">
-              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-[#4F46E5] font-black text-sm flex items-center justify-center mb-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#15803D] font-black text-sm flex items-center justify-center mb-3">
                 1
               </div>
               <CardTitle className="text-sm font-bold text-[#172033]">Vendor Design Studio</CardTitle>
@@ -227,7 +227,7 @@ export default function Home() {
 
           <Card className="bg-white border-[#E2E8F0] shadow-sm hover:shadow-md transition-all">
             <CardHeader className="p-5">
-              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-[#4F46E5] font-black text-sm flex items-center justify-center mb-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#15803D] font-black text-sm flex items-center justify-center mb-3">
                 2
               </div>
               <CardTitle className="text-sm font-bold text-[#172033]">School Design Approval</CardTitle>
@@ -239,7 +239,7 @@ export default function Home() {
 
           <Card className="bg-white border-[#E2E8F0] shadow-sm hover:shadow-md transition-all">
             <CardHeader className="p-5">
-              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-[#4F46E5] font-black text-sm flex items-center justify-center mb-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#15803D] font-black text-sm flex items-center justify-center mb-3">
                 3
               </div>
               <CardTitle className="text-sm font-bold text-[#172033]">Roster Entry & Batch Freeze</CardTitle>
@@ -251,7 +251,7 @@ export default function Home() {
 
           <Card className="bg-white border-[#E2E8F0] shadow-sm hover:shadow-md transition-all">
             <CardHeader className="p-5">
-              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-[#4F46E5] font-black text-sm flex items-center justify-center mb-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#15803D] font-black text-sm flex items-center justify-center mb-3">
                 4
               </div>
               <CardTitle className="text-sm font-bold text-[#172033]">Press & QC Dispatch</CardTitle>
@@ -266,7 +266,7 @@ export default function Home() {
       {/* Role Portals Direct Jump Section */}
       <section id="portals" className="py-20 max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-[11px] font-bold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-[#15803D] text-[11px] font-bold mb-2">
             ROLE-BASED GOVERNANCE
           </div>
           <h2 className="text-2xl md:text-3xl font-extrabold text-[#172033]">
@@ -276,13 +276,13 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Vendor Portal */}
-          <Card className="bg-white border-[#E2E8F0] shadow-md hover:border-indigo-300 transition-all">
+          <Card className="bg-white border-[#E2E8F0] shadow-md hover:border-emerald-300 transition-all">
             <CardHeader className="p-6">
               <div className="flex items-center justify-between mb-3">
-                <span className="p-2.5 bg-indigo-50 text-[#4F46E5] rounded-xl flex items-center justify-center">
+                <span className="p-2.5 bg-emerald-50 text-[#15803D] rounded-xl flex items-center justify-center">
                   <Building2 className="w-5 h-5" />
                 </span>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-[#15803D] border border-emerald-100">
                   VENDOR STUDIO
                 </span>
               </div>
@@ -293,7 +293,7 @@ export default function Home() {
             </CardHeader>
             <CardContent className="px-6 pb-6 pt-0">
               <Link href="/vendor">
-                <Button className="w-full bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold h-10 rounded-xl">
+                <Button className="w-full bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold h-10 rounded-xl">
                   Enter Vendor Portal
                 </Button>
               </Link>
@@ -301,13 +301,13 @@ export default function Home() {
           </Card>
 
           {/* Org Workspace */}
-          <Card className="bg-white border-[#E2E8F0] shadow-md hover:border-indigo-300 transition-all">
+          <Card className="bg-white border-[#E2E8F0] shadow-md hover:border-emerald-300 transition-all">
             <CardHeader className="p-6">
               <div className="flex items-center justify-between mb-3">
-                <span className="p-2.5 bg-indigo-50 text-[#4F46E5] rounded-xl flex items-center justify-center">
+                <span className="p-2.5 bg-emerald-50 text-[#15803D] rounded-xl flex items-center justify-center">
                   <Building className="w-5 h-5" />
                 </span>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-[#15803D] border border-emerald-100">
                   INSTITUTION TENANT
                 </span>
               </div>
@@ -318,7 +318,7 @@ export default function Home() {
             </CardHeader>
             <CardContent className="px-6 pb-6 pt-0">
               <Link href="/organization/students">
-                <Button className="w-full bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold h-10 rounded-xl">
+                <Button className="w-full bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold h-10 rounded-xl">
                   Enter Organization Workspace
                 </Button>
               </Link>
@@ -326,13 +326,13 @@ export default function Home() {
           </Card>
 
           {/* Super Admin */}
-          <Card className="bg-white border-[#E2E8F0] shadow-md hover:border-indigo-300 transition-all">
+          <Card className="bg-white border-[#E2E8F0] shadow-md hover:border-emerald-300 transition-all">
             <CardHeader className="p-6">
               <div className="flex items-center justify-between mb-3">
-                <span className="p-2.5 bg-indigo-50 text-[#4F46E5] rounded-xl flex items-center justify-center">
+                <span className="p-2.5 bg-emerald-50 text-[#15803D] rounded-xl flex items-center justify-center">
                   <Shield className="w-5 h-5" />
                 </span>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-[#15803D] border border-emerald-100">
                   SUPER ADMIN
                 </span>
               </div>
@@ -356,19 +356,19 @@ export default function Home() {
       <footer className="border-t border-[#E2E8F0] bg-white py-10 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#64748B]">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded bg-[#4F46E5] text-white font-extrabold flex items-center justify-center text-xs">
+            <div className="w-6 h-6 rounded bg-[#15803D] text-white font-extrabold flex items-center justify-center text-xs">
               M
             </div>
             <span>© 2026 Madani ID Platform. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/verify" className="hover:text-[#4F46E5] transition-colors">
+            <Link href="/verify" className="hover:text-[#15803D] transition-colors">
               Anti-Counterfeit QR Verification
             </Link>
-            <Link href="/login" className="hover:text-[#4F46E5] transition-colors">
+            <Link href="/login" className="hover:text-[#15803D] transition-colors">
               Staff Sign In
             </Link>
-            <Link href="/register" className="hover:text-[#4F46E5] transition-colors">
+            <Link href="/register" className="hover:text-[#15803D] transition-colors">
               Register New Organization
             </Link>
           </div>

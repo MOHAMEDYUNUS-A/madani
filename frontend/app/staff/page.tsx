@@ -227,7 +227,7 @@ export default function StaffDataEntryPage() {
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={handleOpenAdd}
-            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-sm shadow-indigo-600/20 flex items-center gap-1.5 transition-all cursor-pointer"
+            className="px-3.5 py-2 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-semibold rounded-xl shadow-sm shadow-emerald-600/20 flex items-center gap-1.5 transition-all cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" />
             Add Student
@@ -252,7 +252,7 @@ export default function StaffDataEntryPage() {
           onClick={() => setStatusFilter("DRAFT")}
           className={`p-4 rounded-2xl border transition-all cursor-pointer ${
             statusFilter === "DRAFT" 
-              ? "bg-indigo-50/60 border-indigo-300 ring-2 ring-indigo-500/20" 
+              ? "bg-emerald-50/60 border-emerald-300 ring-2 ring-emerald-500/20" 
               : "bg-white border-slate-200 hover:border-slate-300"
           }`}
         >
@@ -321,7 +321,7 @@ export default function StaffDataEntryPage() {
               placeholder="Search by student name or roll number..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
             />
           </div>
 
@@ -343,7 +343,7 @@ export default function StaffDataEntryPage() {
 
         {loading ? (
           <div className="p-12 text-center text-slate-400 text-xs">
-            <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+            <div className="w-6 h-6 border-2 border-[#15803D] border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
             Loading class roster...
           </div>
         ) : filtered.length === 0 ? (
@@ -388,7 +388,7 @@ export default function StaffDataEntryPage() {
                       {m.identifier || m.roll_number || m.admission_number}
                     </td>
                     <td className="px-5 py-3">
-                      <span className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 font-medium text-[11px]">
+                      <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-[#15803D] font-medium text-[11px]">
                         {m.class_grade || m.class_name || "Unassigned"}
                       </span>
                     </td>
@@ -412,7 +412,7 @@ export default function StaffDataEntryPage() {
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => setPreviewingMember(m)}
-                          className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
+                          className="p-1.5 text-slate-500 hover:text-[#15803D] hover:bg-emerald-50 rounded-lg transition-colors cursor-pointer"
                           title="View 3D ID Card"
                         >
                           <Eye className="w-4 h-4" />
@@ -420,7 +420,7 @@ export default function StaffDataEntryPage() {
                         {m.status !== "APPROVED" ? (
                           <button
                             onClick={() => handleOpenEdit(m)}
-                            className="px-2.5 py-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
+                            className="px-2.5 py-1 text-xs font-semibold text-[#15803D] hover:text-[#14532D] hover:bg-emerald-50 rounded-lg transition-colors cursor-pointer"
                           >
                             Edit
                           </button>
@@ -444,7 +444,7 @@ export default function StaffDataEntryPage() {
             <div className="p-5 border-b border-slate-100 flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-black text-slate-900 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-indigo-600" />
+                  <Sparkles className="w-4 h-4 text-[#15803D]" />
                   {editingMember ? "Edit Student Record" : "Add Student Record"}
                 </h3>
                 <p className="text-[11px] text-slate-500 mt-0.5">
@@ -503,7 +503,7 @@ export default function StaffDataEntryPage() {
                       placeholder="e.g. Rahul"
                       value={formData.first_name}
                       onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-medium"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-medium"
                     />
                   </div>
                   <div>
@@ -515,7 +515,7 @@ export default function StaffDataEntryPage() {
                       placeholder="e.g. Verma"
                       value={formData.last_name}
                       onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-medium"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-medium"
                     />
                   </div>
                 </div>
@@ -531,7 +531,7 @@ export default function StaffDataEntryPage() {
                       placeholder="e.g. 2026-A101"
                       value={formData.identifier}
                       onChange={(e) => setFormData({ ...formData, identifier: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-mono"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-mono"
                     />
                   </div>
                   <div>
@@ -544,7 +544,7 @@ export default function StaffDataEntryPage() {
                       placeholder="e.g. Grade 1-A"
                       value={formData.class_grade}
                       onChange={(e) => setFormData({ ...formData, class_grade: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 disabled:opacity-75 disabled:bg-slate-100 font-medium"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 disabled:opacity-75 disabled:bg-slate-100 font-medium"
                     />
                   </div>
                 </div>
@@ -559,7 +559,7 @@ export default function StaffDataEntryPage() {
                       placeholder="+91 9876543210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                     />
                   </div>
                   <div>
@@ -571,7 +571,7 @@ export default function StaffDataEntryPage() {
                       placeholder="O+, B+, A-, etc."
                       value={formData.blood_group}
                       onChange={(e) => setFormData({ ...formData, blood_group: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 uppercase"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 uppercase"
                     />
                   </div>
                 </div>
@@ -585,7 +585,7 @@ export default function StaffDataEntryPage() {
                       type="date"
                       value={formData.dob}
                       onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                     />
                   </div>
                   <div>
@@ -597,7 +597,7 @@ export default function StaffDataEntryPage() {
                       placeholder="+91 9123456789"
                       value={formData.emergency_contact}
                       onChange={(e) => setFormData({ ...formData, emergency_contact: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                     />
                   </div>
                 </div>
@@ -622,7 +622,7 @@ export default function StaffDataEntryPage() {
                       type="button"
                       disabled={saving}
                       onClick={(e) => handleSubmit(e, true)}
-                      className="px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-600/20 disabled:opacity-50 cursor-pointer"
+                      className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm shadow-emerald-600/20 disabled:opacity-50 cursor-pointer"
                     >
                       {saving ? "Saving..." : "Save & Submit to Admin"}
                     </button>
@@ -633,7 +633,7 @@ export default function StaffDataEntryPage() {
               {/* Right Live 3D Card Simulation (5 cols) */}
               <div className="md:col-span-5 p-6 bg-slate-50/70 flex flex-col items-center justify-between">
                 <div className="w-full flex items-center justify-between border-b border-slate-200/60 pb-2 mb-2">
-                  <span className="text-[10px] font-black uppercase text-indigo-700 tracking-wider">
+                  <span className="text-[10px] font-black uppercase text-[#15803D] tracking-wider">
                     Live Approved Template Preview
                   </span>
                   <Badge variant={photoPreview && formData.first_name && formData.identifier ? "success" : "secondary"} className="text-[9px]">

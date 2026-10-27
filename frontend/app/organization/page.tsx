@@ -40,7 +40,7 @@ export default function OrganizationDashboardPage() {
   if (loading) {
     return (
       <div className="p-12 text-center text-slate-400 text-xs">
-        <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+        <div className="w-8 h-8 border-2 border-[#15803D] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
         Loading Organization Console...
       </div>
     );
@@ -86,11 +86,11 @@ export default function OrganizationDashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link 
           href="/organization/classes" 
-          className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-indigo-300 hover:shadow-md transition-all group"
+          className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-emerald-300 hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500">Classes &amp; Sections</span>
-            <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#15803D] flex items-center justify-center group-hover:scale-105 transition-transform">
               <GraduationCap className="w-4 h-4" />
             </div>
           </div>
@@ -103,11 +103,11 @@ export default function OrganizationDashboardPage() {
 
         <Link 
           href="/organization/staff" 
-          className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-indigo-300 hover:shadow-md transition-all group"
+          className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-emerald-300 hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500">Staff Accounts</span>
-            <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#15803D] flex items-center justify-center group-hover:scale-105 transition-transform">
               <UserCheck className="w-4 h-4" />
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function OrganizationDashboardPage() {
 
         <Link 
           href="/organization/students" 
-          className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-indigo-300 hover:shadow-md transition-all group"
+          className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-emerald-300 hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500">Total Students</span>
@@ -177,7 +177,7 @@ export default function OrganizationDashboardPage() {
             </div>
             <Link 
               href="/organization/students" 
-              className="mt-3 text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
+              className="mt-3 text-xs font-semibold text-[#15803D] hover:text-[#14532D] flex items-center gap-1"
             >
               <span>Review records</span>
               <ArrowRight className="w-3 h-3" />
@@ -200,7 +200,7 @@ export default function OrganizationDashboardPage() {
             </div>
             <Link 
               href="/organization/design-review" 
-              className="mt-3 text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
+              className="mt-3 text-xs font-semibold text-[#15803D] hover:text-[#14532D] flex items-center gap-1"
             >
               <span>Inspect layout</span>
               <ArrowRight className="w-3 h-3" />
@@ -223,7 +223,7 @@ export default function OrganizationDashboardPage() {
             </div>
             <Link 
               href="/organization/batch-review" 
-              className="mt-3 text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
+              className="mt-3 text-xs font-semibold text-[#15803D] hover:text-[#14532D] flex items-center gap-1"
             >
               <span>Batch freeze gate</span>
               <ArrowRight className="w-3 h-3" />
@@ -246,7 +246,7 @@ export default function OrganizationDashboardPage() {
             </div>
             <Link 
               href="/organization/orders" 
-              className="mt-3 text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
+              className="mt-3 text-xs font-semibold text-[#15803D] hover:text-[#14532D] flex items-center gap-1"
             >
               <span>Track physical jobs</span>
               <ArrowRight className="w-3 h-3" />

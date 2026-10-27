@@ -136,7 +136,7 @@ export default function ClassesPage() {
         </div>
         <button
           onClick={handleOpenCreate}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-sm shadow-indigo-600/20 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-semibold rounded-xl shadow-sm shadow-emerald-600/20 transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Add Class / Section
@@ -146,7 +146,7 @@ export default function ClassesPage() {
       {/* Stats row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 text-[#15803D] flex items-center justify-center shrink-0">
             <GraduationCap className="w-5 h-5" />
           </div>
           <div>
@@ -166,7 +166,7 @@ export default function ClassesPage() {
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 text-[#15803D] flex items-center justify-center shrink-0">
             <Layers className="w-5 h-5" />
           </div>
           <div>
@@ -200,7 +200,7 @@ export default function ClassesPage() {
               placeholder="Search classes, sections, or staff..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
             />
           </div>
           <span className="text-xs text-slate-400 font-mono">
@@ -210,7 +210,7 @@ export default function ClassesPage() {
 
         {loading ? (
           <div className="p-12 text-center text-slate-400 text-xs">
-            <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+            <div className="w-6 h-6 border-2 border-[#15803D] border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
             Loading class directory...
           </div>
         ) : filteredClasses.length === 0 ? (
@@ -323,7 +323,7 @@ export default function ClassesPage() {
                   placeholder="e.g. Grade 1-A or LKG-Rose"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                 />
               </div>
 
@@ -336,7 +336,7 @@ export default function ClassesPage() {
                   placeholder="e.g. A, B, Rose, Morning"
                   value={formData.section}
                   onChange={(e) => setFormData({ ...formData, section: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                 />
               </div>
 
@@ -349,7 +349,7 @@ export default function ClassesPage() {
                   placeholder="e.g. Primary wing, Room 204"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 resize-none"
                 />
               </div>
 
@@ -364,7 +364,7 @@ export default function ClassesPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm shadow-indigo-600/20 disabled:opacity-50 cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm shadow-emerald-600/20 disabled:opacity-50 cursor-pointer"
                 >
                   {saving ? "Saving..." : editingClass ? "Save Changes" : "Create Class"}
                 </button>

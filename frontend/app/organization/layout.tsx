@@ -167,13 +167,8 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
           {/* Org details banner */}
           {user && (
-            <div className="p-4 border-b border-slate-200 bg-emerald-50/40">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Institution Workspace</span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-[#14532D] border border-emerald-300">
-                  Active
-                </span>
-              </div>
+            <div className="p-4 border-b border-slate-200 bg-emerald-50/30">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Institution Workspace</span>
               <div className="text-slate-900 font-extrabold text-sm truncate">
                 {user.email.split("@")[0].toUpperCase()}
               </div>
@@ -235,10 +230,9 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center justify-between px-8 shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-[#15803D] border border-emerald-200 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#15803D]"></span>
-              Institution Portal Active
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold text-slate-700 tracking-wide uppercase font-mono">
+              MADANI INSTITUTION SUITE
             </span>
           </div>
           <div className="flex items-center gap-4 text-xs font-mono font-semibold text-slate-500">

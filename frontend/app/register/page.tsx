@@ -80,7 +80,7 @@ export default function RegisterPage() {
 
       {/* Header */}
       <Link href="/" className="flex items-center gap-3 mb-8 hover:opacity-90 transition-all relative z-10">
-        <div className="w-10 h-10 rounded-xl bg-[#4F46E5] flex items-center justify-center font-extrabold text-white shadow-md shadow-indigo-500/20 text-base">
+        <div className="w-10 h-10 rounded-xl bg-[#15803D] flex items-center justify-center font-extrabold text-white shadow-md shadow-emerald-500/20 text-base">
           M
         </div>
         <div>
@@ -97,7 +97,7 @@ export default function RegisterPage() {
         {/* Step Progress Top Bar */}
         <div className="w-full h-1.5 bg-[#F1F5F9]">
           <div 
-            className="h-full bg-[#4F46E5] transition-all duration-300"
+            className="h-full bg-[#15803D] transition-all duration-300"
             style={{ width: `${(step / 4) * 100}%` }}
           />
         </div>
@@ -110,7 +110,7 @@ export default function RegisterPage() {
                 key={s}
                 className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                   step === s 
-                    ? "bg-[#4F46E5] text-white shadow-xs" 
+                    ? "bg-[#15803D] text-white shadow-xs" 
                     : step > s 
                     ? "bg-emerald-100 text-emerald-700" 
                     : "bg-[#F1F5F9] text-[#64748B]"
@@ -216,7 +216,7 @@ export default function RegisterPage() {
                   type="button" 
                   onClick={nextStep}
                   disabled={!formData.name}
-                  className="px-6 h-10 bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold rounded-xl flex items-center gap-2"
+                  className="px-6 h-10 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl flex items-center gap-2"
                 >
                   Continue to Address
                   <ArrowRight className="w-4 h-4" />
@@ -319,7 +319,7 @@ export default function RegisterPage() {
                 <Button 
                   type="button" 
                   onClick={nextStep}
-                  className="px-6 h-10 bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold rounded-xl flex items-center gap-2"
+                  className="px-6 h-10 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl flex items-center gap-2"
                 >
                   Administrator Account
                   <ArrowRight className="w-4 h-4" />
@@ -426,7 +426,7 @@ export default function RegisterPage() {
                 <Button 
                   type="submit" 
                   disabled={loading || !formData.admin_username || !formData.admin_password || !formData.admin_name}
-                  className="px-8 h-10 bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold rounded-xl shadow-md shadow-indigo-500/20"
+                  className="px-8 h-10 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20"
                 >
                   {loading ? "Registering Workspace..." : "Create Workspace"}
                 </Button>
@@ -453,7 +453,7 @@ export default function RegisterPage() {
                 </div>
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-[#64748B] font-medium">System Org ID:</span>
-                  <span className="bg-white border border-[#E2E8F0] text-indigo-700 font-mono text-[11px] px-2 py-0.5 rounded font-bold">
+                  <span className="bg-white border border-[#E2E8F0] text-[#15803D] font-mono text-[11px] px-2 py-0.5 rounded font-bold">
                     {registeredOrg.org_id}
                   </span>
                 </div>
@@ -465,7 +465,7 @@ export default function RegisterPage() {
 
               <Link 
                 href="/login" 
-                className="inline-flex items-center gap-2 px-8 py-3 bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold rounded-xl shadow-md shadow-indigo-500/20 transition-all"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all"
               >
                 Sign In to Workspace
                 <ArrowRight className="w-4 h-4" />

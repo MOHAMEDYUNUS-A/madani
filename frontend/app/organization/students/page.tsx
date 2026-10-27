@@ -263,7 +263,7 @@ function PhotoCaptureCropper({
                 setMode("camera");
                 startCamera();
               }}
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm text-xs font-bold rounded-lg transition-all shadow"
+              className="px-4 py-2 bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm text-xs font-bold rounded-lg transition-all shadow"
             >
               Use Camera
             </button>
@@ -277,7 +277,7 @@ function PhotoCaptureCropper({
             type="file" 
             accept="image/*" 
             onChange={handleFileUpload} 
-            className="text-xs text-slate-500 block w-full mb-3 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-500/10 file:text-indigo-600 hover:file:bg-amber-500/20" 
+            className="text-xs text-slate-500 block w-full mb-3 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-500/10 file:text-[#15803D] hover:file:bg-amber-500/20" 
           />
           <button
             type="button"
@@ -396,7 +396,7 @@ function PhotoCaptureCropper({
               <button
                 type="button"
                 onClick={handleUsePhoto}
-                className="flex-1 py-2 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm font-bold rounded-lg text-xs"
+                className="flex-1 py-2 bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm font-bold rounded-lg text-xs"
               >
                 Use Photo ✓
               </button>
@@ -749,7 +749,7 @@ export default function StudentsPage() {
         <div className="flex flex-wrap items-center gap-2.5">
           <Button 
             onClick={handleOpenAdd}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm font-bold text-xs"
+            className="bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm font-bold text-xs"
             size="sm"
           >
             <Plus className="w-3.5 h-3.5 mr-1" /> Add Student
@@ -768,7 +768,7 @@ export default function StudentsPage() {
           </label>
 
           <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-800 text-slate-800 font-semibold rounded-lg text-xs transition-all cursor-pointer">
-            <FolderArchive className="w-3.5 h-3.5 text-indigo-600" />
+            <FolderArchive className="w-3.5 h-3.5 text-[#15803D]" />
             <span>Upload Photos ZIP</span>
             <input 
               type="file" 
@@ -788,8 +788,8 @@ export default function StudentsPage() {
           <div className="text-2xl font-extrabold text-slate-900 mt-1">{stats.total}</div>
         </div>
         <div className="p-4 bg-white border border-slate-200 rounded-xl border-l-amber-500/40 border-l-2">
-          <div className="text-xs text-indigo-600 uppercase font-semibold">Pending Approval</div>
-          <div className="text-2xl font-extrabold text-indigo-600 mt-1">{stats.pending}</div>
+          <div className="text-xs text-[#15803D] uppercase font-semibold">Pending Approval</div>
+          <div className="text-2xl font-extrabold text-[#15803D] mt-1">{stats.pending}</div>
         </div>
         <div className="p-4 bg-white border border-slate-200 rounded-xl border-l-green-500/40 border-l-2">
           <div className="text-xs text-green-500 uppercase font-semibold">Approved Directory</div>
@@ -817,7 +817,7 @@ export default function StudentsPage() {
             }}
             className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all whitespace-nowrap ${
               activeTab === t.id
-                ? "bg-indigo-600 text-white shadow-sm"
+                ? "bg-[#15803D] text-white shadow-sm"
                 : "bg-white border border-slate-200 text-slate-500 hover:text-slate-900"
             }`}
           >
@@ -833,13 +833,13 @@ export default function StudentsPage() {
           placeholder="Search by name, ID or phone..."
           value={search}
           onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-          className="px-4 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+          className="px-4 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
         />
 
         <select 
           value={deptFilter}
           onChange={(e) => { setDeptFilter(e.target.value); setPage(1); }}
-          className="px-4 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+          className="px-4 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
         >
           <option value="">All Departments</option>
           {departments.map((d) => (
@@ -850,7 +850,7 @@ export default function StudentsPage() {
         <select 
           value={photoFilter}
           onChange={(e) => { setPhotoFilter(e.target.value); setPage(1); }}
-          className="px-4 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+          className="px-4 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
         >
           <option value="">All Photo States</option>
           <option value="yes">With Photo Available</option>
@@ -868,7 +868,7 @@ export default function StudentsPage() {
           <p className="text-slate-500 text-xs max-w-sm mx-auto">Create profiles manually, import spreadsheets, or check another tab.</p>
           <Button 
             onClick={handleOpenAdd} 
-            className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm font-bold text-xs mt-2"
+            className="bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm font-bold text-xs mt-2"
             size="sm"
           >
             <Plus className="w-3.5 h-3.5 mr-1" /> Add Student Profile
@@ -905,7 +905,7 @@ export default function StudentsPage() {
                         </div>
                       )}
                     </td>
-                    <td className="p-4 font-mono text-xs text-indigo-600">{m.member_id}</td>
+                    <td className="p-4 font-mono text-xs text-[#15803D]">{m.member_id}</td>
                     <td className="p-4">
                       <div className="font-semibold text-slate-900">{m.name}</div>
                       {m.rejection_reason && activeTab === "REJECTED" && (
@@ -919,7 +919,7 @@ export default function StudentsPage() {
                         m.status === "APPROVED" 
                           ? "bg-green-950/40 text-green-400 border-green-900/30" 
                           : m.status === "PENDING"
-                          ? "bg-amber-950/40 text-indigo-600 border-amber-900/30"
+                          ? "bg-amber-950/40 text-[#15803D] border-amber-900/30"
                           : m.status === "REJECTED"
                           ? "bg-red-950/40 text-red-400 border-red-900/30"
                           : "bg-slate-50 text-slate-500 border-slate-900"
@@ -932,7 +932,7 @@ export default function StudentsPage() {
                         <>
                           <button
                             onClick={() => setReviewMember(m)}
-                            className="px-2.5 py-1 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm rounded transition shadow-sm"
+                            className="px-2.5 py-1 text-xs font-semibold bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm rounded transition shadow-sm"
                           >
                             Review / Approve
                           </button>
@@ -947,7 +947,7 @@ export default function StudentsPage() {
                           </button>
                           <button
                             onClick={() => handleSubmitReview(m.id)}
-                            className="px-2.5 py-1 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm rounded transition shadow-sm"
+                            className="px-2.5 py-1 text-xs font-semibold bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm rounded transition shadow-sm"
                           >
                             Submit Review
                           </button>
@@ -1037,7 +1037,7 @@ export default function StudentsPage() {
                       required
                       value={memberForm.member_id}
                       onChange={handleFormChange}
-                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -1047,7 +1047,7 @@ export default function StudentsPage() {
                       name="admission_number"
                       value={memberForm.admission_number}
                       onChange={handleFormChange}
-                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1061,7 +1061,7 @@ export default function StudentsPage() {
                       required
                       value={memberForm.name}
                       onChange={handleFormChange}
-                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -1071,7 +1071,7 @@ export default function StudentsPage() {
                       name="dob"
                       value={memberForm.dob}
                       onChange={handleFormChange}
-                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1083,7 +1083,7 @@ export default function StudentsPage() {
                       name="gender"
                       value={memberForm.gender}
                       onChange={handleFormChange}
-                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                     >
                       <option>Male</option>
                       <option>Female</option>
@@ -1097,7 +1097,7 @@ export default function StudentsPage() {
                       name="class_name"
                       value={memberForm.class_name}
                       onChange={handleFormChange}
-                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1124,7 +1124,7 @@ export default function StudentsPage() {
                       name="phone"
                       value={memberForm.phone}
                       onChange={handleFormChange}
-                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded text-slate-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1168,7 +1168,7 @@ export default function StudentsPage() {
                 <div className="flex gap-4 pt-4 border-t border-slate-200">
                   <button 
                     type="submit" 
-                    className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm font-bold rounded-lg transition-all shadow"
+                    className="flex-1 py-3 bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm font-bold rounded-lg transition-all shadow"
                   >
                     {selectedMember ? "Update Profile" : "Save Student"}
                   </button>
@@ -1212,7 +1212,7 @@ export default function StudentsPage() {
 
               <div className="flex-grow space-y-2 text-sm">
                 <div><span className="text-slate-500">Student Name:</span> <span className="font-bold text-slate-900">{reviewMember.name}</span></div>
-                <div><span className="text-slate-500">Student ID:</span> <span className="font-mono text-indigo-600 font-semibold">{reviewMember.member_id}</span></div>
+                <div><span className="text-slate-500">Student ID:</span> <span className="font-mono text-[#15803D] font-semibold">{reviewMember.member_id}</span></div>
                 <div><span className="text-slate-500">Admission Number:</span> <span className="text-slate-900">{reviewMember.admission_number || "-"}</span></div>
                 <div><span className="text-slate-500">Department:</span> <span className="text-slate-300">{reviewMember.department?.name || "-"}</span></div>
                 <div><span className="text-slate-500">Class:</span> <span className="text-slate-300">{reviewMember.class_name || "-"}</span></div>
@@ -1294,8 +1294,8 @@ export default function StudentsPage() {
                 <div className="text-2xl font-bold text-green-400 mt-1">{importSummary.valid_count}</div>
               </div>
               <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
-                <div className="text-xs font-semibold text-indigo-600 uppercase">Duplicates Checked</div>
-                <div className="text-2xl font-bold text-indigo-600 mt-1">{importSummary.duplicate_count}</div>
+                <div className="text-xs font-semibold text-[#15803D] uppercase">Duplicates Checked</div>
+                <div className="text-2xl font-bold text-[#15803D] mt-1">{importSummary.duplicate_count}</div>
               </div>
               <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
                 <div className="text-xs font-semibold text-red-500 uppercase">Skipped Errors</div>
@@ -1316,7 +1316,7 @@ export default function StudentsPage() {
 
             <button 
               onClick={() => setShowImportModal(false)}
-              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm font-bold rounded-lg text-sm"
+              className="w-full py-3 bg-[#15803D] hover:bg-[#14532D] text-white shadow-sm font-bold rounded-lg text-sm"
             >
               Close Report
             </button>

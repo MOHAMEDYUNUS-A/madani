@@ -101,7 +101,7 @@ export default function AdminVendorsPage() {
       {/* Top Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E2E8F0] pb-5">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-indigo-50 text-[#4F46E5] border border-indigo-100 rounded-xl">
+          <div className="p-2.5 bg-emerald-50 text-[#15803D] border border-emerald-100 rounded-xl">
             <Building2 className="w-5 h-5" />
           </div>
           <div>
@@ -116,7 +116,7 @@ export default function AdminVendorsPage() {
           <Button
             size="sm"
             onClick={() => setShowCreateModal(true)}
-            className="bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold rounded-xl shadow-xs flex items-center gap-1.5"
+            className="bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl shadow-xs flex items-center gap-1.5"
           >
             <Plus className="w-3.5 h-3.5" /> Onboard New Vendor
           </Button>
@@ -136,7 +136,7 @@ export default function AdminVendorsPage() {
 
       {loading ? (
         <div className="py-24 text-center">
-          <div className="w-8 h-8 border-3 border-[#4F46E5] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <div className="w-8 h-8 border-3 border-[#15803D] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
           <p className="text-xs text-[#64748B] font-semibold">Loading vendors...</p>
         </div>
       ) : (
@@ -149,13 +149,13 @@ export default function AdminVendorsPage() {
             </div>
             <div className="bg-white border border-[#E2E8F0] p-5 rounded-2xl shadow-xs">
               <span className="text-[11px] font-bold uppercase text-[#64748B] tracking-wider">Enterprise Tiers</span>
-              <div className="text-2xl font-black text-[#4F46E5] mt-1">
+              <div className="text-2xl font-black text-[#15803D] mt-1">
                 {vendors.filter(v => (v.plan_tier || "").toUpperCase() === "ENTERPRISE").length}
               </div>
             </div>
             <div className="bg-white border border-[#E2E8F0] p-5 rounded-2xl shadow-xs">
               <span className="text-[11px] font-bold uppercase text-[#64748B] tracking-wider">Pro Tiers</span>
-              <div className="text-2xl font-black text-indigo-600 mt-1">
+              <div className="text-2xl font-black text-[#15803D] mt-1">
                 {vendors.filter(v => (v.plan_tier || "").toUpperCase() === "PRO").length}
               </div>
             </div>
@@ -202,7 +202,7 @@ export default function AdminVendorsPage() {
                         <td className="p-4">
                           <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                             (v.plan_tier || "").toUpperCase() === "ENTERPRISE"
-                              ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                              ? "bg-emerald-50 text-[#15803D] border border-emerald-200"
                               : (v.plan_tier || "").toUpperCase() === "PRO"
                               ? "bg-blue-50 text-blue-700 border border-blue-200"
                               : "bg-slate-100 text-slate-700 border border-slate-200"
@@ -220,7 +220,7 @@ export default function AdminVendorsPage() {
                             <div className="w-full bg-[#F1F5F9] h-1.5 rounded-full overflow-hidden">
                               <div
                                 className={`h-full rounded-full ${
-                                  pct > 80 ? "bg-[#DC2626]" : "bg-[#4F46E5]"
+                                  pct > 80 ? "bg-[#DC2626]" : "bg-[#15803D]"
                                 }`}
                                 style={{ width: `${pct}%` }}
                               />
@@ -345,7 +345,7 @@ export default function AdminVendorsPage() {
                 <Button
                   type="submit"
                   disabled={submitting}
-                  className="bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold rounded-xl shadow-xs"
+                  className="bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl shadow-xs"
                 >
                   {submitting ? "Onboarding..." : "Confirm & Activate Vendor"}
                 </Button>

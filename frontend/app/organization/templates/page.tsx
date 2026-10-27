@@ -166,7 +166,7 @@ export default function TemplatesPage() {
           <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/40 pb-4">
               <div className="flex items-center gap-2">
-                <Globe2 className="w-5 h-5 text-indigo-500" />
+                <Globe2 className="w-5 h-5 text-[#15803D]" />
                 <h2 className="text-lg font-bold text-foreground">Madani Verified Master Templates</h2>
                 <Badge variant="outline" className="text-xs">{filteredGlobal.length}</Badge>
               </div>

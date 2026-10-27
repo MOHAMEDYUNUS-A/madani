@@ -148,7 +148,7 @@ export default function DesignReviewPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
-        <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-2 border-[#15803D] border-t-transparent rounded-full animate-spin"></div>
         <p className="text-xs text-slate-500 font-semibold tracking-wide uppercase">
           Loading Vendor Design Proposals...
         </p>
@@ -164,12 +164,12 @@ export default function DesignReviewPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
+            <span className="text-xs font-bold text-[#15803D] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
               Stage 1: Design Selection
             </span>
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-            <Palette className="w-6 h-6 text-indigo-600" /> Vendor Design Concepts Review
+            <Palette className="w-6 h-6 text-[#15803D]" /> Vendor Design Concepts Review
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
             Compare vendor-created ID card design concepts side by side. Inspect realistic 3D front &amp; back surfaces, approve your school's official template, or request revisions.
@@ -207,7 +207,7 @@ export default function DesignReviewPage() {
                   onClick={() => setSelectedProject(p)}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                     selectedProject?.id === p.id
-                      ? "bg-indigo-600 text-white shadow-sm"
+                      ? "bg-[#15803D] text-white shadow-sm"
                       : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
                   }`}
                 >
@@ -221,7 +221,7 @@ export default function DesignReviewPage() {
           {selectedProject && (
             <div className="p-4 bg-white border border-slate-200 rounded-2xl shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <span className="text-[10px] font-black uppercase text-indigo-600 tracking-wider">
+                <span className="text-[10px] font-black uppercase text-[#15803D] tracking-wider">
                   Active Design Suite
                 </span>
                 <h3 className="text-sm font-black text-slate-900 mt-0.5">{selectedProject.name}</h3>
@@ -253,7 +253,7 @@ export default function DesignReviewPage() {
                   {/* Concept Header */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="purple" className="bg-indigo-50 text-indigo-700 border-indigo-200 text-[10px] font-bold">
+                      <Badge variant="purple" className="bg-emerald-50 text-[#15803D] border-emerald-200 text-[10px] font-bold">
                         {v.style_category || `Concept ${String.fromCharCode(65 + idx)}`}
                       </Badge>
                       <span className="text-[10px] font-mono font-bold text-slate-500">

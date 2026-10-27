@@ -102,15 +102,15 @@ function ActivateVendorContent() {
   return (
     <Card className="bg-white border-[#E2E8F0] p-8 max-w-md w-full mx-auto shadow-xl shadow-slate-200/50 space-y-6 rounded-2xl">
       <div className="text-center space-y-1">
-        <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-2 text-[#4F46E5]">
+        <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-2 text-[#15803D]">
           <Building2 className="w-6 h-6" />
         </div>
-        <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 border border-indigo-100 text-indigo-700 uppercase tracking-wider mb-1">
+        <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 border border-emerald-100 text-[#15803D] uppercase tracking-wider mb-1">
           Vendor Partner Activation
         </div>
         <CardTitle className="text-xl font-extrabold text-[#172033]">Activate Vendor Studio</CardTitle>
         <CardDescription className="text-xs text-[#64748B]">
-          Establish credentials for <strong className="text-[#4F46E5]">{invitation.target_name}</strong>
+          Establish credentials for <strong className="text-[#15803D]">{invitation.target_name}</strong>
         </CardDescription>
       </div>
 
@@ -172,7 +172,7 @@ function ActivateVendorContent() {
         <Button
           type="submit"
           disabled={submitting}
-          className="w-full bg-[#4F46E5] hover:bg-[#4338CA] text-white font-bold text-xs h-10 rounded-xl mt-2 shadow-md shadow-indigo-500/20"
+          className="w-full bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs h-10 rounded-xl mt-2 shadow-md shadow-emerald-500/20"
         >
           {submitting ? "Activating Studio..." : "Activate & Launch Studio"}
         </Button>

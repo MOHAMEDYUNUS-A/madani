@@ -595,7 +595,7 @@ function DesignerContent() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 px-6 py-3 bg-white shrink-0 shadow-sm z-20">
         <div>
           <h1 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-            <Palette className="w-4 h-4 text-indigo-600" /> Card Designer: <span className="text-indigo-600 font-bold">{template?.name}</span>
+            <Palette className="w-4 h-4 text-[#15803D]" /> Card Designer: <span className="text-[#15803D] font-bold">{template?.name}</span>
           </h1>
           <p className="text-[10px] text-slate-500 font-semibold">Auto-saving enabled. Drag items to position, pull corner handles to resize.</p>
         </div>
@@ -607,7 +607,7 @@ function DesignerContent() {
               type="button"
               onClick={handleUndo}
               disabled={historyIndex <= 0}
-              className="px-2.5 py-1 text-slate-600 hover:text-indigo-600 disabled:opacity-30 text-[10px] font-bold transition-all flex items-center gap-1"
+              className="px-2.5 py-1 text-slate-600 hover:text-[#15803D] disabled:opacity-30 text-[10px] font-bold transition-all flex items-center gap-1"
               title="Undo (Ctrl+Z)"
             >
               <Undo2 className="w-3 h-3" /> Undo
@@ -617,7 +617,7 @@ function DesignerContent() {
               type="button"
               onClick={handleRedo}
               disabled={historyIndex >= history.length - 1}
-              className="px-2.5 py-1 text-slate-600 hover:text-indigo-600 disabled:opacity-30 text-[10px] font-bold transition-all flex items-center gap-1"
+              className="px-2.5 py-1 text-slate-600 hover:text-[#15803D] disabled:opacity-30 text-[10px] font-bold transition-all flex items-center gap-1"
               title="Redo (Ctrl+Shift+Z)"
             >
               Redo <Redo2 className="w-3 h-3" />
@@ -633,7 +633,7 @@ function DesignerContent() {
             type="button"
             onClick={() => handleSave()}
             disabled={saving}
-            className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-[10px] shadow-sm transition-colors flex items-center gap-1"
+            className="px-4 py-1.5 bg-[#15803D] hover:bg-[#14532D] text-white font-bold rounded-lg text-[10px] shadow-sm transition-colors flex items-center gap-1"
           >
             <Save className="w-3 h-3" /> {saving ? "Saving..." : "Save Layout"}
           </button>
@@ -656,29 +656,29 @@ function DesignerContent() {
             <div className="space-y-3">
               <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Add Layout Elements</h4>
               <div className="grid grid-cols-2 gap-1.5">
-                <button type="button" onClick={() => handleAddElement("text")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <Type className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> Text Block
+                <button type="button" onClick={() => handleAddElement("text")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <Type className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> Text Block
                 </button>
-                <button type="button" onClick={() => handleAddElement("photo")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> Photo Frame
+                <button type="button" onClick={() => handleAddElement("photo")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> Photo Frame
                 </button>
-                <button type="button" onClick={() => handleAddElement("logo")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <Shield className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> School Logo
+                <button type="button" onClick={() => handleAddElement("logo")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <Shield className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> School Logo
                 </button>
-                <button type="button" onClick={() => handleAddElement("qr")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <QrCode className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> QR Code
+                <button type="button" onClick={() => handleAddElement("qr")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <QrCode className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> QR Code
                 </button>
-                <button type="button" onClick={() => handleAddElement("shape")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <Square className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> Shape Card
+                <button type="button" onClick={() => handleAddElement("shape")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <Square className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> Shape Card
                 </button>
-                <button type="button" onClick={() => handleAddElement("line")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <Minus className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> Accent Line
+                <button type="button" onClick={() => handleAddElement("line")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <Minus className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> Accent Line
                 </button>
-                <button type="button" onClick={() => handleAddElement("barcode")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <Barcode className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> Barcode
+                <button type="button" onClick={() => handleAddElement("barcode")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <Barcode className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> Barcode
                 </button>
-                <button type="button" onClick={() => handleAddElement("signature")} className="p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
-                  <PenTool className="w-3.5 h-3.5 text-indigo-500 shrink-0" /> Signature
+                <button type="button" onClick={() => handleAddElement("signature")} className="p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] border border-slate-200 text-slate-700 text-[10px] font-bold rounded text-left transition-all flex items-center gap-1.5">
+                  <PenTool className="w-3.5 h-3.5 text-[#15803D] shrink-0" /> Signature
                 </button>
               </div>
             </div>
@@ -698,7 +698,7 @@ function DesignerContent() {
                     key={field.token}
                     type="button"
                     onClick={() => handleAddDynamicField(field.token)}
-                    className="w-full p-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 text-slate-700 border border-slate-200 text-[9px] font-mono rounded text-left font-bold transition-all"
+                    className="w-full p-2 bg-slate-50 hover:bg-emerald-50 hover:text-[#15803D] text-slate-700 border border-slate-200 text-[9px] font-mono rounded text-left font-bold transition-all"
                   >
                     + {field.label}
                   </button>
@@ -718,7 +718,7 @@ function DesignerContent() {
                   setSampleStudent({ name: "Aisha Siddiqua", id: "MAM226052", class: "I Year Biotech", blood: "B+" });
                 }
               }}
-              className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-750 text-[10px] font-bold rounded focus:ring-1 focus:ring-indigo-500"
+              className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-750 text-[10px] font-bold rounded focus:ring-1 focus:ring-[#15803D]"
             >
               <option value="yunus">Mohamed Yunus (AI & DS)</option>
               <option value="aisha">Aisha Siddiqua (Biotech)</option>
@@ -735,7 +735,7 @@ function DesignerContent() {
               type="button"
               onClick={() => { setActiveTab("front"); setSelectedElementId(null); }}
               className={`px-6 py-1.5 rounded-md text-[10px] font-bold transition-all ${
-                activeTab === "front" ? "bg-indigo-650 text-white shadow-sm" : "text-slate-600 hover:text-slate-800"
+                activeTab === "front" ? "bg-[#15803D] text-white shadow-sm" : "text-slate-600 hover:text-slate-800"
               }`}
             >
               Front Layout
@@ -744,7 +744,7 @@ function DesignerContent() {
               type="button"
               onClick={() => { setActiveTab("back"); setSelectedElementId(null); }}
               className={`px-6 py-1.5 rounded-md text-[10px] font-bold transition-all ${
-                activeTab === "back" ? "bg-indigo-650 text-white shadow-sm" : "text-slate-600 hover:text-slate-800"
+                activeTab === "back" ? "bg-[#15803D] text-white shadow-sm" : "text-slate-600 hover:text-slate-800"
               }`}
             >
               Back Layout
@@ -789,7 +789,7 @@ function DesignerContent() {
                       onMouseDown={(e) => handleSelectElement(el.id, e)}
                       onClick={(e) => e.stopPropagation()}
                       className={`absolute border select-none group ${
-                        active ? "border-indigo-600 shadow-lg shadow-indigo-600/15 z-30" : "border-transparent hover:border-slate-400 z-10"
+                        active ? "border-[#15803D] shadow-lg shadow-emerald-600/15 z-30" : "border-transparent hover:border-slate-400 z-10"
                       }`}
                       style={{
                         left: `${el.x}px`,
@@ -826,7 +826,7 @@ function DesignerContent() {
                             className="w-full h-full object-contain p-1"
                           />
                         ) : (
-                          <div className="w-full h-full bg-indigo-50 border border-dashed border-indigo-200 text-indigo-600 flex flex-col items-center justify-center">
+                          <div className="w-full h-full bg-emerald-50 border border-dashed border-emerald-200 text-[#15803D] flex flex-col items-center justify-center">
                             <span className="text-[14px]">🛡️</span>
                             <span className="text-[5px] text-slate-500 font-bold uppercase mt-0.5">School Logo</span>
                           </div>
@@ -874,7 +874,7 @@ function DesignerContent() {
                       {active && !el.locked && (
                         <div 
                           onMouseDown={(e) => handleResizeStart(el.id, e)}
-                          className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-indigo-600 rounded-full border border-white cursor-se-resize z-55 shadow hover:scale-125 transition-transform"
+                          className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-[#15803D] rounded-full border border-white cursor-se-resize z-55 shadow hover:scale-125 transition-transform"
                         ></div>
                       )}
                     </div>
@@ -886,10 +886,10 @@ function DesignerContent() {
           {/* Footer guides & Grid snappers */}
           <div className="flex items-center gap-4 bg-white border border-slate-200 px-4 py-1.5 rounded-lg text-[10px] text-slate-500 shadow-sm shrink-0 z-10">
             <div className="flex items-center gap-1.5">
-              <button type="button" onClick={() => setZoom(z => Math.max(0.5, z - 0.25))} className="px-2 py-0.5 hover:text-indigo-650 bg-slate-50 border border-slate-200 rounded font-bold transition-all">- Zoom</button>
+              <button type="button" onClick={() => setZoom(z => Math.max(0.5, z - 0.25))} className="px-2 py-0.5 hover:text-[#15803D] bg-slate-50 border border-slate-200 rounded font-bold transition-all">- Zoom</button>
               <span className="px-1.5 font-mono font-bold text-slate-800">{Math.round(zoom * 100)}%</span>
-              <button type="button" onClick={() => setZoom(z => Math.min(2.0, z + 0.25))} className="px-2 py-0.5 hover:text-indigo-600 bg-slate-50 border border-slate-200 rounded font-bold transition-all">+ Zoom</button>
-              <button type="button" onClick={() => setZoom(1.0)} className="text-slate-600 hover:text-indigo-600 font-bold ml-1 font-mono">Reset</button>
+              <button type="button" onClick={() => setZoom(z => Math.min(2.0, z + 0.25))} className="px-2 py-0.5 hover:text-[#15803D] bg-slate-50 border border-slate-200 rounded font-bold transition-all">+ Zoom</button>
+              <button type="button" onClick={() => setZoom(1.0)} className="text-slate-600 hover:text-[#15803D] font-bold ml-1 font-mono">Reset</button>
             </div>
             <div className="w-[1px] h-3 bg-slate-200"></div>
             <label className="flex items-center gap-1.5 cursor-pointer font-bold select-none text-slate-700">
@@ -897,7 +897,7 @@ function DesignerContent() {
                 type="checkbox"
                 checked={snapToGrid}
                 onChange={(e) => setSnapToGrid(e.target.checked)}
-                className="accent-indigo-600 rounded cursor-pointer w-3.5 h-3.5"
+                className="accent-[#15803D] rounded cursor-pointer w-3.5 h-3.5"
               />
               Snap Grid (10px)
             </label>
@@ -938,7 +938,7 @@ function DesignerContent() {
                     type="checkbox" 
                     checked={selectedEl.locked || false} 
                     onChange={(e) => updateSelectedProperty("locked", e.target.checked)} 
-                    className="accent-indigo-600 rounded w-4 h-4 cursor-pointer"
+                    className="accent-[#15803D] rounded w-4 h-4 cursor-pointer"
                   />
                   <span>🔒 Lock Item</span>
                 </label>
@@ -950,7 +950,7 @@ function DesignerContent() {
                       updateSelectedProperty("hidden", e.target.checked);
                       if (e.target.checked) setSelectedElementId(null);
                     }} 
-                    className="accent-indigo-600 rounded w-4 h-4 cursor-pointer"
+                    className="accent-[#15803D] rounded w-4 h-4 cursor-pointer"
                   />
                   <span>👁️ Hide Layer</span>
                 </label>
@@ -1072,7 +1072,7 @@ function DesignerContent() {
                       type="text" 
                       value={selectedEl.value ?? ""}
                       onChange={(e) => updateSelectedProperty("value", e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded focus:border-indigo-500"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded focus:border-emerald-500"
                     />
                   </div>
 
@@ -1081,7 +1081,7 @@ function DesignerContent() {
                     <select
                       value={selectedEl.font_family ?? "Inter"}
                       onChange={(e) => updateSelectedProperty("font_family", e.target.value)}
-                      className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded focus:border-indigo-500"
+                      className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded focus:border-emerald-500"
                     >
                       <option value="Inter">Inter (Default)</option>
                       <option value="Outfit">Outfit (Clean / Stylish)</option>
@@ -1117,7 +1117,7 @@ function DesignerContent() {
                     <button
                       onClick={() => updateSelectedProperty("bold", !selectedEl.bold)}
                       className={`flex-1 py-1 border text-xs rounded font-bold ${
-                        selectedEl.bold ? "bg-indigo-600 text-white border-indigo-600" : "bg-slate-50 border-slate-200 text-slate-600"
+                        selectedEl.bold ? "bg-[#15803D] text-white border-[#15803D]" : "bg-slate-50 border-slate-200 text-slate-600"
                       }`}
                     >
                       B
@@ -1125,7 +1125,7 @@ function DesignerContent() {
                     <button
                       onClick={() => updateSelectedProperty("italic", !selectedEl.italic)}
                       className={`flex-1 py-1 border text-xs rounded italic ${
-                        selectedEl.italic ? "bg-indigo-600 text-white border-indigo-600" : "bg-slate-50 border-slate-200 text-slate-600"
+                        selectedEl.italic ? "bg-[#15803D] text-white border-[#15803D]" : "bg-slate-50 border-slate-200 text-slate-600"
                       }`}
                     >
                       I
@@ -1165,7 +1165,7 @@ function DesignerContent() {
                       id="shape-fill"
                       checked={selectedEl.fill}
                       onChange={(e) => updateSelectedProperty("fill", e.target.checked)}
-                      className="rounded accent-indigo-600"
+                      className="rounded accent-[#15803D]"
                     />
                     <label htmlFor="shape-fill" className="text-[10px] text-slate-655 font-bold">Fill shape interior</label>
                   </div>
@@ -1328,7 +1328,7 @@ function DesignerContent() {
                     onClick={() => setSelectedElementId(layer.id)}
                     className={`flex items-center justify-between p-2 rounded text-[11px] font-bold cursor-pointer border ${
                       layer.id === selectedElementId 
-                        ? "bg-slate-100 border-indigo-400 text-indigo-750" 
+                        ? "bg-slate-100 border-[#4ADE80] text-[#14532D]" 
                         : "bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                     }`}
                   >
@@ -1339,14 +1339,14 @@ function DesignerContent() {
                       <button
                         title="Bring Forward"
                         onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, "up"); }}
-                        className="p-1 hover:text-indigo-650"
+                        className="p-1 hover:text-[#15803D]"
                       >
                         ▲
                       </button>
                       <button
                         title="Send Backward"
                         onClick={(e) => { e.stopPropagation(); moveLayer(layer.id, "down"); }}
-                        className="p-1 hover:text-indigo-650"
+                        className="p-1 hover:text-[#15803D]"
                       >
                         ▼
                       </button>
@@ -1357,7 +1357,7 @@ function DesignerContent() {
                           const updated = getActiveElements().map(x => x.id === layer.id ? { ...x, hidden: !x.hidden } : x);
                           updateLayout(updated);
                         }}
-                        className="p-1 hover:text-indigo-650 text-[10px]"
+                        className="p-1 hover:text-[#15803D] text-[10px]"
                       >
                         {layer.hidden ? "👁️‍🗨️" : "👁️"}
                       </button>
@@ -1368,7 +1368,7 @@ function DesignerContent() {
                           const updated = getActiveElements().map(x => x.id === layer.id ? { ...x, locked: !x.locked } : x);
                           updateLayout(updated);
                         }}
-                        className="p-1 hover:text-indigo-650 text-[10px]"
+                        className="p-1 hover:text-[#15803D] text-[10px]"
                       >
                         {layer.locked ? "🔑" : "🔒"}
                       </button>

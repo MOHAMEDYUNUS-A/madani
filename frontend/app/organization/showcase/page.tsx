@@ -102,7 +102,7 @@ export default function ClassWiseStudentIDShowcasePage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
-        <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-2 border-[#15803D] border-t-transparent rounded-full animate-spin"></div>
         <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
           Rendering 3D Student ID Showcase...
         </p>
@@ -116,7 +116,7 @@ export default function ClassWiseStudentIDShowcasePage() {
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-5">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-indigo-700">
+            <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-[#15803D]">
               <Sparkles className="w-6 h-6" />
             </div>
             <div>
@@ -124,7 +124,7 @@ export default function ClassWiseStudentIDShowcasePage() {
                 <h1 className="text-xl font-black text-slate-900 tracking-tight">
                   {org?.name || "Institution"} Student ID Showcase
                 </h1>
-                <Badge variant="purple" className="bg-indigo-50 text-indigo-700 border-indigo-200 text-[10px] font-bold">
+                <Badge variant="purple" className="bg-emerald-50 text-[#15803D] border-emerald-200 text-[10px] font-bold">
                   Academic Year 2026 - 2027
                 </Badge>
               </div>
@@ -153,7 +153,7 @@ export default function ClassWiseStudentIDShowcasePage() {
           </div>
           <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Ready for Batch</span>
-            <span className="text-base font-black text-indigo-700">{readyForReview}</span>
+            <span className="text-base font-black text-[#15803D]">{readyForReview}</span>
           </div>
           <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Needs Correction</span>
@@ -218,7 +218,7 @@ export default function ClassWiseStudentIDShowcasePage() {
                 placeholder="Search name or ID..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
 
@@ -305,7 +305,7 @@ export default function ClassWiseStudentIDShowcasePage() {
                   </span>
                   <button
                     onClick={() => setInspectedMember(m)}
-                    className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-bold text-[#15803D] hover:text-[#14532D] flex items-center gap-1 cursor-pointer"
                   >
                     <Maximize2 className="w-3.5 h-3.5" /> Full Inspect
                   </button>

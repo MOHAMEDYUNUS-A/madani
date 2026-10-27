@@ -104,7 +104,7 @@ export default function BatchReviewPage() {
   if (loading) {
     return (
       <div className="p-12 text-center text-slate-400 text-xs">
-        <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+        <div className="w-8 h-8 border-2 border-[#15803D] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
         Compiling batch inspection data...
       </div>
     );
@@ -178,7 +178,7 @@ export default function BatchReviewPage() {
           <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2.5">
-                <FileCheck2 className="w-4 h-4 text-indigo-600" />
+                <FileCheck2 className="w-4 h-4 text-[#15803D]" />
                 <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
                   Associated Design Template
                 </h2>
@@ -199,7 +199,7 @@ export default function BatchReviewPage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs font-semibold text-indigo-600">Active Approved Suite</div>
+                  <div className="text-xs font-semibold text-[#15803D]">Active Approved Suite</div>
                   <div className="text-[10px] text-slate-400">Read-Only Specification</div>
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default function BatchReviewPage() {
           <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2.5">
-                <Users className="w-4 h-4 text-indigo-600" />
+                <Users className="w-4 h-4 text-[#15803D]" />
                 <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
                   Student Demographic Verification
                 </h2>
@@ -270,7 +270,7 @@ export default function BatchReviewPage() {
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-indigo-600" />
+              <ShieldCheck className="w-5 h-5 text-[#15803D]" />
               <h2 className="text-sm font-bold text-slate-900">Approve &amp; Freeze</h2>
             </div>
 
@@ -290,7 +290,7 @@ export default function BatchReviewPage() {
                   type="checkbox"
                   checked={confirmed}
                   onChange={(e) => setConfirmed(e.target.checked)}
-                  className="mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4 cursor-pointer"
+                  className="mt-0.5 rounded border-slate-300 text-[#15803D] focus:ring-[#15803D] w-4 h-4 cursor-pointer"
                 />
                 <span className="text-xs text-slate-700 leading-tight">
                   I confirm that all {totalStudents} student details and photos are verified, accurate, and ready for physical printing.
@@ -301,7 +301,7 @@ export default function BatchReviewPage() {
             <button
               onClick={handleApproveBatch}
               disabled={approving || !confirmed || !approvedProject || totalStudents === 0}
-              className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-2.5 px-4 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl shadow-sm shadow-emerald-600/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <Lock className="w-3.5 h-3.5" />
               {approving ? "Freezing Batch..." : "Approve Final Batch"}
@@ -311,7 +311,7 @@ export default function BatchReviewPage() {
           {/* Workflow Guide */}
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs text-slate-600 space-y-2">
             <div className="flex items-center gap-1.5 font-bold text-slate-800">
-              <Info className="w-3.5 h-3.5 text-indigo-600" />
+              <Info className="w-3.5 h-3.5 text-[#15803D]" />
               Role Distinction Notice
             </div>
             <p className="text-[11px] text-slate-500 leading-relaxed">

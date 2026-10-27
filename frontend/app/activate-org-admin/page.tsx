@@ -102,15 +102,15 @@ function ActivateOrgAdminContent() {
   return (
     <Card className="p-8 max-w-md w-full mx-auto shadow-xl space-y-6">
       <div className="text-center space-y-1">
-        <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-2 text-indigo-600">
+        <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-2 text-[#15803D]">
           <Building className="w-6 h-6" />
         </div>
-        <Badge variant="outline" className="text-[10px] font-mono text-indigo-600 border-indigo-200 uppercase tracking-wider mb-1">
+        <Badge variant="outline" className="text-[10px] font-mono text-[#15803D] border-emerald-200 uppercase tracking-wider mb-1">
           Institution Access
         </Badge>
         <CardTitle className="text-xl font-bold text-foreground">Activate Organization Admin</CardTitle>
         <CardDescription className="text-xs text-muted-foreground">
-          Establish credentials for <strong className="text-indigo-600">{invitation.target_name}</strong>
+          Establish credentials for <strong className="text-[#15803D]">{invitation.target_name}</strong>
         </CardDescription>
       </div>
 
