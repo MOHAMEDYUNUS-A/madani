@@ -186,16 +186,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main Container */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center justify-between px-8 shrink-0">
+        <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center px-8 shrink-0">
           <div className="flex items-center gap-3">
             <span className="text-xs font-bold text-slate-700 tracking-wide uppercase font-mono">
               MADANI ENTERPRISE PRODUCTION SUITE
-            </span>
-          </div>
-          <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
-            <span className="flex items-center gap-1.5 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-[#15803D] animate-pulse"></span>
-              ENTERPRISE PLATFORM GOVERNANCE
             </span>
           </div>
         </header>

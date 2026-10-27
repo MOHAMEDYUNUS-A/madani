@@ -229,14 +229,11 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center justify-between px-8 shrink-0">
+        <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center px-8 shrink-0">
           <div className="flex items-center gap-3">
             <span className="text-xs font-bold text-slate-700 tracking-wide uppercase font-mono">
               MADANI INSTITUTION SUITE
             </span>
-          </div>
-          <div className="flex items-center gap-4 text-xs font-mono font-semibold text-slate-500">
-            <span>SECURE MULTI-TENANT ISOLATION</span>
           </div>
         </header>
 

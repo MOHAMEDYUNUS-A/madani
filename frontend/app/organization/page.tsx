@@ -69,10 +69,6 @@ export default function OrganizationDashboardPage() {
             Oversee class divisions, staff assignments, student records, and ID card approval milestones.
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="success">All Systems Operational</Badge>
-          <span className="text-xs text-slate-400 font-mono">Live Data</span>
-        </div>
       </div>
 
       {error && (

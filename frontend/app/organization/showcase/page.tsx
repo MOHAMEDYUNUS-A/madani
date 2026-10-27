@@ -70,11 +70,11 @@ export default function ClassWiseStudentIDShowcasePage() {
     const studentClass = m.class_grade || m.class_name || "Unassigned";
     const matchesClass = selectedClass === "ALL" || studentClass === selectedClass;
     
-    const fullName = `${m.first_name} ${m.last_name || ""}`.toLowerCase();
-    const idStr = (m.identifier || m.roll_number || "").toLowerCase();
+    const fullName = `${m.first_name || m.name || ""} ${m.last_name || ""}`.trim().toLowerCase();
+    const idStr = (m.identifier || m.member_id || m.roll_number || "").toLowerCase();
     const matchesSearch = !search || fullName.includes(search.toLowerCase()) || idStr.includes(search.toLowerCase());
 
-    const isReady = !!(m.first_name && (m.identifier || m.roll_number) && (m.photo_url || m.avatar_url));
+    const isReady = !!((m.first_name || m.name) && (m.identifier || m.member_id || m.roll_number) && (m.photo_url || m.avatar_url));
     const matchesReadiness = readinessFilter === "ALL" 
       ? true 
       : readinessFilter === "READY" 
@@ -86,7 +86,7 @@ export default function ClassWiseStudentIDShowcasePage() {
 
   // Overall statistics
   const totalStudents = members.length;
-  const completedRecords = members.filter(m => m.first_name && (m.identifier || m.roll_number) && (m.photo_url || m.avatar_url)).length;
+  const completedRecords = members.filter(m => (m.first_name || m.name) && (m.identifier || m.member_id || m.roll_number) && (m.photo_url || m.avatar_url)).length;
   const readyForReview = members.filter(m => m.status === "SUBMITTED" || m.status === "APPROVED").length;
   const needingCorrections = members.filter(m => m.status === "CHANGES_REQUESTED").length;
 
@@ -95,9 +95,9 @@ export default function ClassWiseStudentIDShowcasePage() {
     ? members 
     : members.filter(m => (m.class_grade || m.class_name) === selectedClass);
   const classTotal = classMembers.length;
-  const classComplete = classMembers.filter(m => m.first_name && (m.identifier || m.roll_number) && (m.photo_url || m.avatar_url)).length;
+  const classComplete = classMembers.filter(m => (m.first_name || m.name) && (m.identifier || m.member_id || m.roll_number) && (m.photo_url || m.avatar_url)).length;
   const classMissingPhotos = classMembers.filter(m => !(m.photo_url || m.avatar_url)).length;
-  const classMissingFields = classMembers.filter(m => !m.first_name || !(m.identifier || m.roll_number)).length;
+  const classMissingFields = classMembers.filter(m => !(m.first_name || m.name) || !(m.identifier || m.member_id || m.roll_number)).length;
 
   if (loading) {
     return (
@@ -248,8 +248,9 @@ export default function ClassWiseStudentIDShowcasePage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start">
           {filtered.map((m) => {
-            const isComplete = !!(m.first_name && (m.identifier || m.roll_number) && (m.photo_url || m.avatar_url));
-            const fullName = `${m.first_name} ${m.last_name || ""}`;
+            const isComplete = !!((m.name || m.first_name) && (m.member_id || m.identifier || m.roll_number) && (m.photo_url || m.avatar_url));
+            const fullName = (m.name || `${m.first_name || ""} ${m.last_name || ""}`).trim();
+            const studentId = m.member_id || m.identifier || m.roll_number || "NO-ID";
 
             return (
               <div
@@ -261,7 +262,7 @@ export default function ClassWiseStudentIDShowcasePage() {
                   <div className="min-w-0 pr-2">
                     <h4 className="text-xs font-black text-slate-900 truncate">{fullName}</h4>
                     <span className="text-[10px] font-mono text-slate-500 block truncate">
-                      {m.identifier || m.roll_number || "NO-ID"}
+                      {studentId}
                     </span>
                   </div>
                   <Badge 
@@ -276,18 +277,18 @@ export default function ClassWiseStudentIDShowcasePage() {
                 <div className="py-2 flex items-center justify-center bg-slate-50/60 rounded-xl border border-slate-100">
                   <Card3DViewer
                     student={{
-                      first_name: m.first_name,
-                      last_name: m.last_name,
-                      identifier: m.identifier || m.roll_number,
-                      class_grade: m.class_grade || m.class_name,
-                      blood_group: m.blood_group,
-                      dob: m.dob,
+                      first_name: m.first_name || m.name?.split(" ")[0] || "Student",
+                      last_name: m.last_name || m.name?.split(" ").slice(1).join(" ") || "",
+                      identifier: studentId,
+                      class_grade: m.class_grade || m.class_name || "Grade 10",
+                      blood_group: m.blood_group || "O+",
+                      dob: m.dob ? String(m.dob) : undefined,
                       emergency_contact: m.emergency_contact || m.phone,
                       photo_url: m.photo_url || m.avatar_url
                     }}
                     template={{
-                      primary_color: "#1e3a8a",
-                      secondary_color: "#3b82f6",
+                      primary_color: "#15803D",
+                      secondary_color: "#4ADE80",
                       org_name: org?.name || "Madani International",
                       academic_year: "2026 - 2027",
                       orientation: "portrait"

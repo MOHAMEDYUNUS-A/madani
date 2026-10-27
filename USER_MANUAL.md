@@ -111,22 +111,28 @@ The Madani ID Platform features a single, centralized authentication portal elim
 
 ### 4.3 Production Batch Management & Print Queue
 1. Navigate to **Production** (`/admin/production` or `/vendor/production`).
-2. Approved batches automatically appear with item count and institution details.
-3. Click **Generate Print Imposition (A4)**:
-   - Outputs 300 DPI print-ready sheets with automated crop marks, bleed margins, and front/back duplex alignment.
+2. Approved batches automatically appear with item count, priority, and institution details.
+3. Click **Generate Print Imposition (A4)** or **Download Manifest (CSV)**:
+   - Super Admin and Vendor can download 300 DPI high-definition imposition duplex sheets ready for direct PVC printing.
+   - Outputs automated crop marks, bleed margins, and front/back duplex alignment.
 4. Update tracking status: `QUEUED` -> `PRINTING` -> `LAMINATING` -> `PACKED` -> `SHIPPED`.
 
 ![Vendor Command Center](screenshots/04_vendor_dashboard.png)
+
+![Production Batch Management & Download Engine](screenshots/06_admin_production_downloads.png)
 
 ---
 
 ## 5. Institution Administrator Workflow Guide
 
-### 5.1 Classes, Sections & Field Configuration
+### 5.1 Institution Control Center & Hierarchy Management
 1. Log in to the **Institution Portal** (`/organization`).
-2. Navigate to **Classes & Sections** (`/organization/classes`).
-3. Click **Add Class** (e.g., *Grade 10 - Section A*).
-4. Define custom fields required on ID cards (e.g., Blood Group, House, Transport Route).
+2. The Control Center presents an executive overview of active students, verified records, staff members, and class distribution.
+3. Navigate to **Classes & Sections** (`/organization/classes`).
+4. Click **Add Class** (e.g., *Grade 10 - Section A*).
+5. Define custom fields required on ID cards (e.g., Blood Group, House, Transport Route).
+
+![Institution Control Center](screenshots/08_institution_dashboard_clean.png)
 
 ![Classes & Sections Hierarchy Management](screenshots/03_organization_classes.png)
 
@@ -137,13 +143,16 @@ The Madani ID Platform features a single, centralized authentication portal elim
 4. Staff can only view and edit records within their assigned class scope.
 
 ### 5.3 Live 3D ID Card Showcase & Card Approval
-1. Navigate to **Students** (`/organization/students`).
-2. Switch between **Table View** and **Live 3D ID Card Showcase**:
-   - Cards render interactively in real-time with authentic textures and holographic sheen.
-   - Click **Flip Card** to inspect the reverse side.
+1. Navigate to **Students** (`/organization/students`) or directly open the **3D Showcase** (`/organization/showcase`).
+2. Switch between **Table View** and **Interactive 3D ID Card Showcase**:
+   - Cards render interactively in 3D canvas with real-time dynamic student photo, barcode, QR code, and holographic overlay.
+   - Click **Flip Card** to inspect the reverse side with emergency contacts and school policies.
+   - Smooth card carousel enables one-click inspection across all students.
 3. Action approvals:
    - **Approve Card**: Moves card to production-ready status.
    - **Request Correction**: Adds a note explaining required fixes (e.g., "Photo blurry, please re-upload").
+
+![Live 3D ID Card Showcase Gallery](screenshots/07_3d_id_showcase_gallery.png)
 
 ![Students Verification & Live ID Card Management](screenshots/02_organization_students.png)
 
