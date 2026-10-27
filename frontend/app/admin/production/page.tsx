@@ -17,7 +17,10 @@ import {
   Check,
   PackageCheck,
   ShieldCheck,
-  CreditCard
+  CreditCard,
+  FileDown,
+  FileSpreadsheet,
+  Download
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -58,6 +61,32 @@ export default function AdminProductionPage() {
   const [productionNotes, setProductionNotes] = useState("");
   const [quotationAmount, setQuotationAmount] = useState<number | undefined>();
   const [submitting, setSubmitting] = useState(false);
+
+  // Download states
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
+  const [downloadingCsv, setDownloadingCsv] = useState(false);
+
+  const handleDownloadPdf = async (jobId: string, jobCode: string) => {
+    try {
+      setDownloadingPdf(true);
+      await api.downloadPrintJobPdf(jobId, `${jobCode}_imposition_A4.pdf`);
+    } catch (err: any) {
+      alert("Failed to download print PDF: " + (err.message || "Unknown error"));
+    } finally {
+      setDownloadingPdf(false);
+    }
+  };
+
+  const handleDownloadCsv = async (jobId: string, jobCode: string) => {
+    try {
+      setDownloadingCsv(true);
+      await api.downloadPrintJobCsv(jobId, `${jobCode}_manifest.csv`);
+    } catch (err: any) {
+      alert("Failed to download student manifest CSV: " + (err.message || "Unknown error"));
+    } finally {
+      setDownloadingCsv(false);
+    }
+  };
 
   // QC modal form
   const [showQCModal, setShowQCModal] = useState(false);
@@ -283,8 +312,29 @@ export default function AdminProductionPage() {
 
                     <div className="flex items-center justify-between mt-3 text-[11px] text-slate-500">
                       <span>{j.quantity} Cards</span>
-                      <span className="font-mono text-purple-700 font-bold">₹{j.total_amount?.toLocaleString()}</span>
-                      <span>{new Date(j.created_at).toLocaleDateString()}</span>
+                      <span className="font-mono text-[#15803D] font-bold">₹{j.total_amount?.toLocaleString()}</span>
+                      <div className="flex items-center gap-1.5">
+                        <span 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDownloadPdf(j.id, j.job_id);
+                          }}
+                          className="p-1 hover:bg-emerald-50 text-slate-500 hover:text-[#15803D] rounded transition-colors cursor-pointer"
+                          title="Download A4 Imposition PDF"
+                        >
+                          <FileDown className="w-3.5 h-3.5" />
+                        </span>
+                        <span 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDownloadCsv(j.id, j.job_id);
+                          }}
+                          className="p-1 hover:bg-emerald-50 text-slate-500 hover:text-[#15803D] rounded transition-colors cursor-pointer"
+                          title="Download Student Manifest CSV"
+                        >
+                          <FileSpreadsheet className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
                     </div>
                   </button>
                 );
@@ -299,17 +349,38 @@ export default function AdminProductionPage() {
               <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                   <div>
-                    <span className="text-[10px] font-mono text-purple-700 font-black uppercase tracking-wider">
+                    <span className="text-[10px] font-mono text-[#15803D] font-black uppercase tracking-wider">
                       JOB ORDER #{selectedJob.job_id}
                     </span>
                     <h2 className="text-lg font-black text-slate-900 mt-0.5">{selectedJob.organization_name}</h2>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button
+                      size="sm"
+                      disabled={downloadingPdf}
+                      onClick={() => handleDownloadPdf(selectedJob.id, selectedJob.job_id)}
+                      className="bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs shadow-sm shadow-emerald-700/20 flex items-center gap-1.5 cursor-pointer"
+                      title="Download 300 DPI A4 Imposition PDF"
+                    >
+                      <FileDown className="w-3.5 h-3.5" />
+                      {downloadingPdf ? "Generating..." : "Download Imposition (A4)"}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={downloadingCsv}
+                      onClick={() => handleDownloadCsv(selectedJob.id, selectedJob.job_id)}
+                      className="border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs flex items-center gap-1.5 cursor-pointer"
+                      title="Download student batch manifest"
+                    >
+                      <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-700" />
+                      {downloadingCsv ? "Preparing..." : "Manifest (CSV)"}
+                    </Button>
                     <Button
                       size="sm"
                       onClick={() => setShowQCModal(true)}
-                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm cursor-pointer"
+                      className="bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs shadow-sm cursor-pointer"
                     >
                       <ShieldCheck className="w-3.5 h-3.5 mr-1" /> Log QC Check
                     </Button>
@@ -327,9 +398,9 @@ export default function AdminProductionPage() {
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                      <SlidersHorizontal className="w-3.5 h-3.5 text-purple-600" /> State Machine Controller
+                      <SlidersHorizontal className="w-3.5 h-3.5 text-[#15803D]" /> State Machine Controller
                     </span>
-                    <span className="text-xs font-mono font-bold text-purple-700">
+                    <span className="text-xs font-mono font-bold text-[#14532D]">
                       Current: {selectedJob.status}
                     </span>
                   </div>
@@ -341,7 +412,7 @@ export default function AdminProductionPage() {
                     <select
                       value={targetStatus}
                       onChange={(e) => setTargetStatus(e.target.value)}
-                      className="w-full text-xs p-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 font-bold focus:outline-none focus:border-purple-500"
+                      className="w-full text-xs p-2.5 rounded-lg bg-white border border-slate-300 text-slate-900 font-bold focus:outline-none focus:border-[#15803D]"
                     >
                       {(NEXT_STATUS_MAP[selectedJob.status] || []).length === 0 && (
                         <option value="">No forward transitions permitted (Terminal State)</option>
@@ -399,7 +470,7 @@ export default function AdminProductionPage() {
                     <Button
                       disabled={submitting || !targetStatus}
                       onClick={handleStatusTransition}
-                      className="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold cursor-pointer"
+                      className="bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold cursor-pointer"
                     >
                       {submitting ? "Applying State..." : `Commit Transition: ${targetStatus || "None"}`}
                     </Button>
@@ -422,7 +493,7 @@ export default function AdminProductionPage() {
                   </div>
                   <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
                     <span className="text-[10px] font-bold text-slate-500 block uppercase">Billed Total</span>
-                    <span className="text-sm font-black text-purple-700">₹{selectedJob.total_amount}</span>
+                    <span className="text-sm font-black text-[#15803D]">₹{selectedJob.total_amount}</span>
                   </div>
                 </div>
               </div>
@@ -441,7 +512,7 @@ export default function AdminProductionPage() {
           <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="text-sm font-black text-slate-900 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-purple-600" /> Log Quality Control Check ({selectedJob.job_id})
+                <ShieldCheck className="w-4 h-4 text-[#15803D]" /> Log Quality Control Check ({selectedJob.job_id})
               </h3>
               <Button 
                 variant="ghost" 

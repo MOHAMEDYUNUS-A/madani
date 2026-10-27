@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import FileResponse, Response
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any, Optional
 from uuid import UUID
@@ -414,6 +415,120 @@ def list_print_jobs(
         }
         for j in jobs
     ]
+
+def find_job(job_identifier: str, db: Session) -> PrintJob:
+    job = None
+    try:
+        val = UUID(job_identifier)
+        job = db.query(PrintJob).filter(PrintJob.id == val).first()
+    except Exception:
+        pass
+    if not job:
+        job = db.query(PrintJob).filter(PrintJob.job_id == job_identifier).first()
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Print job '{job_identifier}' not found.")
+    return job
+
+@router.get("/jobs/{job_identifier}")
+def get_print_job(
+    job_identifier: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    job = find_job(job_identifier, db)
+    user_roles = [r.name for r in current_user.roles]
+    if "SUPER_ADMIN" not in user_roles and "PRODUCTION_OPERATOR" not in user_roles:
+        if "VENDOR" in user_roles and current_user.vendor_id != job.vendor_id:
+            raise HTTPException(status_code=403, detail="Unauthorized")
+        elif current_user.organization_id and current_user.organization_id != job.organization_id:
+            raise HTTPException(status_code=403, detail="Unauthorized")
+
+    snapshot = job.batch_snapshot
+    return {
+        "id": str(job.id),
+        "job_id": job.job_id,
+        "organization_id": str(job.organization_id),
+        "organization_name": job.organization.name if job.organization else "Organization",
+        "vendor_id": str(job.vendor_id),
+        "vendor_name": job.vendor.company_name if job.vendor else "Vendor",
+        "batch_snapshot_id": str(job.batch_snapshot_id),
+        "batch_name": snapshot.batch_name if snapshot else "Batch",
+        "status": job.status,
+        "quantity": job.quantity,
+        "card_material": job.card_material,
+        "lamination_type": job.lamination_type,
+        "accessories": job.accessories,
+        "delivery_recipient": job.delivery_recipient,
+        "delivery_phone": job.delivery_phone,
+        "delivery_address": job.delivery_address,
+        "delivery_city": job.delivery_city,
+        "delivery_state": job.delivery_state,
+        "delivery_pincode": job.delivery_pincode,
+        "total_amount": float(job.total_amount),
+        "payment_status": job.payment_status,
+        "production_notes": job.production_notes,
+        "created_at": job.created_at,
+        "download_pdf_url": f"/api/production/jobs/{job.id}/download-pdf",
+        "download_csv_url": f"/api/production/jobs/{job.id}/download-csv"
+    }
+
+@router.get("/jobs/{job_identifier}/download-pdf")
+def download_job_pdf(
+    job_identifier: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Allows Super Admin and assigned Vendor to download the 300 DPI A4 imposition print sheets.
+    """
+    job = find_job(job_identifier, db)
+    user_roles = [r.name for r in current_user.roles]
+    if "SUPER_ADMIN" not in user_roles and "PRODUCTION_OPERATOR" not in user_roles:
+        if "VENDOR" in user_roles and current_user.vendor_id != job.vendor_id:
+            raise HTTPException(status_code=403, detail="Unauthorized")
+        elif current_user.organization_id and current_user.organization_id != job.organization_id:
+            raise HTTPException(status_code=403, detail="Unauthorized")
+
+    import os
+    from app.services.pdf_generator import PDFGeneratorService
+
+    snapshot = job.batch_snapshot
+    if snapshot and snapshot.pdf_production_url and os.path.exists(snapshot.pdf_production_url):
+        pdf_path = snapshot.pdf_production_url
+    else:
+        pdf_path = PDFGeneratorService.generate_job_imposition_pdf(job, db)
+
+    return FileResponse(
+        pdf_path,
+        media_type="application/pdf",
+        filename=f"{job.job_id}_imposition_A4.pdf"
+    )
+
+@router.get("/jobs/{job_identifier}/download-csv")
+def download_job_csv(
+    job_identifier: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Allows Super Admin and assigned Vendor to download the student records manifest CSV.
+    """
+    job = find_job(job_identifier, db)
+    user_roles = [r.name for r in current_user.roles]
+    if "SUPER_ADMIN" not in user_roles and "PRODUCTION_OPERATOR" not in user_roles:
+        if "VENDOR" in user_roles and current_user.vendor_id != job.vendor_id:
+            raise HTTPException(status_code=403, detail="Unauthorized")
+        elif current_user.organization_id and current_user.organization_id != job.organization_id:
+            raise HTTPException(status_code=403, detail="Unauthorized")
+
+    from app.services.pdf_generator import PDFGeneratorService
+    csv_data = PDFGeneratorService.generate_job_manifest_csv(job)
+
+    return Response(
+        content=csv_data,
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{job.job_id}_manifest.csv"'}
+    )
 
 @router.patch("/jobs/{job_uuid}/status")
 def update_job_status(

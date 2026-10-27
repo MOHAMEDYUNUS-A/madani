@@ -713,3 +713,180 @@ class PDFGeneratorService:
             batch.error_message = str(e)
             db.commit()
             raise e
+
+    @staticmethod
+    def generate_job_imposition_pdf(job: Any, db: Session) -> str:
+        """
+        Generates a 300 DPI high-resolution A4 print imposition PDF for a submitted PrintJob.
+        Used by Super Admin and print operators to print production-ready sheets.
+        """
+        import os
+        from reportlab.pdfgen import canvas
+        from reportlab.lib.pagesizes import A4
+        from reportlab.lib.colors import HexColor
+        from app.models.organization import OrganizationBranding
+        from app.models.production import BatchSnapshot
+
+        snapshot = job.batch_snapshot
+        if not snapshot:
+            snapshot = db.query(BatchSnapshot).filter(BatchSnapshot.id == job.batch_snapshot_id).first()
+        if not snapshot:
+            raise ValueError(f"No batch snapshot found for PrintJob {job.job_id}")
+
+        org = job.organization
+        branding = db.query(OrganizationBranding).filter(OrganizationBranding.organization_id == org.id).first() if org else None
+
+        dest_dir = os.path.join(settings.STORAGE_DIR, "production", str(job.job_id))
+        os.makedirs(dest_dir, exist_ok=True)
+        pdf_path = os.path.join(dest_dir, f"{job.job_id}_imposition_A4.pdf")
+
+        # Layout details
+        layout_data = snapshot.frozen_template_layout or {}
+        front_layout = layout_data.get("front") or {}
+        back_layout = layout_data.get("back") or {}
+
+        # Standard CR80 dimensions in points (85.6mm x 53.98mm = 242.65 x 153.01 pt)
+        card_w = 242.65
+        card_h = 153.01
+        if snapshot.orientation and snapshot.orientation.lower() == "portrait":
+            card_w, card_h = 153.01, 242.65
+
+        paper_w, paper_h = A4
+        margin_x = 36.0 # 0.5 inch margins
+        margin_y = 40.0
+        gap_h = 14.0
+        gap_v = 18.0
+
+        cols = 2
+        rows = 4
+        cards_per_page = cols * rows # 8 cards per A4 page
+
+        class RecordWrapper:
+            def __init__(self, d):
+                self.id = d.get("id") or "ID-001"
+                self.member_id = d.get("member_id") or d.get("id") or "MAD-001"
+                self.name = d.get("name") or d.get("full_name") or "Student"
+                self.admission_number = d.get("admission_number") or ""
+                self.dob = d.get("dob") or ""
+                self.gender = d.get("gender") or ""
+                self.blood_group = d.get("blood_group") or ""
+                self.designation = d.get("designation") or "Student"
+                self.class_name = d.get("class_name") or ""
+                self.section = d.get("section") or ""
+                self.academic_year = d.get("academic_year") or "2026-2027"
+                self.roll_number = d.get("roll_number") or ""
+                self.phone = d.get("phone") or ""
+                self.email = d.get("email") or ""
+                self.address = d.get("address") or ""
+                self.photo_url = d.get("photo_url") or ""
+
+        records = [RecordWrapper(r) for r in (snapshot.frozen_records_data or [])]
+        if not records:
+            # Fallback placeholder record
+            records = [RecordWrapper({"member_id": "STU-001", "name": "Sample Student", "class_name": "Grade 10"})]
+
+        canv = canvas.Canvas(pdf_path, pagesize=A4)
+        total_pages = (len(records) + cards_per_page - 1) // cards_per_page
+
+        for page_num in range(total_pages):
+            page_records = records[page_num * cards_per_page : (page_num + 1) * cards_per_page]
+
+            # 1. FRONT SHEET
+            canv.saveState()
+            canv.setFont("Helvetica-Bold", 7)
+            canv.setFillColor(HexColor("#64748B"))
+            canv.drawString(margin_x, paper_h - 22, f"MADANI ENTERPRISES — JOB #{job.job_id} | {org.name if org else 'ORG'} | FRONT SIDE (SHEET {page_num + 1}/{total_pages})")
+            canv.restoreState()
+
+            for idx, rec in enumerate(page_records):
+                col = idx % cols
+                row = idx // cols
+                x_pos = margin_x + col * (card_w + gap_h)
+                y_pos = paper_h - margin_y - (row + 1) * card_h - row * gap_v
+
+                PDFGeneratorService.draw_card_side(
+                    canv=canv,
+                    x=x_pos, y=y_pos,
+                    card_w=card_w, card_h=card_h,
+                    layout=front_layout,
+                    member=rec,
+                    org=org,
+                    branding=branding,
+                    verification_token=str(rec.member_id)
+                )
+                PDFGeneratorService.draw_crop_marks(canv, x_pos, y_pos, card_w, card_h, mark_len=8, bleed=1.5)
+
+            canv.showPage()
+
+            # 2. BACK SHEET (Horizontally mirrored columns for perfect duplex backing)
+            if back_layout:
+                canv.saveState()
+                canv.setFont("Helvetica-Bold", 7)
+                canv.setFillColor(HexColor("#64748B"))
+                canv.drawString(margin_x, paper_h - 22, f"MADANI ENTERPRISES — JOB #{job.job_id} | {org.name if org else 'ORG'} | BACK DUPLEX SIDE (SHEET {page_num + 1}/{total_pages})")
+                canv.restoreState()
+
+                for idx, rec in enumerate(page_records):
+                    col = idx % cols
+                    back_col = cols - 1 - col # Reverse column for duplex alignment
+                    row = idx // cols
+                    x_pos = margin_x + back_col * (card_w + gap_h)
+                    y_pos = paper_h - margin_y - (row + 1) * card_h - row * gap_v
+
+                    PDFGeneratorService.draw_card_side(
+                        canv=canv,
+                        x=x_pos, y=y_pos,
+                        card_w=card_w, card_h=card_h,
+                        layout=back_layout,
+                        member=rec,
+                        org=org,
+                        branding=branding,
+                        verification_token=str(rec.member_id)
+                    )
+                    PDFGeneratorService.draw_crop_marks(canv, x_pos, y_pos, card_w, card_h, mark_len=8, bleed=1.5)
+
+                canv.showPage()
+
+        canv.save()
+        snapshot.pdf_production_url = pdf_path
+        db.commit()
+        return pdf_path
+
+    @staticmethod
+    def generate_job_manifest_csv(job: Any) -> str:
+        """
+        Generates a CSV student manifest of all cards in this PrintJob batch.
+        """
+        import io
+        import csv
+
+        snapshot = job.batch_snapshot
+        records = snapshot.frozen_records_data if snapshot else []
+
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow([
+            "Card Index", "Job ID", "Student ID", "Full Name", 
+            "Class", "Section", "Admission Number", "DOB", 
+            "Blood Group", "Phone", "Email", "Address", "Photo URL"
+        ])
+
+        for idx, r in enumerate(records, start=1):
+            writer.writerow([
+                idx,
+                job.job_id,
+                r.get("member_id", ""),
+                r.get("name") or r.get("full_name", ""),
+                r.get("class_name", ""),
+                r.get("section", ""),
+                r.get("admission_number", ""),
+                r.get("dob", ""),
+                r.get("blood_group", ""),
+                r.get("phone", ""),
+                r.get("email", ""),
+                r.get("address", ""),
+                r.get("photo_url", "")
+            ])
+
+        return output.getvalue()
+

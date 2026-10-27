@@ -61,27 +61,27 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col justify-center items-center px-4 sm:px-6 py-10 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col justify-center items-center px-4 sm:px-6 py-6 relative overflow-y-auto font-sans">
       {/* Background Decorative Gradient Rings */}
       <div className="absolute top-0 -left-40 w-96 h-96 bg-emerald-200/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 -right-40 w-96 h-96 bg-green-200/30 rounded-full blur-3xl pointer-events-none" />
 
       {/* Brand Header with Generated App Icon */}
-      <div className="flex flex-col items-center mb-8 text-center relative z-10">
-        <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg shadow-emerald-900/10 border-2 border-[#4ADE80] mb-4 bg-white flex items-center justify-center">
+      <div className="flex flex-col items-center mb-4 text-center relative z-10">
+        <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-md shadow-emerald-900/10 border-2 border-[#4ADE80] mb-2.5 bg-white flex items-center justify-center">
           <Image 
             src="/madani_enterprises_app_icon.png" 
             alt="Madani Enterprises App Icon" 
-            width={80} 
-            height={80} 
+            width={64} 
+            height={64} 
             priority
             className="w-full h-full object-cover"
           />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#14532D] tracking-tight">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-[#14532D] tracking-tight">
           Madani ID Platform
         </h1>
-        <p className="text-sm font-semibold text-slate-600 mt-1 max-w-sm">
+        <p className="text-xs font-semibold text-slate-500 mt-0.5 max-w-sm">
           Madani Enterprises &bull; Enterprise ID Card Management
         </p>
       </div>
@@ -121,7 +121,7 @@ export default function LoginPage() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter username or email"
-                  className="pl-10 h-12 bg-white border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus-visible:ring-2 focus-visible:ring-[#4ADE80] focus-visible:border-[#15803D] rounded-xl"
+                  className="pl-10 h-11 !bg-white border-slate-300 !text-slate-900 text-sm placeholder:text-slate-400 focus-visible:ring-2 focus-visible:ring-[#4ADE80] focus-visible:border-[#15803D] rounded-xl font-medium shadow-none"
                 />
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter account password"
-                  className="pl-10 h-12 bg-white border-slate-300 text-slate-900 text-sm placeholder:text-slate-400 focus-visible:ring-2 focus-visible:ring-[#4ADE80] focus-visible:border-[#15803D] rounded-xl"
+                  className="pl-10 h-11 !bg-white border-slate-300 !text-slate-900 text-sm placeholder:text-slate-400 focus-visible:ring-2 focus-visible:ring-[#4ADE80] focus-visible:border-[#15803D] rounded-xl font-medium shadow-none"
                 />
               </div>
             </div>

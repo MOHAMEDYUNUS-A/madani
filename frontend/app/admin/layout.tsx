@@ -134,15 +134,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
 
           {/* Account Context Banner */}
-          <div className="p-4 border-b border-slate-200 bg-emerald-50/40">
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Console Context</span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#14532D] text-white">
-                Super Admin
-              </span>
-            </div>
+          <div className="p-4 border-b border-slate-200 bg-emerald-50/30">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Console Context</span>
             <div className="text-slate-900 font-extrabold text-sm truncate">
-              {user?.full_name || "Super Administrator"}
+              {user?.full_name || "Platform Super Administrator"}
             </div>
           </div>
 
@@ -193,9 +188,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-3">
-            <Badge className="bg-emerald-50 text-[#14532D] border-emerald-200 text-xs font-bold">
-              Central Production Engine Active
-            </Badge>
+            <span className="text-xs font-bold text-slate-700 tracking-wide uppercase font-mono">
+              MADANI ENTERPRISE PRODUCTION SUITE
+            </span>
           </div>
           <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
             <span className="flex items-center gap-1.5 font-semibold">

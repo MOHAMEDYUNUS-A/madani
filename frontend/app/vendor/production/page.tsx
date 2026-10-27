@@ -15,7 +15,9 @@ import {
   AlertCircle, 
   ExternalLink, 
   ShieldCheck,
-  Package
+  Package,
+  FileDown,
+  FileSpreadsheet
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -146,6 +148,7 @@ export default function VendorProductionPage() {
                   <th className="p-4">Commercials</th>
                   <th className="p-4">Payment</th>
                   <th className="p-4">Submitted</th>
+                  <th className="p-4 text-right">Download</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -167,6 +170,28 @@ export default function VendorProductionPage() {
                     </td>
                     <td className="p-4 text-slate-500 font-medium">
                       {new Date(job.created_at).toLocaleDateString()}
+                    </td>
+                    <td className="p-4 text-right">
+                      <div className="flex items-center justify-end gap-1.5">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => api.downloadPrintJobPdf(job.id, `${job.job_id}_imposition_A4.pdf`)}
+                          className="h-7 px-2.5 text-[11px] font-bold text-[#15803D] hover:bg-emerald-50 border-emerald-300 cursor-pointer"
+                          title="Download 300 DPI A4 Imposition PDF"
+                        >
+                          <FileDown className="w-3.5 h-3.5 mr-1" /> PDF
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => api.downloadPrintJobCsv(job.id, `${job.job_id}_manifest.csv`)}
+                          className="h-7 px-2 text-[11px] font-bold text-slate-600 hover:text-slate-900 cursor-pointer"
+                          title="Download Student Manifest CSV"
+                        >
+                          <FileSpreadsheet className="w-3.5 h-3.5 mr-1 text-emerald-700" /> CSV
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}

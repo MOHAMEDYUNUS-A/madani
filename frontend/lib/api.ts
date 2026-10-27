@@ -684,6 +684,40 @@ export const api = {
     return handleResponse(res);
   },
 
+  async downloadPrintJobPdf(jobId: string, filename?: string) {
+    const res = await fetchWithCredentials(`${API_BASE_URL}/api/production/jobs/${jobId}/download-pdf`);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: "Failed to download print PDF." }));
+      throw new Error(err.detail || "Download failed");
+    }
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename || `${jobId}_imposition_A4.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  },
+
+  async downloadPrintJobCsv(jobId: string, filename?: string) {
+    const res = await fetchWithCredentials(`${API_BASE_URL}/api/production/jobs/${jobId}/download-csv`);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: "Failed to download student manifest CSV." }));
+      throw new Error(err.detail || "Download failed");
+    }
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename || `${jobId}_manifest.csv`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  },
+
   async updatePrintJobStatus(id: string, payload: any) {
     const res = await fetchWithCredentials(`${API_BASE_URL}/api/production/jobs/${id}/status`, {
       method: "PATCH",

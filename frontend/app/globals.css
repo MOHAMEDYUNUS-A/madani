@@ -224,3 +224,25 @@ input::placeholder, textarea::placeholder {
   z-index: -1;
   pointer-events: none;
 }
+
+/* Hide Next.js Dev Indicator completely (removes floating 'N' badge overlapping text) */
+nextjs-portal,
+#nextjs-dev-tools,
+[data-nextjs-dev-tools-button],
+[data-nextjs-toast],
+div[data-nextjs-dialog-overlay] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Browser Autofill Fix - Guarantee Crisp White Background with Dark Text */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #0f172a !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
