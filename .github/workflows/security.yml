@@ -83,3 +83,61 @@ jobs:
         with:
           sarif_file: 'trivy-backend-image.sarif'
           category: 'trivy-backend-image'
+
+  bandit-sast:
+    name: Bandit Python AST Static Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Bandit
+        run: pip install bandit[sarif]
+
+      - name: Run Bandit AST Security Scan
+        run: |
+          bandit -r backend/app -ll -f txt -o bandit-report.txt || true
+          cat bandit-report.txt
+
+      - name: Upload Bandit Report Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bandit-security-report
+          path: bandit-report.txt
+
+  owasp-zap-scan:
+    name: OWASP ZAP Baseline DAST Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Backend & Launch Application
+        run: |
+          cd backend
+          pip install -r requirements.txt
+          python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 5
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
+          target: 'http://localhost:8000/health'
+          rules_file_name: '.zap/rules.tsv'
+          allow_issue_writing: false
+          cmd_options: '-a'
+

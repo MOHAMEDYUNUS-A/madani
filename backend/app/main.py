@@ -91,6 +91,26 @@ if settings.STORAGE_MODE == "local" and os.path.exists(settings.STORAGE_DIR):
 def read_root():
     return {"message": "Welcome to Madani ID Platform API", "version": app.version}
 
+_last_redis_check_time = 0.0
+_cached_redis_status = "unreachable"
+
+def check_redis_status(redis_url: str) -> str:
+    global _last_redis_check_time, _cached_redis_status
+    now = time.time()
+    if now - _last_redis_check_time < 3.0:
+        return _cached_redis_status
+    _last_redis_check_time = now
+    if not redis_url:
+        _cached_redis_status = "disabled"
+        return _cached_redis_status
+    try:
+        r = redis.from_url(redis_url, socket_timeout=0.2, socket_connect_timeout=0.2)
+        r.ping()
+        _cached_redis_status = "healthy"
+    except Exception:
+        _cached_redis_status = "unreachable"
+    return _cached_redis_status
+
 @app.get("/health")
 @app.get("/api/health")
 def health_check(db: Session = Depends(get_db)):
@@ -104,14 +124,7 @@ def health_check(db: Session = Depends(get_db)):
     except Exception as exc:
         db_status = f"unhealthy: {str(exc)}"
 
-    redis_status = "disabled"
-    if settings.REDIS_URL:
-        try:
-            r = redis.from_url(settings.REDIS_URL, socket_timeout=1.0)
-            r.ping()
-            redis_status = "healthy"
-        except Exception:
-            redis_status = "unreachable"
+    redis_status = check_redis_status(settings.REDIS_URL)
 
     is_healthy = db_status == "healthy"
     status_code = status.HTTP_200_OK if is_healthy else status.HTTP_503_SERVICE_UNAVAILABLE

@@ -1,0 +1,6 @@
+# OWASP ZAP Rule Customizations
+# Format: <rule-id>\t<threshold>\t<optional-alert-tag>
+# 10038: Content Security Policy (CSP) Header Not Set
+10038	IGNORE
+# 10020: Anti-CSRF Tokens Check (API JSON endpoints use Bearer / cookie tokens)
+10020	IGNORE
