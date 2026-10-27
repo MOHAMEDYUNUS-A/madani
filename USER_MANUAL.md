@@ -132,7 +132,7 @@ The Madani ID Platform features a single, centralized authentication portal elim
 4. Click **Add Class** (e.g., *Grade 10 - Section A*).
 5. Define custom fields required on ID cards (e.g., Blood Group, House, Transport Route).
 
-![Institution Control Center](screenshots/08_institution_dashboard_clean.png)
+![Institution Control Center with Enterprise Menu Bar](screenshots/09_organization_app_menu_bar.png)
 
 ![Classes & Sections Hierarchy Management](screenshots/03_organization_classes.png)
 
@@ -161,6 +161,13 @@ The Madani ID Platform features a single, centralized authentication portal elim
 2. Review overall student counts, verification statistics, and photo completeness.
 3. Click **Final Sign-Off & Lock Batch**.
 4. The batch is instantaneously dispatched to the Vendor production queue.
+
+### 5.5 PVC Physical Print Orders & Consignment Tracking
+1. Navigate to **Print Tracking** (`/organization/orders`).
+2. View active PVC consignment runs, commercial quotations, GST breakdowns, and carrier tracking codes.
+3. Live production pipeline stages: `Submitted` -> `Quotation Sent` -> `Payment Confirmed` -> `Printing` -> `Dispatched` -> `Delivered`.
+
+![PVC Physical Printing Orders & Tracking](screenshots/10_organization_orders_emerald.png)
 
 ---
 
