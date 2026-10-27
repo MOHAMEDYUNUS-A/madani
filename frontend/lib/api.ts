@@ -81,13 +81,22 @@ export interface ProductionMetricsSummary {
   };
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL !== undefined
-  ? process.env.NEXT_PUBLIC_API_URL
-  : typeof window !== "undefined" && !window.location.hostname.includes("localhost") && !window.location.hostname.includes("127.0.0.1")
-    ? "" // Production: relative path works on any domain or reverse proxy
-    : typeof window !== "undefined" && (window.location.port === "3001" || window.location.port === "8001" || window.location.href.includes(":3001"))
-      ? "http://localhost:8001"
-      : "http://localhost:8000";
+const resolveApiBaseUrl = (): string => {
+  const envUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (envUrl && envUrl.trim()) {
+    const trimmed = envUrl.trim();
+    if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
+      return `https://${trimmed}`.replace(/\/+$/, "");
+    }
+    return trimmed.replace(/\/+$/, "");
+  }
+  if (typeof window !== "undefined" && !window.location.hostname.includes("localhost") && !window.location.hostname.includes("127.0.0.1")) {
+    return ""; // Relative path works on any production domain or reverse proxy
+  }
+  return "http://localhost:8000";
+};
+
+const API_BASE_URL = resolveApiBaseUrl();
 
 export class APIError extends Error {
   status?: number;

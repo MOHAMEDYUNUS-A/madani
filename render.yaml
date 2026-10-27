@@ -16,10 +16,11 @@ services:
     plan: free
     region: oregon
     buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
-    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
-    healthCheckPath: /health
+    startCommand: "python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
     autoDeploy: true
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
       - key: ENV
         value: production
       - key: DATABASE_URL
@@ -39,7 +40,7 @@ services:
       - key: STORAGE_DIR
         value: /tmp/madani_storage
       - key: CORS_ORIGINS
-        value: "https://madani-frontend.onrender.com,http://localhost:3000"
+        value: "*"
 
   # ----------------------------------------------------------------------------
   # 2. Next.js Frontend Web Service
@@ -54,7 +55,12 @@ services:
     startCommand: "npm start"
     autoDeploy: true
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        value: "https://madani-backend.onrender.com"
+        fromService:
+          type: web
+          name: madani-backend
+          property: host
