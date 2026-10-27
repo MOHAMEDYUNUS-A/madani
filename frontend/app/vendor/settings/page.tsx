@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { Settings } from "lucide-react";
 
 export default function VendorSettingsPage() {
   const [vendor, setVendor] = useState<any>(null);
@@ -76,11 +77,11 @@ export default function VendorSettingsPage() {
       <div className="border-b border-slate-200 pb-6 flex items-center justify-between">
         <div>
           <div className="flex items-center gap-3">
-            <span className="p-2.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-xl text-xl shadow-lg shadow-amber-500/10">
-              ⚙️
-            </span>
+            <div className="p-2.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl">
+              <Settings className="w-5 h-5" />
+            </div>
             <div>
-              <h1 className="text-2xl font-black text-white tracking-tight">Vendor Studio Settings</h1>
+              <h1 className="text-2xl font-black text-slate-900 tracking-tight">Vendor Studio Settings</h1>
               <p className="text-xs text-slate-500 mt-0.5">
                 Manage your print business credentials, tax identifiers, and physical dispatch address.
               </p>
@@ -92,8 +93,8 @@ export default function VendorSettingsPage() {
       {feedback && (
         <div className={`p-4 rounded-xl border text-xs font-bold ${
           feedback.type === "success" 
-            ? "bg-emerald-950/60 text-emerald-300 border-emerald-500/30" 
-            : "bg-rose-950/60 text-rose-300 border-rose-500/30"
+            ? "bg-emerald-50 text-emerald-800 border-emerald-200" 
+            : "bg-rose-50 text-rose-800 border-rose-200"
         }`}>
           {feedback.message}
         </div>
@@ -101,13 +102,13 @@ export default function VendorSettingsPage() {
 
       {loading ? (
         <div className="py-24 text-center">
-          <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <div className="w-10 h-10 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
           <p className="text-xs text-slate-500 font-semibold tracking-wider">Loading settings...</p>
         </div>
       ) : (
-        <form onSubmit={handleSave} className="bg-white border border-slate-200 rounded-2xl p-8 shadow-xl space-y-6">
+        <form onSubmit={handleSave} className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm space-y-6">
           <div className="space-y-4">
-            <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 border-b border-slate-200 pb-2">
+            <h3 className="text-xs font-black uppercase tracking-wider text-emerald-700 border-b border-slate-200 pb-2">
               Business Profile
             </h3>
 
@@ -119,7 +120,7 @@ export default function VendorSettingsPage() {
                   required
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white"
+                  className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -130,7 +131,7 @@ export default function VendorSettingsPage() {
                   required
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white"
+                  className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
             </div>
@@ -142,7 +143,7 @@ export default function VendorSettingsPage() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white font-mono"
+                  className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -153,14 +154,14 @@ export default function VendorSettingsPage() {
                   value={gstNumber}
                   onChange={(e) => setGstNumber(e.target.value)}
                   placeholder="22AAAAA0000A1Z5"
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white font-mono uppercase"
+                  className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
             </div>
           </div>
 
           <div className="space-y-4 pt-2">
-            <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 border-b border-slate-200 pb-2">
+            <h3 className="text-xs font-black uppercase tracking-wider text-emerald-700 border-b border-slate-200 pb-2">
               Facility Address & Dispatch Location
             </h3>
 
@@ -170,7 +171,7 @@ export default function VendorSettingsPage() {
                 rows={2}
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white"
+                className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
 
@@ -181,7 +182,7 @@ export default function VendorSettingsPage() {
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white"
+                  className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -191,7 +192,7 @@ export default function VendorSettingsPage() {
                   type="text"
                   value={state}
                   onChange={(e) => setState(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white"
+                  className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
@@ -201,7 +202,7 @@ export default function VendorSettingsPage() {
                   type="text"
                   value={pincode}
                   onChange={(e) => setPincode(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-white font-mono"
+                  className="w-full text-xs p-3 rounded-xl bg-white border border-slate-300 text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
             </div>
@@ -211,7 +212,7 @@ export default function VendorSettingsPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black text-xs font-black rounded-xl shadow-lg shadow-amber-500/20 transition-all disabled:opacity-50"
+              className="px-6 py-2.5 bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl shadow-md transition-all disabled:opacity-50 cursor-pointer"
             >
               {saving ? "Saving Changes..." : "Save Studio Settings"}
             </button>

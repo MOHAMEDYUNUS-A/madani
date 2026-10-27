@@ -5,7 +5,7 @@ from uuid import UUID
 from datetime import datetime
 
 from app.core.database import get_db
-from app.auth.dependencies import get_current_org_admin, verify_tenant_isolation, get_current_org_member
+from app.auth.dependencies import get_current_org_admin, verify_tenant_isolation, get_current_org_member, get_effective_org_id
 from app.core.security import get_password_hash
 from app.models.user import User, Role
 from app.models.organization import Organization
@@ -19,11 +19,12 @@ def list_staff(
     current_user: User = Depends(get_current_org_member),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     users = db.query(User).filter(
-        User.organization_id == current_user.organization_id,
+        User.organization_id == org_id,
         User.deleted_at == None
     ).all()
     
@@ -48,7 +49,8 @@ def create_staff(
     current_user: User = Depends(get_current_org_admin),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     # Check unique constraints
@@ -70,7 +72,7 @@ def create_staff(
             raise HTTPException(status_code=400, detail="Invalid role specified.")
 
     user = User(
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         full_name=payload.full_name,
         email=payload.email,
         phone=payload.phone,

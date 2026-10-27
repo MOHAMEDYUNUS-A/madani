@@ -32,6 +32,11 @@ storage/
 .env
 *.local
 
+# PyInstaller build directories
+build/
+dist/
+*.spec
+
 # OS Files
 .DS_Store
 Thumbs.db

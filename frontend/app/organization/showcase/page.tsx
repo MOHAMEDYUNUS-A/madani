@@ -170,7 +170,7 @@ export default function ClassWiseStudentIDShowcasePage() {
             onClick={() => setSelectedClass("ALL")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
               selectedClass === "ALL"
-                ? "bg-indigo-600 text-white shadow-sm"
+                ? "bg-[#15803D] text-white shadow-sm"
                 : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
             }`}
           >
@@ -184,7 +184,7 @@ export default function ClassWiseStudentIDShowcasePage() {
                 onClick={() => setSelectedClass(cName)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                   selectedClass === cName
-                    ? "bg-indigo-600 text-white shadow-sm"
+                    ? "bg-[#15803D] text-white shadow-sm"
                     : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
                 }`}
               >

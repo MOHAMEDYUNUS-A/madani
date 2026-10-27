@@ -3,15 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { api } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { 
   GraduationCap, 
   Users, 
   LogOut, 
-  ShieldCheck, 
-  Sparkles,
-  Send
+  CheckCircle2
 } from "lucide-react";
 
 export default function StaffPortalLayout({ children }: { children: React.ReactNode }) {
@@ -41,10 +40,10 @@ export default function StaffPortalLayout({ children }: { children: React.ReactN
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider">Loading Staff Portal...</p>
+          <div className="w-10 h-10 border-4 border-[#15803D] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Loading Staff Portal...</p>
         </div>
       </div>
     );
@@ -53,51 +52,41 @@ export default function StaffPortalLayout({ children }: { children: React.ReactN
   const assignedClass = user?.assigned_class || "All Permitted Classes";
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans antialiased text-slate-800">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans antialiased text-slate-900">
       {/* Top Application Bar */}
-      <header className="h-16 bg-white border-b border-slate-200 px-6 sm:px-8 flex items-center justify-between shadow-sm sticky top-0 z-30">
-        <div className="flex items-center gap-4">
-          <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center font-black text-white text-xs shadow-md shadow-indigo-600/15">
-            M
+      <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-8 flex items-center justify-between shadow-xs sticky top-0 z-30">
+        <div className="flex items-center gap-3.5">
+          <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 border border-emerald-300 shadow-sm">
+            <Image 
+              src="/madani_enterprises_app_icon.png" 
+              alt="Madani Enterprises" 
+              width={36} 
+              height={36} 
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-xs text-slate-900 uppercase tracking-tight">Madani Staff Portal</span>
-              <Badge variant="default">Class Operator</Badge>
+              <span className="font-extrabold text-sm text-[#14532D] uppercase tracking-tight">Madani Staff Portal</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#15803D] border border-emerald-200">
+                Class Operator
+              </span>
             </div>
-            <div className="text-[11px] text-slate-400 font-medium">
-              Assigned Cohort: <span className="font-semibold text-indigo-600">{assignedClass}</span>
+            <div className="text-xs text-slate-500 font-medium">
+              Assigned Cohort: <span className="font-bold text-[#15803D]">{assignedClass}</span>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          {user?.roles?.includes("SUPER_ADMIN") && (
-            <Link
-              href="/admin/production"
-              className="text-xs text-purple-700 hover:text-purple-900 font-semibold px-3 py-1.5 rounded-lg bg-purple-50 border border-purple-200"
-            >
-              Super Admin
-            </Link>
-          )}
-
-          {(user?.roles?.includes("ORGANIZATION_ADMIN") || user?.roles?.includes("SUPER_ADMIN")) && (
-            <Link
-              href="/organization"
-              className="text-xs text-indigo-700 hover:text-indigo-900 font-semibold px-3 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200"
-            >
-              Org Admin Console
-            </Link>
-          )}
-
-          <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+          <div className="flex items-center gap-3 pl-3">
             <div className="text-right hidden sm:block">
-              <div className="text-xs font-bold text-slate-800">{user?.full_name}</div>
-              <div className="text-[10px] text-slate-400 font-mono">@{user?.username}</div>
+              <div className="text-xs font-bold text-slate-900">{user?.full_name}</div>
+              <div className="text-[11px] text-slate-500 font-mono">@{user?.username}</div>
             </div>
             <button
               onClick={handleLogout}
-              className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+              className="p-2 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
@@ -107,7 +96,7 @@ export default function StaffPortalLayout({ children }: { children: React.ReactN
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 p-6 sm:p-8 max-w-7xl w-full mx-auto">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
         {children}
       </main>
     </div>

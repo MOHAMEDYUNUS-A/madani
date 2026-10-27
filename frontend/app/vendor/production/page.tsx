@@ -96,19 +96,19 @@ export default function VendorProductionPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <Printer className="w-4 h-4 text-amber-400" />
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+            <Printer className="w-4 h-4 text-emerald-700" />
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
               Fulfillment Pipeline
             </span>
           </div>
-          <h1 className="text-2xl font-extrabold text-white tracking-tight mt-1">
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight mt-1">
             Centralized Print Production & Dispatch
           </h1>
           <p className="text-slate-500 text-xs mt-0.5">
             Real-time tracking of vendor-submitted physical card production runs, quality inspections, and courier delivery.
           </p>
         </div>
-        <Button asChild size="sm" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">
+        <Button asChild size="sm" className="bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs">
           <Link href="/organization/orders">
             <Package className="w-3.5 h-3.5 mr-1.5" /> Client Order Portal
           </Link>
@@ -122,22 +122,22 @@ export default function VendorProductionPage() {
         </div>
       ) : jobs.length === 0 ? (
         <div className="p-16 text-center rounded-2xl bg-white border border-slate-200 space-y-3">
-          <Printer className="w-12 h-12 mx-auto text-slate-600" />
-          <h3 className="text-base font-bold text-white">No active print production jobs</h3>
+          <Printer className="w-12 h-12 mx-auto text-slate-400" />
+          <h3 className="text-base font-bold text-slate-900">No active print production jobs</h3>
           <p className="text-slate-500 text-xs max-w-md mx-auto">
             Once an organization approves a batch snapshot, you can submit the physical print job to Madani centralized production.
           </p>
-          <Button asChild size="sm" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs mt-2">
+          <Button asChild size="sm" className="bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs mt-2">
             <Link href="/vendor/ai-studio">
               Create New Design in AI Studio
             </Link>
           </Button>
         </div>
       ) : (
-        <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden">
+        <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-200">
+              <thead className="bg-slate-50 text-slate-600 font-semibold uppercase tracking-wider border-b border-slate-200">
                 <tr>
                   <th className="p-4">Job ID</th>
                   <th className="p-4">Client Organization</th>
@@ -148,24 +148,24 @@ export default function VendorProductionPage() {
                   <th className="p-4">Submitted</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 text-slate-700">
+              <tbody className="divide-y divide-slate-100 text-slate-700">
                 {jobs.map((job) => (
-                  <tr key={job.id} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="p-4 font-mono font-bold text-amber-400">{job.job_id}</td>
-                    <td className="p-4 font-semibold text-white">{job.organization_name}</td>
-                    <td className="p-4">{job.quantity} cards</td>
+                  <tr key={job.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="p-4 font-mono font-bold text-emerald-700">{job.job_id}</td>
+                    <td className="p-4 font-semibold text-slate-900">{job.organization_name}</td>
+                    <td className="p-4 font-medium">{job.quantity} cards</td>
                     <td className="p-4">{getStatusBadge(job.status)}</td>
-                    <td className="p-4 font-semibold text-white">₹{job.total_amount?.toFixed(2)}</td>
+                    <td className="p-4 font-semibold text-slate-900">₹{job.total_amount?.toFixed(2)}</td>
                     <td className="p-4">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         job.payment_status === "Confirmed" 
-                          ? "bg-emerald-500/20 text-emerald-400"
-                          : "bg-amber-500/20 text-amber-400"
+                          ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                          : "bg-amber-50 text-amber-700 border border-amber-200"
                       }`}>
                         {job.payment_status}
                       </span>
                     </td>
-                    <td className="p-4 text-slate-500">
+                    <td className="p-4 text-slate-500 font-medium">
                       {new Date(job.created_at).toLocaleDateString()}
                     </td>
                   </tr>

@@ -127,11 +127,11 @@ export default function VendorDashboardPage() {
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
               {vendorData?.vendor_id || "MAD-VND-000001"}
             </span>
-            <Badge variant="outline" className="text-[10px] uppercase font-semibold text-amber-400 border-amber-500/30">
+            <Badge variant="outline" className="text-[10px] uppercase font-semibold text-emerald-700 border-emerald-300 bg-emerald-50">
               {sub.plan_name}
             </Badge>
           </div>
-          <h1 className="text-2xl font-extrabold text-white tracking-tight mt-1">
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight mt-1">
             {vendorData?.business_name || "Vendor Studio"}
           </h1>
           <p className="text-slate-500 text-xs mt-0.5">
@@ -139,7 +139,7 @@ export default function VendorDashboardPage() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2.5">
-          <Button asChild className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs" size="sm">
+          <Button asChild className="bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs shadow-sm" size="sm">
             <Link href="/vendor/ai-studio">
               <Sparkles className="w-3.5 h-3.5 mr-1.5" /> Launch AI Studio
             </Link>
@@ -148,57 +148,57 @@ export default function VendorDashboardPage() {
             variant="outline"
             size="sm"
             onClick={() => setShowOrgModal(true)}
-            className="text-xs font-semibold text-slate-800 border-slate-300 hover:bg-slate-800"
+            className="text-xs font-semibold text-slate-800 border-slate-300 hover:bg-slate-100 cursor-pointer"
           >
-            <Plus className="w-3.5 h-3.5 mr-1" /> Onboard Organization
+            <Plus className="w-3.5 h-3.5 mr-1 text-emerald-700" /> Onboard Organization
           </Button>
         </div>
       </div>
 
       {/* Quotas & Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3">
-          <div className="flex justify-between items-center text-xs text-slate-500 font-semibold">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+          <div className="flex justify-between items-center text-xs text-slate-600 font-semibold">
             <span className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> AI DESIGN QUOTA
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" /> AI DESIGN QUOTA
             </span>
-            <span className="text-amber-400 font-mono font-bold">{sub.ai_generations_used} / {sub.max_ai_generations}</span>
+            <span className="text-emerald-700 font-mono font-bold">{sub.ai_generations_used} / {sub.max_ai_generations}</span>
           </div>
-          <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+          <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
             <div 
-              className="h-full bg-amber-500 transition-all duration-500"
+              className="h-full bg-emerald-600 transition-all duration-500"
               style={{ width: `${Math.min(100, (sub.ai_generations_used / sub.max_ai_generations) * 100)}%` }}
             ></div>
           </div>
           <p className="text-[11px] text-slate-500">Multi-variation card design generations used this billing cycle.</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3">
-          <div className="flex justify-between items-center text-xs text-slate-500 font-semibold">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+          <div className="flex justify-between items-center text-xs text-slate-600 font-semibold">
             <span className="flex items-center gap-1.5">
-              <Building2 className="w-3.5 h-3.5 text-emerald-400" /> CLIENT ORGANIZATIONS
+              <Building2 className="w-3.5 h-3.5 text-emerald-600" /> CLIENT ORGANIZATIONS
             </span>
-            <span className="text-emerald-400 font-mono font-bold">{organizations.length} / {sub.max_organizations}</span>
+            <span className="text-emerald-700 font-mono font-bold">{organizations.length} / {sub.max_organizations}</span>
           </div>
-          <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+          <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
             <div 
-              className="h-full bg-emerald-500 transition-all duration-500"
+              className="h-full bg-emerald-600 transition-all duration-500"
               style={{ width: `${Math.min(100, (organizations.length / sub.max_organizations) * 100)}%` }}
             ></div>
           </div>
           <p className="text-[11px] text-slate-500">Institutions managed under this tenant account.</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3">
-          <div className="flex justify-between items-center text-xs text-slate-500 font-semibold">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+          <div className="flex justify-between items-center text-xs text-slate-600 font-semibold">
             <span className="flex items-center gap-1.5">
-              <Printer className="w-3.5 h-3.5 text-indigo-400" /> PDF IMPOSITION RUNS
+              <Printer className="w-3.5 h-3.5 text-emerald-600" /> PDF IMPOSITION RUNS
             </span>
-            <span className="text-indigo-400 font-mono font-bold">{sub.pdf_generations_used} / {sub.max_pdf_generations}</span>
+            <span className="text-emerald-700 font-mono font-bold">{sub.pdf_generations_used} / {sub.max_pdf_generations}</span>
           </div>
-          <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+          <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
             <div 
-              className="h-full bg-indigo-500 transition-all duration-500"
+              className="h-full bg-emerald-600 transition-all duration-500"
               style={{ width: `${Math.min(100, (sub.pdf_generations_used / sub.max_pdf_generations) * 100)}%` }}
             ></div>
           </div>
@@ -207,11 +207,11 @@ export default function VendorDashboardPage() {
       </div>
 
       {/* Organizations Directory */}
-      <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden">
+      <div className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-slate-200 flex justify-between items-center">
           <div>
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-amber-400" /> Managed Client Organizations
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-emerald-700" /> Managed Client Organizations
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">Institutions whose ID card workflows are managed by your agency</p>
           </div>
@@ -219,7 +219,7 @@ export default function VendorDashboardPage() {
             size="sm"
             variant="ghost"
             onClick={() => setShowOrgModal(true)}
-            className="text-xs font-semibold text-amber-400 hover:text-amber-300 hover:bg-slate-800"
+            className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5 mr-1" /> New Organization
           </Button>
@@ -227,28 +227,28 @@ export default function VendorDashboardPage() {
 
         {organizations.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <Building2 className="w-10 h-10 mx-auto text-slate-600" />
+            <Building2 className="w-10 h-10 mx-auto text-slate-400" />
             <p className="text-slate-500 text-xs">No client organizations onboarded yet under your vendor account.</p>
             <Button
               onClick={() => setShowOrgModal(true)}
               size="sm"
-              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs"
+              className="bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs"
             >
               Add First Client Organization
             </Button>
           </div>
         ) : (
-          <div className="divide-y divide-slate-800">
+          <div className="divide-y divide-slate-100">
             {organizations.map((org) => (
-              <div key={org.id} className="p-4 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+              <div key={org.id} className="p-4 flex items-center justify-between hover:bg-slate-50/70 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center font-bold text-amber-400 border border-slate-300">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center font-bold text-emerald-700 border border-emerald-200">
                     {org.name.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-white">{org.name}</h3>
+                    <h3 className="text-sm font-semibold text-slate-900">{org.name}</h3>
                     <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-                      <span className="font-mono text-amber-400/80">{org.org_id}</span>
+                      <span className="font-mono text-emerald-700 font-semibold">{org.org_id}</span>
                       <span>&bull;</span>
                       <span>{org.org_type}</span>
                       {org.city && <span>&bull; {org.city}, {org.state}</span>}
@@ -257,12 +257,12 @@ export default function VendorDashboardPage() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <Button asChild size="sm" variant="outline" className="text-xs text-amber-400 border-amber-500/30 hover:bg-amber-500/10">
+                  <Button asChild size="sm" variant="outline" className="text-xs text-emerald-700 border-emerald-300 hover:bg-emerald-50">
                     <Link href={`/vendor/ai-studio?org_id=${org.id}`}>
                       <Sparkles className="w-3 h-3 mr-1" /> AI Studio
                     </Link>
                   </Button>
-                  <Button asChild size="sm" variant="ghost" className="text-xs text-slate-700 hover:bg-slate-800">
+                  <Button asChild size="sm" variant="ghost" className="text-xs text-slate-700 hover:bg-slate-100">
                     <Link href={`/organization/students`}>
                       Open Workspace <ExternalLink className="w-3 h-3 ml-1" />
                     </Link>
@@ -280,8 +280,8 @@ export default function VendorDashboardPage() {
           <div className="w-full max-w-lg bg-white border border-slate-200 rounded-2xl p-6 shadow-2xl space-y-5 animate-in fade-in-50 zoom-in-95">
             <div className="flex justify-between items-center border-b border-slate-200 pb-3">
               <div>
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-amber-400" /> Onboard Client Organization
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Building2 className="w-4 h-4 text-emerald-700" /> Onboard Client Organization
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5">Provisions an isolated tenant workspace</p>
               </div>
@@ -289,7 +289,7 @@ export default function VendorDashboardPage() {
                 variant="ghost" 
                 size="icon" 
                 onClick={() => setShowOrgModal(false)}
-                className="h-8 w-8 text-slate-500 hover:text-white hover:bg-slate-800"
+                className="h-8 w-8 text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </Button>
@@ -297,24 +297,24 @@ export default function VendorDashboardPage() {
 
             <form onSubmit={handleCreateOrg} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1">Organization Name *</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Organization Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Apex High School"
                   value={newOrg.name}
                   onChange={(e) => setNewOrg({ ...newOrg, name: e.target.value })}
-                  className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-amber-500"
+                  className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">Type *</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Type *</label>
                   <select
                     value={newOrg.org_type}
                     onChange={(e) => setNewOrg({ ...newOrg, org_type: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="School">School</option>
                     <option value="College">College</option>
@@ -325,87 +325,87 @@ export default function VendorDashboardPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">Short Code</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Short Code</label>
                   <input
                     type="text"
                     placeholder="e.g. APEX"
                     value={newOrg.short_name}
                     onChange={(e) => setNewOrg({ ...newOrg, short_name: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">City</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">City</label>
                   <input
                     type="text"
                     value={newOrg.city}
                     onChange={(e) => setNewOrg({ ...newOrg, city: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">State</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">State</label>
                   <input
                     type="text"
                     value={newOrg.state}
                     onChange={(e) => setNewOrg({ ...newOrg, state: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                    className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
 
               <div className="pt-3 border-t border-slate-200">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block mb-2">
                   Client Admin Account
                 </span>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 mb-1">Admin Full Name *</label>
+                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">Admin Full Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="Principal / Director"
                       value={newOrg.admin_name}
                       onChange={(e) => setNewOrg({ ...newOrg, admin_name: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                      className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 mb-1">Admin Email *</label>
+                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">Admin Email *</label>
                     <input
                       type="email"
                       required
                       placeholder="admin@school.com"
                       value={newOrg.admin_email}
                       onChange={(e) => setNewOrg({ ...newOrg, admin_email: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                      className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 mt-3">
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 mb-1">Username *</label>
+                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">Username *</label>
                     <input
                       type="text"
                       required
                       placeholder="apex_admin"
                       value={newOrg.admin_username}
                       onChange={(e) => setNewOrg({ ...newOrg, admin_username: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                      className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 mb-1">Initial Password *</label>
+                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">Initial Password *</label>
                     <input
                       type="password"
                       required
                       value={newOrg.admin_password}
                       onChange={(e) => setNewOrg({ ...newOrg, admin_password: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-amber-500"
+                      className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
@@ -415,7 +415,7 @@ export default function VendorDashboardPage() {
                 <Button
                   type="submit"
                   disabled={creating}
-                  className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs"
+                  className="flex-1 bg-[#15803D] hover:bg-[#14532D] text-white font-bold text-xs cursor-pointer shadow-sm"
                 >
                   {creating ? "Provisioning Tenant..." : "Create Tenant Workspace"}
                 </Button>
@@ -423,7 +423,7 @@ export default function VendorDashboardPage() {
                   type="button"
                   variant="outline"
                   onClick={() => setShowOrgModal(false)}
-                  className="text-xs text-slate-700 border-slate-300 hover:bg-slate-800"
+                  className="text-xs text-slate-700 border-slate-300 hover:bg-slate-100 cursor-pointer"
                 >
                   Cancel
                 </Button>

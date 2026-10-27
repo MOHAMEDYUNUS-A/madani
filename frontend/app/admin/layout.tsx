@@ -3,16 +3,19 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
 import { api } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { 
-  Printer, 
   Building2, 
-  Sparkles, 
-  Building, 
+  Factory, 
+  Layers, 
+  TrendingUp, 
+  ShieldCheck, 
   LogOut, 
-  ShieldCheck,
-  ChevronRight 
+  ChevronRight,
+  Menu,
+  X
 } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -20,6 +23,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     api.getMe()
@@ -46,103 +50,140 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   };
 
+  const menuItems = [
+    { name: "Production Command", path: "/admin/production", icon: Factory },
+    { name: "Vendor Management", path: "/admin/vendors", icon: Building2 },
+    { name: "All Orders & Fulfillment", path: "/admin/orders", icon: Layers },
+    { name: "Business Analytics", path: "/admin/analytics", icon: TrendingUp },
+    { name: "Global Audit Trail", path: "/admin/audit", icon: ShieldCheck },
+  ];
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 text-slate-800 flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 text-xs font-semibold tracking-wider uppercase">Authenticating Super Admin...</p>
+          <div className="w-10 h-10 border-4 border-[#14532D] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-slate-600 text-sm font-semibold tracking-wider uppercase">Loading Admin Console...</p>
         </div>
       </div>
     );
   }
 
-  const navItems = [
-    { name: "Production & Fulfillment", path: "/admin/production", icon: Printer },
-    { name: "Vendor Management & Tiers", path: "/admin/vendors", icon: Building2 },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#F7F9FC] text-[#172033] flex font-sans antialiased selection:bg-indigo-100 selection:text-indigo-900">
-      {/* Super Admin Executive Light Sidebar */}
-      <aside className="w-64 border-r border-[#E2E8F0] bg-white flex flex-col justify-between shrink-0 shadow-xs z-10">
-        <div>
-          {/* Header */}
-          <div className="h-16 border-b border-[#E2E8F0] flex items-center gap-3 px-6 bg-white">
-            <div className="w-8 h-8 rounded-xl bg-[#4F46E5] flex items-center justify-center font-extrabold text-white text-xs shadow-md shadow-indigo-500/20">
-              <ShieldCheck className="w-4 h-4" />
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col md:flex-row font-sans antialiased">
+      {/* Mobile Top Bar */}
+      <div className="md:hidden h-16 bg-white border-b border-slate-200 px-4 flex items-center justify-between sticky top-0 z-40 shadow-xs">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-emerald-300">
+            <Image 
+              src="/madani_enterprises_app_icon.png" 
+              alt="Madani Enterprises" 
+              width={32} 
+              height={32} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <span className="font-extrabold text-sm tracking-tight text-[#14532D] uppercase">
+            Super Admin
+          </span>
+        </div>
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100"
+          aria-label="Toggle navigation menu"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <aside className={`
+        ${mobileMenuOpen ? "fixed inset-y-0 left-0 z-50 w-72 flex" : "hidden"} 
+        md:flex md:w-64 border-r border-slate-200 bg-white flex-col justify-between shrink-0 shadow-xs md:sticky md:top-0 md:h-screen
+      `}>
+        <div className="overflow-y-auto">
+          {/* Logo / Header */}
+          <div className="h-16 flex items-center justify-between px-5 border-b border-slate-200 bg-white">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 border border-emerald-300 shadow-sm">
+                <Image 
+                  src="/madani_enterprises_app_icon.png" 
+                  alt="Madani Enterprises" 
+                  width={36} 
+                  height={36} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="font-extrabold tracking-tight text-sm text-[#14532D] block uppercase leading-none">
+                  Madani Admin
+                </span>
+                <span className="text-[11px] text-[#15803D] font-bold uppercase tracking-wider mt-1 block">
+                  Super Admin Console
+                </span>
+              </div>
             </div>
-            <div>
-              <span className="font-extrabold tracking-tight text-xs text-[#172033] uppercase block leading-none">
+            {mobileMenuOpen && (
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="md:hidden p-1 text-slate-500 hover:text-slate-900"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+
+          {/* Account Context Banner */}
+          <div className="p-4 border-b border-slate-200 bg-emerald-50/40">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Console Context</span>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#14532D] text-white">
                 Super Admin
               </span>
-              <span className="text-[10px] text-[#4F46E5] font-bold uppercase tracking-wider mt-0.5 block">
-                Command Console
-              </span>
+            </div>
+            <div className="text-slate-900 font-extrabold text-sm truncate">
+              {user?.full_name || "Super Administrator"}
             </div>
           </div>
 
-          {/* Admin Tag */}
-          <div className="p-4 border-b border-[#E2E8F0] bg-[#F1F5F9]/50">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Clearance</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-[#4F46E5] border border-indigo-100">
-                Full Root
-              </span>
-            </div>
-            <div className="text-[#172033] font-bold text-xs truncate">{user?.email}</div>
-          </div>
-
-          {/* Navigation */}
-          <nav className="p-3 space-y-1">
-            {navItems.map((item) => {
-              const active = pathname.startsWith(item.path);
+          {/* Nav Links */}
+          <nav className="p-3 space-y-1.5">
+            {menuItems.map((item) => {
+              const active = pathname === item.path || (item.path !== "/admin/production" && pathname.startsWith(item.path));
               const Icon = item.icon;
               return (
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold transition-all ${
                     active
-                      ? "bg-[#4F46E5] text-white shadow-sm shadow-indigo-500/20 font-bold"
-                      : "text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#172033]"
+                      ? "bg-[#14532D] text-white font-bold shadow-sm"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <Icon className="w-4 h-4 shrink-0" />
                     <span>{item.name}</span>
                   </div>
-                  {active && <ChevronRight className="w-3.5 h-3.5 text-white/80" />}
+                  {active && <ChevronRight className="w-4 h-4 text-white/90" />}
                 </Link>
               );
             })}
           </nav>
         </div>
 
-        {/* Footer Actions */}
-        <div className="p-4 border-t border-[#E2E8F0] space-y-2 bg-white">
-          <Link
-            href="/vendor"
-            className="flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-100 text-xs font-semibold transition-all"
-          >
-            <Sparkles className="w-3.5 h-3.5" /> Vendor Studio Portal
-          </Link>
-          <Link
-            href="/organization/students"
-            className="flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-white hover:bg-slate-50 text-[#172033] border border-[#E2E8F0] text-xs font-semibold transition-all shadow-2xs"
-          >
-            <Building className="w-3.5 h-3.5" /> Organization Portal
-          </Link>
-
-          <div className="pt-2 flex items-center justify-between">
-            <div className="text-[10px] text-[#64748B] truncate font-medium">
+        {/* Footer Actions - clean without cross-portal overlap */}
+        <div className="p-4 border-t border-slate-200 bg-white">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-bold text-slate-800 truncate">
               {user?.full_name || "Super Admin"}
             </div>
             <button
               onClick={handleLogout}
-              className="text-xs text-[#DC2626] hover:text-red-700 font-semibold transition-all flex items-center gap-1 cursor-pointer"
+              className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <LogOut className="w-3.5 h-3.5" /> Logout
+              <LogOut className="w-4 h-4" /> Sign Out
             </button>
           </div>
         </div>
@@ -150,21 +191,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main Container */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 border-b border-slate-200 bg-white/80 flex items-center justify-between px-8 shrink-0 backdrop-blur-sm">
+        <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center justify-between px-8 shrink-0">
           <div className="flex items-center gap-3">
-            <Badge variant="purple" className="bg-purple-100 text-purple-800 border-purple-200">
-              Cross-Tenant Governance Active
+            <Badge className="bg-emerald-50 text-[#14532D] border-emerald-200 text-xs font-bold">
+              Central Production Engine Active
             </Badge>
           </div>
           <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
-            <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-              CENTRAL AUDIT ENGINE ACTIVE
+            <span className="flex items-center gap-1.5 font-semibold">
+              <span className="w-2 h-2 rounded-full bg-[#15803D] animate-pulse"></span>
+              ENTERPRISE PLATFORM GOVERNANCE
             </span>
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-8 bg-slate-50/70">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#F8FAFC]">
           {children}
         </main>
       </div>

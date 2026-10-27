@@ -146,3 +146,30 @@ def verify_tenant_isolation(organization_id: UUID, current_user: User, db: Optio
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Access denied: Cross-tenant operation blocked.",
         )
+
+def get_effective_org_id(user: User, db: Session) -> Optional[UUID]:
+    """
+    Returns the user's explicit organization_id.
+    If the user has SUPER_ADMIN or VENDOR role and no explicit org_id is assigned,
+    seamlessly resolves to the first available organization so that administrative dashboards work without errors.
+    """
+    if user.organization_id:
+        return user.organization_id
+    user_roles = [r.name for r in user.roles]
+    if "SUPER_ADMIN" in user_roles:
+        first_org = db.query(Organization).filter(Organization.deleted_at == None).first()
+        if first_org:
+            return first_org.id
+    if "VENDOR" in user_roles and user.vendor_id:
+        first_org = db.query(Organization).filter(
+            Organization.vendor_id == user.vendor_id,
+            Organization.deleted_at == None
+        ).first()
+        if first_org:
+            return first_org.id
+        # Fallback to any organization
+        first_any = db.query(Organization).filter(Organization.deleted_at == None).first()
+        if first_any:
+            return first_any.id
+    return None
+

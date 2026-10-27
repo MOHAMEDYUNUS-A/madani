@@ -5,7 +5,7 @@ from uuid import UUID
 from datetime import datetime
 
 from app.core.database import get_db
-from app.auth.dependencies import get_current_org_staff, verify_tenant_isolation, get_current_org_member, get_current_org_admin
+from app.auth.dependencies import get_current_org_staff, verify_tenant_isolation, get_current_org_member, get_current_org_admin, get_effective_org_id
 from app.models.user import User
 from app.models.member import Member, Department
 from app.models.organization import Organization
@@ -28,11 +28,12 @@ def list_members(
     current_user: User = Depends(get_current_org_member),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     query = db.query(Member).filter(
-        Member.organization_id == current_user.organization_id,
+        Member.organization_id == org_id,
         Member.deleted_at == None
     )
 
@@ -123,12 +124,13 @@ def create_member(
     current_user: User = Depends(get_current_org_staff),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     # Duplicate check within tenant
     duplicate = db.query(Member).filter(
-        Member.organization_id == current_user.organization_id,
+        Member.organization_id == org_id,
         Member.member_id == payload.member_id,
         Member.deleted_at == None
     ).first()
@@ -143,7 +145,7 @@ def create_member(
     if payload.department_id:
         dept = db.query(Department).filter(
             Department.id == payload.department_id,
-            Department.organization_id == current_user.organization_id
+            Department.organization_id == org_id
         ).first()
         if not dept:
             raise HTTPException(status_code=400, detail="Invalid department_id specified.")
@@ -157,7 +159,7 @@ def create_member(
         target_class = current_user.assigned_class
 
     member = Member(
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         member_id=payload.member_id,
         admission_number=payload.admission_number,
         name=payload.name,
@@ -352,13 +354,14 @@ def import_members_bulk(
     current_user: User = Depends(get_current_org_staff),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     df = ImportService.parse_excel_or_csv(file)
     summary = ImportService.import_members_task(
         db=db,
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         df=df,
         user_id=current_user.id
     )
@@ -370,7 +373,8 @@ def import_photos_zip(
     current_user: User = Depends(get_current_org_staff),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     if not file.filename.lower().endswith(".zip"):
@@ -378,7 +382,7 @@ def import_photos_zip(
 
     result = ImportService.match_zip_photos(
         db=db,
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         zip_file=file,
         user_id=current_user.id
     )
@@ -390,9 +394,10 @@ def get_departments(
     current_user: User = Depends(get_current_org_member),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
-    return db.query(Department).filter(Department.organization_id == current_user.organization_id).all()
+    return db.query(Department).filter(Department.organization_id == org_id).all()
 
 from pydantic import BaseModel
 

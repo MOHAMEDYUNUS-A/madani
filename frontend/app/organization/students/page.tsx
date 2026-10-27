@@ -503,8 +503,13 @@ export default function StudentsPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const depts = await api.getDepartments();
-      setDepartments(depts);
+      try {
+        const depts = await api.getDepartments();
+        setDepartments(depts || []);
+      } catch (deptErr) {
+        console.warn("Could not load departments", deptErr);
+        setDepartments([]);
+      }
 
       // Fetch list based on active workflow tab
       const res = await api.getMembers({
@@ -515,22 +520,28 @@ export default function StudentsPage() {
         status: activeTab,
         has_photo: photoFilter === "yes" ? true : photoFilter === "no" ? false : undefined
       });
-      setMembers(res.results);
-      setTotalPages(res.pages);
-      setTotalCount(res.total);
+      setMembers(res?.results || []);
+      setTotalPages(res?.pages || 1);
+      setTotalCount(res?.total || 0);
 
       // Load counts for top stats summary
-      const approvedList = await api.getMembers({ limit: 1, status: "APPROVED" });
-      const pendingList = await api.getMembers({ limit: 1, status: "PENDING" });
-      const draftList = await api.getMembers({ limit: 1, status: "DRAFT" });
-      const rejectedList = await api.getMembers({ limit: 1, status: "REJECTED" });
-      
-      setStats({
-        total: approvedList.total + pendingList.total + draftList.total + rejectedList.total,
-        pending: pendingList.total,
-        approved: approvedList.total,
-        rejected: rejectedList.total
-      });
+      try {
+        const [approvedList, pendingList, draftList, rejectedList] = await Promise.all([
+          api.getMembers({ limit: 1, status: "APPROVED" }).catch(() => ({ total: 0 })),
+          api.getMembers({ limit: 1, status: "PENDING" }).catch(() => ({ total: 0 })),
+          api.getMembers({ limit: 1, status: "DRAFT" }).catch(() => ({ total: 0 })),
+          api.getMembers({ limit: 1, status: "REJECTED" }).catch(() => ({ total: 0 }))
+        ]);
+        
+        setStats({
+          total: (approvedList.total || 0) + (pendingList.total || 0) + (draftList.total || 0) + (rejectedList.total || 0),
+          pending: pendingList.total || 0,
+          approved: approvedList.total || 0,
+          rejected: rejectedList.total || 0
+        });
+      } catch (statsErr) {
+        console.warn("Could not load stats", statsErr);
+      }
     } catch (err) {
       console.error("Failed to load students", err);
     } finally {

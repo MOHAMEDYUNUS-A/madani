@@ -29,36 +29,40 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-white/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#4F46E5] flex items-center justify-center font-extrabold text-white shadow-md shadow-indigo-500/20 text-base">
-              M
+            <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 border border-emerald-300 shadow-sm">
+              <img 
+                src="/madani_enterprises_app_icon.png" 
+                alt="Madani Enterprises" 
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
-              <span className="font-extrabold tracking-tight text-sm text-[#172033] uppercase block leading-none">
+              <span className="font-extrabold tracking-tight text-sm text-[#14532D] uppercase block leading-none">
                 Madani ID Platform
               </span>
-              <span className="text-[10px] text-[#64748B] font-bold uppercase tracking-wider block mt-0.5">
+              <span className="text-[10px] text-[#15803D] font-bold uppercase tracking-wider block mt-0.5">
                 Enterprise ID & Production Cloud
               </span>
             </div>
           </div>
           
-          <nav className="hidden md:flex items-center gap-8 text-xs font-semibold text-[#64748B]">
-            <a href="#workflow" className="hover:text-[#4F46E5] transition-colors">How It Works</a>
-            <a href="#features" className="hover:text-[#4F46E5] transition-colors">Platform Capabilities</a>
-            <a href="#portals" className="hover:text-[#4F46E5] transition-colors">Role Portals</a>
-            <Link href="/verify" className="hover:text-[#4F46E5] transition-colors flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#059669]" /> QR Verification
+          <nav className="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-600">
+            <a href="#workflow" className="hover:text-[#15803D] transition-colors">How It Works</a>
+            <a href="#features" className="hover:text-[#15803D] transition-colors">Platform Capabilities</a>
+            <a href="#portals" className="hover:text-[#15803D] transition-colors">Role Portals</a>
+            <Link href="/verify" className="hover:text-[#15803D] transition-colors flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#15803D]" /> QR Verification
             </Link>
           </nav>
           
           <div className="flex items-center gap-3">
             <Link href="/login">
-              <Button variant="ghost" size="sm" className="text-xs font-semibold text-[#172033] hover:bg-[#F1F5F9]">
+              <Button variant="ghost" size="sm" className="text-xs font-semibold text-slate-700 hover:bg-slate-100">
                 Sign In
               </Button>
             </Link>
             <Link href="/register">
-              <Button size="sm" className="bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold rounded-xl shadow-xs">
+              <Button size="sm" className="bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold rounded-xl shadow-xs">
                 Register Institution
               </Button>
             </Link>
@@ -67,33 +71,33 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-16 pb-20 border-b border-[#E2E8F0] bg-gradient-to-b from-white to-[#F7F9FC]">
+      <section className="relative overflow-hidden pt-16 pb-20 border-b border-[#E2E8F0] bg-gradient-to-b from-white to-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#14532D] text-xs font-bold mb-6">
+            <Sparkles className="w-3.5 h-3.5 text-[#15803D]" />
             ENTERPRISE PVC ID CARD MANAGEMENT & PHYSICAL PRINT FULFILLMENT
           </div>
           
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#172033] mb-6 max-w-4xl leading-[1.15]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#14532D] mb-6 max-w-4xl leading-[1.15]">
             Unified ID Card Studio, Approvals &{" "}
-            <span className="text-[#4F46E5]">
+            <span className="text-[#15803D]">
               Physical Print Pipeline
             </span>
           </h1>
           
-          <p className="max-w-2xl text-[#64748B] text-sm sm:text-base mb-10 leading-relaxed font-normal">
-            Multi-role SaaS connecting <strong className="text-[#172033]">Super Admins</strong>, <strong className="text-[#172033]">Design Vendors</strong>, and <strong className="text-[#172033]">Schools & Universities</strong>. Generate branded concepts, collect student rosters, lock immutable snapshots, and dispatch verified PVC print runs.
+          <p className="max-w-2xl text-slate-600 text-sm sm:text-base mb-10 leading-relaxed font-normal">
+            Multi-role SaaS connecting <strong className="text-slate-900">Super Admins</strong>, <strong className="text-slate-900">Design Vendors</strong>, and <strong className="text-slate-900">Schools & Universities</strong>. Generate branded concepts, collect student rosters, lock immutable snapshots, and dispatch verified PVC print runs.
           </p>
           
           <div className="flex flex-wrap items-center justify-center gap-3 mb-14">
             <Link href="/login">
-              <Button size="lg" className="bg-[#4F46E5] hover:bg-[#4338CA] text-white text-xs font-bold px-7 h-11 rounded-xl shadow-md shadow-indigo-500/20 flex items-center gap-2">
+              <Button size="lg" className="bg-[#15803D] hover:bg-[#14532D] text-white text-xs font-bold px-7 h-11 rounded-xl shadow-md shadow-emerald-900/15 flex items-center gap-2">
                 Launch Platform Portal <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
             <Link href="/verify">
-              <Button variant="outline" size="lg" className="text-xs font-semibold px-6 h-11 border-[#E2E8F0] bg-white text-[#172033] hover:bg-[#F1F5F9] rounded-xl flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#059669]" /> Public QR Verification Demo
+              <Button variant="outline" size="lg" className="text-xs font-semibold px-6 h-11 border-slate-300 bg-white text-slate-800 hover:bg-slate-100 rounded-xl flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-[#15803D]" /> Public QR Verification Demo
               </Button>
             </Link>
           </div>

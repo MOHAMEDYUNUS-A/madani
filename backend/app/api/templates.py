@@ -5,7 +5,7 @@ from uuid import UUID
 from datetime import datetime
 
 from app.core.database import get_db
-from app.auth.dependencies import get_current_org_designer, get_current_org_member, verify_tenant_isolation
+from app.auth.dependencies import get_current_org_designer, get_current_org_member, verify_tenant_isolation, get_effective_org_id
 from app.models.user import User
 from app.models.template import Template, TemplateVersion
 from app.models.organization import Organization
@@ -19,10 +19,11 @@ def list_templates(
     current_user: User = Depends(get_current_org_member),
     db: Session = Depends(get_db)
 ):
+    org_id = get_effective_org_id(current_user, db)
     # Fetch global read-only templates (where organization_id IS NULL) + tenant-owned templates
     templates = db.query(Template).filter(
         (Template.organization_id == None) | 
-        (Template.organization_id == current_user.organization_id),
+        (Template.organization_id == org_id),
         Template.deleted_at == None
     ).all()
     return templates
@@ -33,12 +34,13 @@ def create_template(
     current_user: User = Depends(get_current_org_designer),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     # 1. Create base template
     template = Template(
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         name=payload.name,
         category=payload.category,
         card_width=payload.card_width,

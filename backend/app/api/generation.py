@@ -4,7 +4,7 @@ from uuid import UUID
 from typing import Dict, Any
 
 from app.core.database import get_db
-from app.auth.dependencies import get_current_org_staff, verify_tenant_isolation
+from app.auth.dependencies import get_current_org_staff, verify_tenant_isolation, get_effective_org_id
 from app.models.user import User
 from app.models.order import GeneratedBatch
 from app.schemas.order import GeneratedBatchOut, GeneratedBatchCreate
@@ -20,12 +20,13 @@ def trigger_generation(
     current_user: User = Depends(get_current_org_staff),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     # 1. Create Batch database record
     batch = GeneratedBatch(
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         template_version_id=payload.template_version_id,
         name=payload.name,
         status="Queued",

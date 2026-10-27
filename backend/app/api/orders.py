@@ -6,7 +6,7 @@ from typing import List, Dict, Any
 from datetime import datetime
 
 from app.core.database import get_db
-from app.auth.dependencies import get_current_org_staff, get_current_org_member, get_current_active_admin, verify_tenant_isolation
+from app.auth.dependencies import get_current_org_staff, get_current_org_member, get_current_active_admin, verify_tenant_isolation, get_effective_org_id
 from app.models.user import User
 from app.models.order import Order, OrderStatusHistory, GeneratedBatch, Payment
 from app.schemas.order import OrderOut, OrderCreate, OrderUpdateAdmin
@@ -29,11 +29,12 @@ def list_orders(
     if "SUPER_ADMIN" in user_roles:
         return db.query(Order).order_by(Order.created_at.desc()).all()
         
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     return db.query(Order).filter(
-        Order.organization_id == current_user.organization_id
+        Order.organization_id == org_id
     ).order_by(Order.created_at.desc()).all()
 
 @router.post("", response_model=OrderOut, status_code=status.HTTP_201_CREATED)
@@ -42,7 +43,8 @@ def create_order(
     current_user: User = Depends(get_current_org_staff),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id and "SUPER_ADMIN" not in [r.name for r in current_user.roles]:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id and "SUPER_ADMIN" not in [r.name for r in current_user.roles]:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     user_roles = [r.name for r in current_user.roles]
@@ -55,7 +57,7 @@ def create_order(
     # 1. Verify Batch belongs to user's organization and is completed
     batch = db.query(GeneratedBatch).filter(
         GeneratedBatch.id == payload.generated_batch_id,
-        GeneratedBatch.organization_id == current_user.organization_id
+        GeneratedBatch.organization_id == org_id
     ).first()
 
     if not batch:
@@ -90,7 +92,7 @@ def create_order(
 
     order = Order(
         order_id=order_id,
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         generated_batch_id=payload.generated_batch_id,
         status="Submitted",
         quantity=payload.quantity,

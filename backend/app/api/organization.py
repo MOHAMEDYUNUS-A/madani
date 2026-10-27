@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy.orm import Session
 from uuid import UUID
+from typing import Optional, List, Dict, Any
 
 from app.core.database import get_db
-from app.auth.dependencies import get_current_org_admin, verify_tenant_isolation, get_current_org_member
+from app.auth.dependencies import get_current_org_admin, verify_tenant_isolation, get_current_org_member, get_effective_org_id
 from app.models.user import User
 from app.models.organization import Organization, OrganizationBranding
 from app.schemas.organization import OrganizationOut, OrganizationUpdate, BrandingOut, BrandingUpdate
@@ -17,11 +18,12 @@ def get_my_organization(
     current_user: User = Depends(get_current_org_member),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
         
     organization = db.query(Organization).filter(
-        Organization.id == current_user.organization_id,
+        Organization.id == org_id,
         Organization.deleted_at == None
     ).first()
     
@@ -36,11 +38,12 @@ def update_my_organization(
     current_user: User = Depends(get_current_org_admin),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
         
     organization = db.query(Organization).filter(
-        Organization.id == current_user.organization_id,
+        Organization.id == org_id,
         Organization.deleted_at == None
     ).first()
     
@@ -76,11 +79,12 @@ def get_my_branding(
     current_user: User = Depends(get_current_org_member),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
         
     branding = db.query(OrganizationBranding).filter(
-        OrganizationBranding.organization_id == current_user.organization_id
+        OrganizationBranding.organization_id == org_id
     ).first()
     
     if not branding:
@@ -94,11 +98,12 @@ def update_my_branding(
     current_user: User = Depends(get_current_org_admin),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
         
     branding = db.query(OrganizationBranding).filter(
-        OrganizationBranding.organization_id == current_user.organization_id
+        OrganizationBranding.organization_id == org_id
     ).first()
     
     if not branding:
@@ -120,7 +125,7 @@ def update_my_branding(
         entity="organization_branding",
         entity_id=branding.id,
         user_id=current_user.id,
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         old_values=old_vals,
         new_values=new_vals
     )
@@ -134,14 +139,15 @@ def upload_branding_logo(
     current_user: User = Depends(get_current_org_admin),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
         
     if logo_type not in ["primary", "secondary", "favicon"]:
         raise HTTPException(status_code=400, detail="Invalid logo_type. Must be 'primary', 'secondary' or 'favicon'.")
         
-    organization = db.query(Organization).filter(Organization.id == current_user.organization_id).first()
-    branding = db.query(OrganizationBranding).filter(OrganizationBranding.organization_id == current_user.organization_id).first()
+    organization = db.query(Organization).filter(Organization.id == org_id).first()
+    branding = db.query(OrganizationBranding).filter(OrganizationBranding.organization_id == org_id).first()
     
     if not branding:
         raise HTTPException(status_code=404, detail="Branding configurations not found.")
@@ -211,17 +217,18 @@ def list_classes(
     current_user: User = Depends(get_current_org_member),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     classes = db.query(OrganizationClass).filter(
-        OrganizationClass.organization_id == current_user.organization_id
+        OrganizationClass.organization_id == org_id
     ).order_by(OrganizationClass.name.asc()).all()
 
     # Also discover any distinct class names already present in members that haven't been added to organization_classes yet
     existing_names = {c.name for c in classes}
     member_classes = db.query(Member.class_name).filter(
-        Member.organization_id == current_user.organization_id,
+        Member.organization_id == org_id,
         Member.deleted_at == None,
         Member.class_name != None
     ).distinct().all()
@@ -229,7 +236,7 @@ def list_classes(
     for (mc_name,) in member_classes:
         if mc_name and mc_name not in existing_names:
             new_cls = OrganizationClass(
-                organization_id=current_user.organization_id,
+                organization_id=org_id,
                 name=mc_name,
                 is_active=True
             )
@@ -242,13 +249,13 @@ def list_classes(
     out = []
     for c in classes:
         student_count = db.query(Member).filter(
-            Member.organization_id == current_user.organization_id,
+            Member.organization_id == org_id,
             Member.class_name == c.name,
             Member.deleted_at == None
         ).count()
 
         assigned_staff_users = db.query(User.full_name).filter(
-            User.organization_id == current_user.organization_id,
+            User.organization_id == org_id,
             User.assigned_class == c.name,
             User.deleted_at == None
         ).all()
@@ -273,11 +280,12 @@ def create_class(
     current_user: User = Depends(get_current_org_admin),
     db: Session = Depends(get_db)
 ):
-    if not current_user.organization_id:
+    org_id = get_effective_org_id(current_user, db)
+    if not org_id:
         raise HTTPException(status_code=400, detail="User does not belong to any organization.")
 
     existing = db.query(OrganizationClass).filter(
-        OrganizationClass.organization_id == current_user.organization_id,
+        OrganizationClass.organization_id == org_id,
         OrganizationClass.name == payload.name.strip()
     ).first()
 
@@ -285,7 +293,7 @@ def create_class(
         raise HTTPException(status_code=400, detail=f"Class '{payload.name}' already exists in your organization.")
 
     new_class = OrganizationClass(
-        organization_id=current_user.organization_id,
+        organization_id=org_id,
         name=payload.name.strip(),
         section=payload.section.strip() if payload.section else None,
         description=payload.description,

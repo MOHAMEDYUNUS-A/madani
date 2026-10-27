@@ -15,8 +15,13 @@ const geistMono = Geist_Mono({
 import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
-  title: "Madani ID Platform | AI-Powered ID Card Management & Production",
+  title: "Madani ID Platform | Madani Enterprises",
   description: "Enterprise multi-tenant platform for AI design studio, CR80 badge creation, batch PDF imposition, and physical print production.",
+  icons: {
+    icon: "/madani_enterprises_app_icon.png",
+    shortcut: "/madani_enterprises_app_icon.png",
+    apple: "/madani_enterprises_app_icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
