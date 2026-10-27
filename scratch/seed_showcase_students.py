@@ -1,7 +1,14 @@
 import sys
-sys.path.insert(0, r"c:\Users\niran\Desktop\Madani\backend")
+from pathlib import Path
+
+# Automatically add backend directory to sys.path
+backend_dir = Path(__file__).resolve().parent.parent / "backend"
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
 import uuid
 from datetime import date
+
 from app.core.database import SessionLocal
 from app.models.user import User
 from app.models.organization import Organization, OrganizationClass
