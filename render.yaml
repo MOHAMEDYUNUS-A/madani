@@ -51,7 +51,7 @@ services:
     rootDir: frontend
     plan: free
     region: oregon
-    buildCommand: "npm install --legacy-peer-deps && npm run build"
+    buildCommand: "npm install --include=dev --legacy-peer-deps && npm run build"
     startCommand: "npm start"
     autoDeploy: true
     envVars:
@@ -60,7 +60,4 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: madani-backend
-          property: host
+        value: "https://madani-backend.onrender.com"
