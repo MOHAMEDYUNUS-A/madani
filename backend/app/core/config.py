@@ -1,6 +1,7 @@
 import os
 from typing import Optional
 from pathlib import Path
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Compute portable fallback storage directory
@@ -26,6 +27,16 @@ class Settings(BaseSettings):
     EMAIL_API_KEY: Optional[str] = None
     PAYMENT_API_KEY: Optional[str] = None
     ENV: str = "development"
+
+    @model_validator(mode="after")
+    def validate_production_security(self) -> "Settings":
+        if self.ENV == "production" and self.JWT_SECRET == "supersecretjwtsecretkeychangeinproduction12345!":
+            raise ValueError(
+                "CRITICAL SECURITY CONFIGURATION ERROR: "
+                "Default development JWT_SECRET cannot be used when ENV=production. "
+                "Set a secure, high-entropy JWT_SECRET in production environment."
+            )
+        return self
 
     model_config = SettingsConfigDict(
         env_file=os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".env"),

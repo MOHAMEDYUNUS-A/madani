@@ -124,7 +124,7 @@ def login(payload: LoginRequest, response: Response, db: Session = Depends(get_d
         httponly=True,
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         samesite="lax",
-        secure=False, # Set to True in production with HTTPS
+        secure=(settings.ENV == "production"),
     )
 
     # Log login audit
@@ -246,7 +246,7 @@ def activate_vendor_account(
         httponly=True,
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         samesite="lax",
-        secure=False
+        secure=(settings.ENV == "production"),
     )
 
     return {
@@ -304,7 +304,7 @@ def activate_org_admin_account(
         httponly=True,
         max_age=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         samesite="lax",
-        secure=False
+        secure=(settings.ENV == "production"),
     )
 
     return {

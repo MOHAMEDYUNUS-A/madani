@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Test reports and browser binaries
+playwright-report/
+test-results/
+.last-run.json
+coverage/
+
+# Environment files and credentials
+.env
+.env*.local
+*.env
+
+# IDE and OS files
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

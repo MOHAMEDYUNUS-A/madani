@@ -172,7 +172,7 @@ export default function DesignReviewPage() {
             <Palette className="w-6 h-6 text-[#15803D]" /> Vendor Design Concepts Review
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Compare vendor-created ID card design concepts side by side. Inspect realistic 3D front &amp; back surfaces, approve your school's official template, or request revisions.
+            Compare vendor-created ID card design concepts side by side. Inspect realistic 3D front &amp; back surfaces, approve your school&apos;s official template, or request revisions.
           </p>
         </div>
 

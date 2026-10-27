@@ -81,9 +81,13 @@ export interface ProductionMetricsSummary {
   };
 }
 
-const API_BASE_URL = typeof window !== "undefined" && (window.location.port === "3001" || window.location.port === "8001" || window.location.href.includes(":3001"))
-  ? "http://localhost:8001"
-  : "http://localhost:8000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL !== undefined
+  ? process.env.NEXT_PUBLIC_API_URL
+  : typeof window !== "undefined" && !window.location.hostname.includes("localhost") && !window.location.hostname.includes("127.0.0.1")
+    ? "" // Production: relative path works on any domain or reverse proxy
+    : typeof window !== "undefined" && (window.location.port === "3001" || window.location.port === "8001" || window.location.href.includes(":3001"))
+      ? "http://localhost:8001"
+      : "http://localhost:8000";
 
 export class APIError extends Error {
   status?: number;

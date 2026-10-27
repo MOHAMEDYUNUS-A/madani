@@ -349,7 +349,7 @@ function DesignerContent() {
 
   const handleAddElement = (type: string) => {
     const newId = `el-${Date.now()}`;
-    let newEl: any = {
+    const newEl: any = {
       id: newId,
       type,
       x: 30,
