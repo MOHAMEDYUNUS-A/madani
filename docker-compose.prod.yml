@@ -1,0 +1,158 @@
+version: '3.8'
+
+networks:
+  madani_prod_net:
+    driver: bridge
+
+volumes:
+  pgdata_prod:
+  shared_storage_prod:
+  nginx_logs:
+
+services:
+  gateway:
+    image: nginx:1.25-alpine
+    container_name: madani_gateway
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      # - "443:443" # Uncomment when SSL certs mounted
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_started
+    networks:
+      - madani_prod_net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+  db:
+    image: postgres:15-alpine
+    container_name: madani_db_prod
+    restart: unless-stopped
+    # Internal only: ports are not exposed to public host
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-madani_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeThisStrongSecretInProd!}
+      POSTGRES_DB: ${POSTGRES_DB:-madani_production}
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+    networks:
+      - madani_prod_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-madani_admin} -d ${POSTGRES_DB:-madani_production}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+  redis:
+    image: redis:7-alpine
+    container_name: madani_redis_prod
+    restart: unless-stopped
+    # Internal only: ports are not exposed to public host
+    networks:
+      - madani_prod_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: madani_backend_prod
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-madani_admin}:${POSTGRES_PASSWORD:-ChangeThisStrongSecretInProd!}@db:5432/${POSTGRES_DB:-madani_production}
+      - REDIS_URL=redis://redis:6379/0
+      - STORAGE_MODE=local
+      - STORAGE_DIR=/app/storage
+      - SECRET_KEY=${SECRET_KEY:-prod-secret-key-replace-with-openssl-rand-hex-32}
+      - ENVIRONMENT=production
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost,https://app.madani-id.com}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - shared_storage_prod:/app/storage
+    networks:
+      - madani_prod_net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: madani_worker_prod
+    restart: unless-stopped
+    command: celery -A app.workers.tasks.celery_app worker --loglevel=info -c 4
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-madani_admin}:${POSTGRES_PASSWORD:-ChangeThisStrongSecretInProd!}@db:5432/${POSTGRES_DB:-madani_production}
+      - REDIS_URL=redis://redis:6379/0
+      - STORAGE_MODE=local
+      - STORAGE_DIR=/app/storage
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - shared_storage_prod:/app/storage
+    networks:
+      - madani_prod_net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: madani_frontend_prod
+    restart: unless-stopped
+    environment:
+      - NEXT_PUBLIC_API_URL=/api
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - madani_prod_net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"

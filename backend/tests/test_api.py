@@ -680,5 +680,54 @@ def test_production_command_center_and_metrics():
     assert "total_classes" in org_metrics
     assert "total_students" in org_metrics
 
+def test_health_and_observability_endpoints():
+    client = TestClient(app)
+    # 1. Root health probe
+    res_root = client.get("/health")
+    assert res_root.status_code == 200
+    data_root = res_root.json()
+    assert data_root["status"] == "ok"
+    assert data_root["database"] == "healthy"
+    # SRE header verification
+    assert "x-request-id" in res_root.headers
+    assert "x-response-time-ms" in res_root.headers
 
+    # 2. API health probe
+    res_api = client.get("/api/health")
+    assert res_api.status_code == 200
+    data_api = res_api.json()
+    assert data_api["status"] == "ok"
+    assert "timestamp" in data_api
 
+def test_security_auth_validation_and_error_handling():
+    client = TestClient(app)
+    # 1. Unauthenticated request to protected endpoint
+    res_no_auth = client.get("/api/auth/me")
+    assert res_no_auth.status_code == 401
+
+    # 2. Invalid credentials login
+    res_bad_login = client.post("/api/auth/login", json={
+        "username": "non_existent_user_999",
+        "password": "WrongPassword999!"
+    })
+    assert res_bad_login.status_code == 401
+
+    # 3. Input validation: missing required fields on registration (422)
+    res_invalid_input = client.post("/api/auth/register", json={
+        "name": "Incomplete Payload School"
+        # missing admin_username, admin_password, etc.
+    })
+    assert res_invalid_input.status_code == 422
+
+    # 4. Invalid JWT token rejection
+    res_invalid_token = client.get("/api/auth/me", headers={"Authorization": "Bearer invalid.fake.token"})
+    assert res_invalid_token.status_code == 401
+
+    # 5. Valid Super Admin authentication
+    sa_login = client.post("/api/auth/login", json={"username": "superadmin", "password": "superpass123"})
+    assert sa_login.status_code == 200
+    sa_token = sa_login.json()["access_token"]
+    assert sa_token is not None
+    sa_me = client.get("/api/auth/me", headers={"Authorization": f"Bearer {sa_token}"})
+    assert sa_me.status_code == 200
+    assert "SUPER_ADMIN" in sa_me.json()["roles"]

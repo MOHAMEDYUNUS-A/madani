@@ -1,11 +1,17 @@
-from fastapi import FastAPI, Request, status
+from fastapi import FastAPI, Request, Response, status, Depends
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy.orm import Session
+from sqlalchemy import text
+from datetime import datetime, timezone
+import time
+import uuid
 import os
+import redis
 
 from app.core.config import settings
-from app.core.database import engine, Base
+from app.core.database import engine, Base, get_db
 from app.api import (
     auth, 
     organization, 
@@ -30,21 +36,28 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# CORS configuration
+# Dynamic CORS configuration
+allowed_origins = [origin.strip() for origin in settings.CORS_ORIGINS.split(",") if origin.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3001",
-        "http://localhost:3002",
-        "http://127.0.0.1:3002",
-    ],
+    allow_origins=allowed_origins or ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# SRE Observability: Request ID and Performance Timing Middleware
+@app.middleware("http")
+async def add_process_time_and_request_id(request: Request, call_next):
+    request_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))
+    start_time = time.time()
+    
+    response: Response = await call_next(request)
+    
+    process_time = (time.time() - start_time) * 1000
+    response.headers["X-Request-ID"] = request_id
+    response.headers["X-Response-Time-Ms"] = f"{process_time:.2f}"
+    return response
 
 # Exception handling to avoid leaking raw tracebacks to clients (Section 0.7)
 @app.exception_handler(Exception)
@@ -76,4 +89,69 @@ if settings.STORAGE_MODE == "local" and os.path.exists(settings.STORAGE_DIR):
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to Madani ID Platform API"}
+    return {"message": "Welcome to Madani ID Platform API", "version": app.version}
+
+@app.get("/health")
+@app.get("/api/health")
+def health_check(db: Session = Depends(get_db)):
+    """
+    Production Liveness & Readiness Probe
+    Verifies database and redis cache connectivity.
+    """
+    db_status = "healthy"
+    try:
+        db.execute(text("SELECT 1"))
+    except Exception as exc:
+        db_status = f"unhealthy: {str(exc)}"
+
+    redis_status = "disabled"
+    if settings.REDIS_URL:
+        try:
+            r = redis.from_url(settings.REDIS_URL, socket_timeout=1.0)
+            r.ping()
+            redis_status = "healthy"
+        except Exception:
+            redis_status = "unreachable"
+
+    is_healthy = db_status == "healthy"
+    status_code = status.HTTP_200_OK if is_healthy else status.HTTP_503_SERVICE_UNAVAILABLE
+
+    return JSONResponse(
+        status_code=status_code,
+        content={
+            "status": "ok" if is_healthy else "degraded",
+            "version": app.version,
+            "database": db_status,
+            "redis": redis_status,
+            "environment": settings.ENV,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+    )
+
+APP_START_TIME = time.time()
+
+@app.get("/metrics")
+def prometheus_metrics(db: Session = Depends(get_db)):
+    """
+    SRE Prometheus Infrastructure Metrics Endpoint
+    Exposes process uptime, DB connectivity gauge, and application version.
+    """
+    uptime = time.time() - APP_START_TIME
+    db_up = 1
+    try:
+        db.execute(text("SELECT 1"))
+    except Exception:
+        db_up = 0
+
+    metrics_text = (
+        f"# HELP madani_app_info Application build and version information\n"
+        f"# TYPE madani_app_info gauge\n"
+        f'madani_app_info{{version="{app.version}",environment="{settings.ENV}"}} 1\n\n'
+        f"# HELP madani_uptime_seconds Process uptime in seconds\n"
+        f"# TYPE madani_uptime_seconds counter\n"
+        f"madani_uptime_seconds {uptime:.2f}\n\n"
+        f"# HELP madani_database_up Database connection health status (1 = healthy, 0 = down)\n"
+        f"# TYPE madani_database_up gauge\n"
+        f"madani_database_up {db_up}\n"
+    )
+    return Response(content=metrics_text, media_type="text/plain; version=0.0.4; charset=utf-8")

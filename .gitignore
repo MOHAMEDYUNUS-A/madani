@@ -41,3 +41,10 @@ dist/
 # OS Files
 .DS_Store
 Thumbs.db
+
+# Test reports & backup archives
+frontend/test-results/
+frontend/playwright-report/
+backups/
+coverage.xml
+.coverage
