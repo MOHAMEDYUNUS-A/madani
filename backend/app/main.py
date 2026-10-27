@@ -11,7 +11,7 @@ import os
 import redis
 
 from app.core.config import settings
-from app.core.database import engine, Base, get_db
+from app.core.database import engine, Base, get_db, SessionLocal
 from app.api import (
     auth, 
     organization, 
