@@ -731,3 +731,34 @@ def test_security_auth_validation_and_error_handling():
     sa_me = client.get("/api/auth/me", headers={"Authorization": f"Bearer {sa_token}"})
     assert sa_me.status_code == 200
     assert "SUPER_ADMIN" in sa_me.json()["roles"]
+
+def test_database_transaction_rollback_on_failure():
+    """
+    Phase 3 Database Reliability:
+    Verifies that uncommitted transactions roll back cleanly upon failure,
+    preventing corrupted state or orphaned database rows.
+    """
+    db = TestingSessionLocal()
+    try:
+        initial_count = db.query(Organization).count()
+        
+        try:
+            faulty_org = Organization(
+                org_id=f"MAD-ROLLBACK-{uuid.uuid4().hex[:6]}",
+                name="Rollback Test School",
+                org_type="School"
+            )
+            db.add(faulty_org)
+            db.flush()
+            assert faulty_org.id is not None
+            
+            # Simulate unexpected failure prior to commit
+            raise RuntimeError("Simulated worker transaction fault")
+        except RuntimeError:
+            db.rollback()
+        
+        # Verify rollback preserved database state
+        after_count = db.query(Organization).count()
+        assert after_count == initial_count
+    finally:
+        db.close()
