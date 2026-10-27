@@ -264,12 +264,12 @@ export default function StaffDataEntryPage() {
           onClick={() => setStatusFilter("SUBMITTED")}
           className={`p-4 rounded-2xl border transition-all cursor-pointer ${
             statusFilter === "SUBMITTED" 
-              ? "bg-blue-50/60 border-blue-300 ring-2 ring-blue-500/20" 
+              ? "bg-emerald-50/70 border-emerald-300 ring-2 ring-emerald-500/20" 
               : "bg-white border-slate-200 hover:border-slate-300"
           }`}
         >
-          <div className="text-[11px] font-semibold text-blue-600 uppercase">Under Review</div>
-          <div className="text-xl font-bold text-blue-900 mt-1">{countSubmitted}</div>
+          <div className="text-[11px] font-semibold text-[#15803D] uppercase">Under Review</div>
+          <div className="text-xl font-bold text-[#14532D] mt-1">{countSubmitted}</div>
         </div>
 
         <div 

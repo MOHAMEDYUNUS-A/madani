@@ -204,7 +204,7 @@ export default function AdminVendorsPage() {
                             (v.plan_tier || "").toUpperCase() === "ENTERPRISE"
                               ? "bg-emerald-50 text-[#15803D] border border-emerald-200"
                               : (v.plan_tier || "").toUpperCase() === "PRO"
-                              ? "bg-blue-50 text-blue-700 border border-blue-200"
+                              ? "bg-emerald-100 text-[#14532D] border border-emerald-300"
                               : "bg-slate-100 text-slate-700 border border-slate-200"
                           }`}>
                             {v.plan_tier || "STARTER"}

@@ -404,7 +404,7 @@ export default function Card3DViewer({
             className="flex items-center gap-1 px-2.5 py-1 rounded-full text-slate-700 hover:text-slate-900 hover:bg-slate-100 font-semibold transition-all cursor-pointer"
             title="Flip between Front and Back (Space / Click)"
           >
-            <RotateCw className="w-3.5 h-3.5 text-indigo-600" />
+            <RotateCw className="w-3.5 h-3.5 text-emerald-700" />
             <span className="text-[11px]">{isFlipped ? "Show Front" : "Flip to Back"}</span>
           </button>
 

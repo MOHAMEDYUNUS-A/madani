@@ -53,7 +53,7 @@ export default function VendorProductionPage() {
         );
       case "Approved for Production":
         return (
-          <Badge variant="default" className="text-[10px] flex items-center gap-1 bg-blue-600 text-white">
+          <Badge variant="default" className="text-[10px] flex items-center gap-1 bg-[#15803D] text-white">
             <CheckCircle2 className="w-3 h-3" /> Production Approved
           </Badge>
         );

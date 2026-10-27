@@ -1,3 +1,4 @@
+# pyright: reportMissingImports=false
 import sys
 from pathlib import Path
 

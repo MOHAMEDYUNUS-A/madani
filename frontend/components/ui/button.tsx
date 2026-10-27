@@ -4,12 +4,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:pointer-events-none disabled:opacity-50 select-none active:scale-[0.98]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 disabled:pointer-events-none disabled:opacity-50 select-none active:scale-[0.98]",
   {
     variants: {
       variant: {
         default:
-          "bg-indigo-600 text-white shadow-md shadow-indigo-600/20 hover:bg-indigo-500",
+          "bg-[#15803D] text-white shadow-md shadow-emerald-700/20 hover:bg-[#14532D]",
         destructive:
           "bg-rose-600 text-white shadow-md shadow-rose-600/20 hover:bg-rose-500",
         outline:
@@ -19,11 +19,11 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100",
         link:
-          "text-indigo-600 underline-offset-4 hover:underline dark:text-indigo-400",
+          "text-[#15803D] underline-offset-4 hover:underline dark:text-emerald-400",
         amber:
           "bg-gradient-to-r from-amber-500 to-amber-600 text-black font-black shadow-md shadow-amber-500/20 hover:from-amber-400 hover:to-amber-500",
         emerald:
-          "bg-emerald-600 text-white shadow-md shadow-emerald-600/20 hover:bg-emerald-500",
+          "bg-[#15803D] text-white shadow-md shadow-emerald-700/20 hover:bg-[#14532D]",
       },
       size: {
         default: "h-10 px-4 py-2",

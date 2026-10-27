@@ -17,6 +17,7 @@ import {
   Menu,
   X
 } from "lucide-react";
+import { AppMenuBar } from "@/components/layout/AppMenuBar";
 
 export default function VendorLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -202,13 +203,12 @@ export default function VendorLayout({ children }: { children: React.ReactNode }
 
       {/* Main Container */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 border-b border-slate-200 bg-white hidden md:flex items-center px-8 shrink-0">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-slate-700 tracking-wide uppercase font-mono">
-              MADANI VENDOR STUDIO
-            </span>
-          </div>
-        </header>
+        <AppMenuBar 
+          portalTitle="Vendor Command Studio" 
+          roleBadge="Vendor Partner" 
+          user={user} 
+          onLogout={handleLogout} 
+        />
 
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#F8FAFC]">
           {children}
