@@ -31,25 +31,48 @@ from app.api import (
 Base.metadata.create_all(bind=engine)
 
 def init_default_admin():
-    from app.models.user import User
+    from app.models.user import User, Role
+    from app.models.vendor import SubscriptionPlan
     from app.core.security import get_password_hash
     db = SessionLocal()
     try:
-        admin_user = db.query(User).filter(User.username.in_(["superadmin", "admin"])).first()
-        if not admin_user:
-            new_admin = User(
+        # Ensure default roles exist
+        all_roles = ["SUPER_ADMIN", "VENDOR", "ORGANIZATION_ADMIN", "STAFF_ADMIN", "DATA_ENTRY_STAFF", "STAFF", "DESIGNER", "PRODUCTION_OPERATOR"]
+        for role_name in all_roles:
+            if not db.query(Role).filter(Role.name == role_name).first():
+                db.add(Role(name=role_name, description=f"{role_name} system role"))
+        db.commit()
+
+        # Ensure subscription plans exist
+        for slug, name in [("trial", "Free Trial"), ("starter", "Starter"), ("pro", "Pro"), ("enterprise", "Enterprise")]:
+            if not db.query(SubscriptionPlan).filter(SubscriptionPlan.slug == slug).first():
+                db.add(SubscriptionPlan(slug=slug, name=name, price_monthly=499.0))
+        db.commit()
+
+        # Ensure superadmin user exists with superpass123
+        super_role = db.query(Role).filter(Role.name == "SUPER_ADMIN").first()
+        sa = db.query(User).filter(User.username == "superadmin").first()
+        if not sa:
+            sa = User(
+                full_name="Platform Super Admin",
+                email="superadmin@madani.com",
                 username="superadmin",
-                email="admin@madani.com",
-                hashed_password=get_password_hash("admin123"),
-                role="superadmin",
+                password_hash=get_password_hash("superpass123"),
                 is_active=True
             )
-            db.add(new_admin)
+            if super_role:
+                sa.roles.append(super_role)
+            db.add(sa)
             db.commit()
-            print("[BOOTSTRAP] Initial superadmin account created: superadmin / admin123")
+            print("[BOOTSTRAP] Initial superadmin created: superadmin / superpass123")
+        else:
+            sa.password_hash = get_password_hash("superpass123")
+            if super_role and super_role not in sa.roles:
+                sa.roles.append(super_role)
+            db.commit()
     except Exception as exc:
         db.rollback()
-        print(f"[BOOTSTRAP] Note on startup seeding: {exc}")
+        print(f"[BOOTSTRAP] Seeding notice: {exc}")
     finally:
         db.close()
 
