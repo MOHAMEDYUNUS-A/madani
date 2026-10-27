@@ -30,6 +30,34 @@ from app.api import (
 # Proactively bind database tables (fallback when alembic migrations aren't run manually yet)
 Base.metadata.create_all(bind=engine)
 
+def init_default_admin():
+    from app.models.user import User
+    from app.core.security import get_password_hash
+    db = SessionLocal()
+    try:
+        admin_user = db.query(User).filter(User.username.in_(["superadmin", "admin"])).first()
+        if not admin_user:
+            new_admin = User(
+                username="superadmin",
+                email="admin@madani.com",
+                hashed_password=get_password_hash("admin123"),
+                role="superadmin",
+                is_active=True
+            )
+            db.add(new_admin)
+            db.commit()
+            print("[BOOTSTRAP] Initial superadmin account created: superadmin / admin123")
+    except Exception as exc:
+        db.rollback()
+        print(f"[BOOTSTRAP] Note on startup seeding: {exc}")
+    finally:
+        db.close()
+
+try:
+    init_default_admin()
+except Exception as exc:
+    print(f"[BOOTSTRAP] Startup initialization notice: {exc}")
+
 app = FastAPI(
     title="Madani ID Platform API",
     description="Backend API for Madani Enterprises AI-Powered ID Card SaaS Platform",

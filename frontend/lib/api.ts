@@ -82,6 +82,12 @@ export interface ProductionMetricsSummary {
 }
 
 const resolveApiBaseUrl = (): string => {
+  if (typeof window !== "undefined") {
+    // In cloud production, route via same-origin Next.js rewrites for seamless cookie and CORS handling
+    if (!window.location.hostname.includes("localhost") && !window.location.hostname.includes("127.0.0.1")) {
+      return "";
+    }
+  }
   const envUrl = process.env.NEXT_PUBLIC_API_URL;
   if (envUrl && envUrl.trim()) {
     const trimmed = envUrl.trim();
@@ -89,9 +95,6 @@ const resolveApiBaseUrl = (): string => {
       return `https://${trimmed}`.replace(/\/+$/, "");
     }
     return trimmed.replace(/\/+$/, "");
-  }
-  if (typeof window !== "undefined" && !window.location.hostname.includes("localhost") && !window.location.hostname.includes("127.0.0.1")) {
-    return ""; // Relative path works on any production domain or reverse proxy
   }
   return "http://localhost:8000";
 };
